@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+check_or_install() {
+    command -v "$1" >/dev/null || {
+        echo "installing $1"
+        pip3 install "$1" >/dev/null
+    }
+}
+
+check_or_install pylint
+check_or_install mypy
+check_or_install autopep8
+
+red_echo() {
+    echo -e "\033[0;31m$*\033[0m"
+}
+
+red_echo "Running autopep8..."
+autopep8 --diff ./*.py
+
+echo
+red_echo "Running pylint..."
+pylint -d C0103,C0114,C0115,C0116 ./*.py
+
+echo
+red_echo "Running mypy..."
+mypy ./*.py
