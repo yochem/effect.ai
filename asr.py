@@ -2,13 +2,25 @@
 The ASR module.
 
 Module for working with ASR (Automatic Speech Recognition) files formatted as
-JSON. It provides the ASR() class.
+JSON. It provides the ASR() class and the Word() and Punc() dataclasses.
 """
-from collections import namedtuple
+from dataclasses import dataclass
 import json
+from typing import List, Union
 
-Word = namedtuple('Word', 'text start end')
-Punc = namedtuple('Punc', 'text start end')
+
+@dataclass
+class Word:
+    text: str
+    start: float
+    end: float
+
+
+@dataclass
+class Punc:
+    text: str
+    start: float
+    end: float
 
 
 class ASR():
@@ -23,11 +35,11 @@ class ASR():
         """Return the transcript as one big string."""
         return self.data['results']['transcripts'][0]['transcript']
 
-    def json(self):
+    def json(self) -> dict:
         """Return the full JSON file as python dictionary."""
         return self.data
 
-    def groups(self):
+    def groups(self) -> List[Union[Word, Punc]]:
         """
         Convert the ASR to the following format:
         [
@@ -40,10 +52,10 @@ class ASR():
             ...
         ]
         where the outer list is the complete caption, the inner lists are
-        caption groups and the Word() and Punc() are namedtuples containing
+        caption groups and the Word() and Punc() are dataclasses containing
         the textual representation and the start and end time.
         """
-        caption = []
+        cap: List[Union[Word, Punc]] = []
 
         words = self.data['results']['items']
 
@@ -53,12 +65,12 @@ class ASR():
             if word['type'] == 'pronunciation':
                 start = word['start_time']
                 end = word['end_time']
-                caption.append(Word(text, start, end))
+                cap.append(Word(text, float(start), float(end)))
             else:
-                time = caption[-1].end
-                caption.append(Punc(text, time, time))
+                time = cap[-1].end
+                cap.append(Punc(text, time, time))
 
-        return caption
+        return cap
 
 
 if __name__ == '__main__':
