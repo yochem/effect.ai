@@ -7,6 +7,10 @@ JSON. It provides the ASR() class.
 from collections import namedtuple
 import json
 
+Word = namedtuple('Word', 'text start end')
+Punc = namedtuple('Punc', 'text start end')
+
+
 class ASR():
     def __init__(self, filename: str):
         """Load asr file with given filename. Returns JSON object."""
@@ -35,9 +39,6 @@ class ASR():
         caption groups and the Word() and Punc() are namedtuples containing
         the textual representation and the start and end time.
         """
-        Word = namedtuple('Word', 'text start end')
-        Punc = namedtuple('Punc', 'text start end')
-
         caption = []
 
         words = self.data['results']['items']
