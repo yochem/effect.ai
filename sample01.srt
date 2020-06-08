@@ -1,0 +1,1276 @@
+1
+00:00:00,240 --> 00:00:02,750
+thanks to last past for sponsoring a portion of this video.
+
+2
+00:00:02,870 --> 00:00:03,880
+More from them later.
+
+3
+00:00:04,030 --> 00:00:05,080
+Ladies and gentlemen,
+
+4
+00:00:05,090 --> 00:00:08,360
+we build a lot of high performance computers around here,
+
+5
+00:00:08,360 --> 00:00:10,550
+but today is going to be different.
+
+6
+00:00:10,940 --> 00:00:17,560
+We scoured the Internet for the slowest brand new components that money can buy,
+
+7
+00:00:17,630 --> 00:00:21,050
+and we're gonna build it right here right now.
+
+8
+00:00:21,460 --> 00:00:22,780
+Then for comparison.
+
+9
+00:00:22,860 --> 00:00:36,050
+We also grab some sort of what I would consider to be budget components but sensible ones to see just how much more performance you can get if you balance your budget,
+
+10
+00:00:37,900 --> 00:00:39,250
+it's really the packaging for that.
+
+11
+00:00:39,840 --> 00:00:41,160
+We're gonna get to that bit later,
+
+12
+00:00:41,160 --> 00:00:41,490
+though.
+
+13
+00:00:41,760 --> 00:00:43,350
+First,
+
+14
+00:00:43,590 --> 00:00:43,970
+don't worry,
+
+15
+00:00:44,390 --> 00:00:47,400
+parts aren't in there already to throw that in joke.
+
+16
+00:00:56,910 --> 00:00:57,550
+Of course,
+
+17
+00:00:57,560 --> 00:01:03,350
+my expectations may end up being subverted and our slowest possible computer.
+
+18
+00:01:04,760 --> 00:01:05,550
+Where's the CPU?
+
+19
+00:01:06,300 --> 00:01:09,140
+Maybe this will end up being an amazing bang for the buck,
+
+20
+00:01:09,140 --> 00:01:13,610
+starting with our A M D Athlon 3000 G.
+
+21
+00:01:13,610 --> 00:01:21,220
+So this poppy right here is a 3.5 gigahertz dual core that's not really impressive for 2020.
+
+22
+00:01:21,230 --> 00:01:22,500
+And making matters worse,
+
+23
+00:01:22,500 --> 00:01:26,290
+this is based on Andy's older Zen architecture rather than Zen,
+
+24
+00:01:26,300 --> 00:01:26,850
+too.
+
+25
+00:01:27,140 --> 00:01:28,420
+But hey,
+
+26
+00:01:28,430 --> 00:01:32,650
+for $55 plus could actually includes a cooler,
+
+27
+00:01:33,560 --> 00:01:34,330
+I guess you know,
+
+28
+00:01:34,370 --> 00:01:35,510
+it's hard to really.
+
+29
+00:01:35,520 --> 00:01:36,700
+It's hard to really complain.
+
+30
+00:01:36,700 --> 00:01:40,920
+Like how is this a few 50 bucks for our mother board?
+
+31
+00:01:41,040 --> 00:01:44,540
+We've gone with Emma size a 3:20 a.m. A throw.
+
+32
+00:01:44,850 --> 00:01:50,320
+So this is about as entry level as it gets for an A M for mother board.
+
+33
+00:01:50,320 --> 00:01:51,860
+You've got just too damn slots,
+
+34
+00:01:51,870 --> 00:01:54,130
+although that will be enough for us to run dual channel,
+
+35
+00:01:54,130 --> 00:01:55,950
+assuming that our budget allows it,
+
+36
+00:01:56,440 --> 00:01:59,610
+which it doesn't because we're building the slowest possible computer has a PC.
+
+37
+00:01:59,610 --> 00:02:02,810
+I express 60 next Gen three graphics card slot.
+
+38
+00:02:02,950 --> 00:02:07,240
+We will be installing a graphics card and then you've got onboard video in case you want to use in a pew.
+
+39
+00:02:07,250 --> 00:02:07,600
+Wow,
+
+40
+00:02:07,870 --> 00:02:09,820
+most PS two ports tank.
+
+41
+00:02:10,640 --> 00:02:12,350
+No enviably for us today,
+
+42
+00:02:12,360 --> 00:02:12,830
+folks.
+
+43
+00:02:13,690 --> 00:02:15,250
+We're not even using an SSD,
+
+44
+00:02:16,840 --> 00:02:20,160
+and it feels like this should contribute to it being slow.
+
+45
+00:02:20,160 --> 00:02:20,870
+But honestly,
+
+46
+00:02:20,870 --> 00:02:21,880
+with just two cores,
+
+47
+00:02:21,880 --> 00:02:25,390
+I'm expecting fist into a pretty decent job of cooling.
+
+48
+00:02:26,520 --> 00:02:33,480
+I feel like I should clarify that the parts that we picked were not necessarily the slowest ones that we could find,
+
+49
+00:02:33,660 --> 00:02:37,970
+but rather that we limited ourselves to things that are currently in production.
+
+50
+00:02:38,540 --> 00:02:49,500
+So the slowest brand new and technically modern parts that you can build naturally no slowest possible build would be complete without a single stick of DDR four memory.
+
+51
+00:02:49,990 --> 00:02:52,550
+The CPU does have a dual channel memory controller,
+
+52
+00:02:52,550 --> 00:02:54,050
+but I mean,
+
+53
+00:02:54,520 --> 00:03:00,350
+if we're looking for the bare minimum to fire up the machine and get into Windows four Gigs of Ram,
+
+54
+00:03:01,280 --> 00:03:01,840
+that's it.
+
+55
+00:03:02,200 --> 00:03:02,490
+Wow,
+
+56
+00:03:02,490 --> 00:03:05,550
+you sure can build a computer quickly when there's not much in it.
+
+57
+00:03:06,380 --> 00:03:07,590
+We're halfway there already.
+
+58
+00:03:07,760 --> 00:03:10,070
+Between our CPU Mother Board of Ram,
+
+59
+00:03:10,080 --> 00:03:10,760
+we've spent ah,
+
+60
+00:03:10,760 --> 00:03:13,270
+$125.
+
+61
+00:03:13,600 --> 00:03:17,090
+That's less than like a gaming motherboards.
+
+62
+00:03:17,740 --> 00:03:20,840
+But while you guys might think that I'm impressed by that,
+
+63
+00:03:21,490 --> 00:03:31,890
+I'm actually kind of worried for the prospects of our slowest possible computer here because CPU ran the mother board on the second hand market pool.
+
+64
+00:03:31,890 --> 00:03:33,320
+We let me tell you,
+
+65
+00:03:33,380 --> 00:03:35,050
+I could get some better stuff than that.
+
+66
+00:03:36,480 --> 00:03:36,800
+You know,
+
+67
+00:03:36,800 --> 00:03:42,740
+that's what kind of drives me crazy about this entry level hardware as it gets branded.
+
+68
+00:03:42,750 --> 00:03:43,010
+Really,
+
+69
+00:03:43,010 --> 00:03:43,860
+what it is is,
+
+70
+00:03:43,860 --> 00:03:44,670
+in my opinion,
+
+71
+00:03:45,300 --> 00:03:48,010
+basically e waste because you might say,
+
+72
+00:03:48,010 --> 00:03:48,410
+Well,
+
+73
+00:03:48,420 --> 00:03:48,710
+you know,
+
+74
+00:03:48,710 --> 00:03:50,940
+not everyone wants to put the work in tow,
+
+75
+00:03:51,170 --> 00:03:52,680
+putting together something second hand,
+
+76
+00:03:52,680 --> 00:03:55,350
+but it's not even a ton of work.
+
+77
+00:03:55,850 --> 00:03:56,120
+I mean,
+
+78
+00:03:56,120 --> 00:04:06,000
+we did that video recently where we took an old Dell OptiPlex basically through a graphics card in it for less than what we're going to spend on this complete brand new machine.
+
+79
+00:04:06,600 --> 00:04:08,830
+And let me tell you,
+
+80
+00:04:08,830 --> 00:04:09,850
+a spoiler alert,
+
+81
+00:04:10,500 --> 00:04:12,230
+this thing is going to run.
+
+82
+00:04:13,010 --> 00:04:15,210
+What's the opposite of running circles around something?
+
+83
+00:04:15,460 --> 00:04:16,150
+For our case,
+
+84
+00:04:16,150 --> 00:04:20,940
+we've got a thermal take H 17 which at the time was priced the same as the deep cool,
+
+85
+00:04:20,940 --> 00:04:22,780
+not tracks that we had originally chosen.
+
+86
+00:04:22,950 --> 00:04:25,210
+So $35 point is,
+
+87
+00:04:25,210 --> 00:04:32,330
+that's about the cheapest you can get unless it's on fire sale for a brand new computer case and then for our power supply.
+
+88
+00:04:32,330 --> 00:04:36,400
+We've got a Corsair CV 5 50 This is your entry level.
+
+89
+00:04:36,400 --> 00:04:36,610
+Hey,
+
+90
+00:04:36,610 --> 00:04:38,200
+I don't want my computer to blow up.
+
+91
+00:04:38,210 --> 00:04:43,380
+That would be a bad thing kind of power supply if you could get power supplies for $13 or whatever.
+
+92
+00:04:43,380 --> 00:04:45,740
+But even on a system like this,
+
+93
+00:04:45,740 --> 00:04:47,380
+I would not recommend plugging them in.
+
+94
+00:04:47,380 --> 00:04:49,000
+And what's the point of ruining stuff?
+
+95
+00:04:49,250 --> 00:04:49,680
+Huh?
+
+96
+00:04:49,690 --> 00:04:51,640
+Four whole screws to put in power split.
+
+97
+00:04:52,530 --> 00:04:53,150
+Jeepers,
+
+98
+00:04:55,840 --> 00:05:00,500
+you just need to rehydrate El Sisi stored.
+
+99
+00:05:03,110 --> 00:05:04,190
+So this is cool.
+
+100
+00:05:04,580 --> 00:05:06,050
+Kind of like an SSD,
+
+101
+00:05:06,060 --> 00:05:10,320
+except just with some rubber grommets should just mount your hard drive like that.
+
+102
+00:05:10,700 --> 00:05:11,840
+So I put in all the screws.
+
+103
+00:05:11,910 --> 00:05:12,120
+I mean,
+
+104
+00:05:12,120 --> 00:05:13,300
+there's really not that many of them.
+
+105
+00:05:13,570 --> 00:05:16,960
+We had a second fan that we intended to install in this puppy,
+
+106
+00:05:16,960 --> 00:05:23,510
+but I don't think we're gonna be doing that because there's only a single fan header aside from the CPU fan had her on this mother board.
+
+107
+00:05:24,480 --> 00:05:26,240
+More simplicity,
+
+108
+00:05:26,600 --> 00:05:29,640
+foam fat installed.
+
+109
+00:05:29,650 --> 00:05:32,590
+Cable managed is actually pretty nice for a budget case.
+
+110
+00:05:32,810 --> 00:05:33,090
+Hey.
+
+111
+00:05:33,090 --> 00:05:33,430
+Wow.
+
+112
+00:05:33,430 --> 00:05:36,940
+We've got USB three on both our cases and mother board.
+
+113
+00:05:37,260 --> 00:05:38,550
+I'm sure you guys a little trick.
+
+114
+00:05:39,040 --> 00:05:46,150
+You could just take all of these little individual pieces and kind of make your own block of connectors.
+
+115
+00:05:46,520 --> 00:05:47,600
+If you line up just right.
+
+116
+00:05:49,030 --> 00:05:50,100
+Put it on just like that.
+
+117
+00:05:51,010 --> 00:05:52,360
+How on dang it.
+
+118
+00:05:52,370 --> 00:05:53,520
+I stabbed my thumb.
+
+119
+00:05:53,630 --> 00:05:53,990
+I'm good.
+
+120
+00:05:54,440 --> 00:05:54,880
+Fine.
+
+121
+00:05:55,310 --> 00:05:56,710
+24 pin power connector.
+
+122
+00:05:56,720 --> 00:05:57,550
+Just like that,
+
+123
+00:05:57,990 --> 00:06:00,540
+you can see instead of an eight pin power connector on this board,
+
+124
+00:06:00,540 --> 00:06:01,560
+we've got just a four pin.
+
+125
+00:06:01,560 --> 00:06:03,950
+So we're gonna split apart are eight pin power connector.
+
+126
+00:06:04,520 --> 00:06:07,430
+Just pop half of it into their This is crazy.
+
+127
+00:06:07,700 --> 00:06:10,250
+Like if I was actually trying to speed build this,
+
+128
+00:06:10,260 --> 00:06:12,330
+I think I could do it in under five minutes.
+
+129
+00:06:12,470 --> 00:06:14,520
+And now for the PS,
+
+130
+00:06:14,520 --> 00:06:18,810
+tell a resistance our Zo tack G t to 10.
+
+131
+00:06:18,840 --> 00:06:23,030
+This was a slow graphics card when I was still working at N.
+
+132
+00:06:23,030 --> 00:06:25,020
+C I X House.
+
+133
+00:06:25,020 --> 00:06:25,920
+Like eight years ago,
+
+134
+00:06:26,060 --> 00:06:27,110
+you could still buy them.
+
+135
+00:06:27,340 --> 00:06:28,070
+I don't even get it.
+
+136
+00:06:29,370 --> 00:06:33,850
+People who buy a card like this don't care about performance at all,
+
+137
+00:06:34,030 --> 00:06:43,370
+or they get kind of screwed into it because they don't know that the performance of a $50 card is not half of the performance of $100 card.
+
+138
+00:06:43,420 --> 00:06:47,190
+I remember talking to Zo Tak about these cards back when I was working in sex.
+
+139
+00:06:47,190 --> 00:06:47,490
+I was like,
+
+140
+00:06:47,500 --> 00:06:47,610
+Well,
+
+141
+00:06:47,610 --> 00:06:49,250
+who the crap is buying these things like,
+
+142
+00:06:49,660 --> 00:06:50,110
+Well,
+
+143
+00:06:50,110 --> 00:06:50,340
+you know,
+
+144
+00:06:50,340 --> 00:06:50,580
+best.
+
+145
+00:06:50,580 --> 00:06:52,030
+Buy's moving through them by the truckload,
+
+146
+00:06:52,030 --> 00:06:52,540
+and I was like,
+
+147
+00:06:53,690 --> 00:06:55,910
+Why are their sales people selling these to them?
+
+148
+00:06:56,680 --> 00:07:00,050
+It's a terrible value point of clarification.
+
+149
+00:07:00,160 --> 00:07:00,870
+This is 40 U.
+
+150
+00:07:00,870 --> 00:07:01,050
+S.
+
+151
+00:07:01,050 --> 00:07:01,400
+Dollars,
+
+152
+00:07:01,400 --> 00:07:03,990
+not 50 and it's still a bad deal.
+
+153
+00:07:04,200 --> 00:07:04,500
+Yeah,
+
+154
+00:07:04,510 --> 00:07:06,530
+for $35 case,
+
+155
+00:07:06,530 --> 00:07:06,810
+I mean,
+
+156
+00:07:07,700 --> 00:07:09,370
+I'm liking it crazily enough.
+
+157
+00:07:09,410 --> 00:07:10,250
+That was it.
+
+158
+00:07:10,830 --> 00:07:11,230
+By the way,
+
+159
+00:07:11,230 --> 00:07:16,650
+the key night among you might have noticed that we had an 80 radion fan installed on that graphics card.
+
+160
+00:07:16,980 --> 00:07:21,440
+That's cause we weren't gonna go out and buy another GT 2 10 just to make this video.
+
+161
+00:07:21,440 --> 00:07:22,600
+It's one that we already had.
+
+162
+00:07:22,880 --> 00:07:24,940
+And it's one that the fan failed on a long time ago.
+
+163
+00:07:24,940 --> 00:07:25,880
+And we just kind of food,
+
+164
+00:07:25,970 --> 00:07:26,670
+whatever on there,
+
+165
+00:07:26,670 --> 00:07:29,450
+as long as it runs cool enough time to fire it up.
+
+166
+00:07:31,540 --> 00:07:33,110
+I miss a little wine.
+
+167
+00:07:33,110 --> 00:07:34,410
+E g few fans up.
+
+168
+00:07:34,410 --> 00:07:35,050
+It works.
+
+169
+00:07:38,070 --> 00:07:40,160
+That took a hot minute to posted it.
+
+170
+00:07:40,470 --> 00:07:41,660
+Fire up some CS go,
+
+171
+00:07:41,660 --> 00:07:42,080
+shall we?
+
+172
+00:07:42,080 --> 00:07:46,050
+And while we wait for the game to load cause it will probably take a minute on the mechanical drive,
+
+173
+00:07:47,240 --> 00:07:52,950
+we're going to go ahead and pull out our better value gaming PC here.
+
+174
+00:07:54,640 --> 00:08:05,940
+Our slowest PC came in at a price of just over $300 while our step up model came in at just under 600 which is a pretty substantial increase.
+
+175
+00:08:05,940 --> 00:08:08,220
+We're spending almost twice as much,
+
+176
+00:08:08,640 --> 00:08:13,300
+but We're also getting more than twice as much computer.
+
+177
+00:08:13,480 --> 00:08:19,340
+So we're going all the way up to a rise in 3100 which happens to be based on their Zen to architecture.
+
+178
+00:08:19,480 --> 00:08:22,010
+That is going to be a big performance boost for gaming.
+
+179
+00:08:22,300 --> 00:08:23,760
+We managed to double our rant,
+
+180
+00:08:23,760 --> 00:08:25,360
+going from 4 to 8 gigs,
+
+181
+00:08:25,360 --> 00:08:27,680
+which also means now it's running in dual channel mode.
+
+182
+00:08:27,890 --> 00:08:30,350
+We've got a more feature rich mother board and,
+
+183
+00:08:30,540 --> 00:08:30,760
+ah,
+
+184
+00:08:30,760 --> 00:08:34,310
+big amount of our budget was spent on this puppy right here.
+
+185
+00:08:34,310 --> 00:08:38,290
+So we've gone with an Rx 5 70 which is maybe,
+
+186
+00:08:38,460 --> 00:08:38,730
+you know,
+
+187
+00:08:38,730 --> 00:08:39,290
+last gen.
+
+188
+00:08:39,290 --> 00:08:39,980
+At this point,
+
+189
+00:08:40,110 --> 00:08:41,440
+but still a very,
+
+190
+00:08:41,440 --> 00:08:44,000
+very respectable budget gaming card.
+
+191
+00:08:44,010 --> 00:08:46,370
+If we're running a 10 80 p already,
+
+192
+00:08:46,370 --> 00:08:51,910
+just how much faster and boots Apple launches games is a huge difference for this one.
+
+193
+00:08:51,910 --> 00:08:52,460
+But of course,
+
+194
+00:08:52,460 --> 00:08:55,650
+that's what happens when you spend a little bit of extra on an SSD.
+
+195
+00:08:56,050 --> 00:09:02,060
+And the funny thing about an SSD is that these days it doesn't actually cost that much extra.
+
+196
+00:09:02,300 --> 00:09:03,360
+If you look for the right deal,
+
+197
+00:09:03,360 --> 00:09:07,050
+we got our fatted of racing 1 20 gig SSD for 20 bucks.
+
+198
+00:09:07,520 --> 00:09:07,750
+Eight.
+
+199
+00:09:07,750 --> 00:09:11,740
+Ex ante releasing eight happen Let's see if that helps a little bit.
+
+200
+00:09:11,930 --> 00:09:13,710
+Gonna set the settings over here the same.
+
+201
+00:09:14,190 --> 00:09:14,320
+Oh,
+
+202
+00:09:14,320 --> 00:09:14,540
+man,
+
+203
+00:09:14,540 --> 00:09:16,250
+this one defaulted to for Okay.
+
+204
+00:09:17,530 --> 00:09:18,380
+Ooh,
+
+205
+00:09:18,380 --> 00:09:19,190
+lordy.
+
+206
+00:09:20,240 --> 00:09:20,680
+Fly.
+
+207
+00:09:22,570 --> 00:09:23,820
+That's still loading.
+
+208
+00:09:23,890 --> 00:09:25,430
+Holy crap!
+
+209
+00:09:25,620 --> 00:09:26,700
+150.
+
+210
+00:09:26,700 --> 00:09:30,250
+60 70 200 FPs.
+
+211
+00:09:32,420 --> 00:09:32,750
+Yep,
+
+212
+00:09:33,300 --> 00:09:35,760
+This feels this feels pretty good.
+
+213
+00:09:36,720 --> 00:09:37,210
+All right,
+
+214
+00:09:37,700 --> 00:09:38,580
+this one's loaded up.
+
+215
+00:09:38,580 --> 00:09:40,730
+Now let's just make sure the resolutions,
+
+216
+00:09:40,730 --> 00:09:41,100
+right?
+
+217
+00:09:41,400 --> 00:09:47,320
+And this kid's is why friends don't let friends by entry level graphics cards.
+
+218
+00:09:48,740 --> 00:09:51,410
+We are getting 10 FPs.
+
+219
+00:09:51,930 --> 00:09:55,240
+My ladies and gentlemen's we're charging in.
+
+220
+00:09:55,240 --> 00:09:56,950
+Though We're charging in,
+
+221
+00:09:58,240 --> 00:09:59,550
+we might have something.
+
+222
+00:10:02,280 --> 00:10:07,610
+I got one 10 FPs gaming.
+
+223
+00:10:07,610 --> 00:10:08,450
+Ladies and gentlemen,
+
+224
+00:10:10,290 --> 00:10:11,250
+come on.
+
+225
+00:10:11,750 --> 00:10:13,440
+But friends got it out for me.
+
+226
+00:10:13,870 --> 00:10:21,400
+So the lesson we're learning here is that spending twice as much can yield Mawr than just twice the performance improvement in this case,
+
+227
+00:10:21,620 --> 00:10:25,700
+we're looking at about anywhere from 50 next to 20 x,
+
+228
+00:10:25,700 --> 00:10:32,370
+the performance at the same settings and actually missed another thing that is twice as fast about our higher end system.
+
+229
+00:10:32,370 --> 00:10:34,690
+It's got USB 3 10 gig instead of five gigs.
+
+230
+00:10:34,690 --> 00:10:38,710
+So if you really wanted to transfer things quickly over USB,
+
+231
+00:10:38,710 --> 00:10:39,320
+you could do that.
+
+232
+00:10:39,510 --> 00:10:39,810
+Oh,
+
+233
+00:10:39,810 --> 00:10:40,200
+no.
+
+234
+00:10:40,200 --> 00:10:46,030
+There's a first time set up on this one while we wait for that one to complete set up,
+
+235
+00:10:46,040 --> 00:10:49,250
+we can go ahead and have a look at what our rocket league performances like.
+
+236
+00:10:49,640 --> 00:10:49,930
+Yes,
+
+237
+00:10:49,930 --> 00:10:51,280
+I'm playing with most keyboard.
+
+238
+00:10:51,430 --> 00:10:52,080
+I'm sorry.
+
+239
+00:10:52,720 --> 00:10:57,590
+00 I press jump instead of go fast.
+
+240
+00:10:57,690 --> 00:10:58,030
+Well,
+
+241
+00:10:58,040 --> 00:10:58,710
+that's a shame.
+
+242
+00:10:58,940 --> 00:10:59,320
+OK,
+
+243
+00:10:59,330 --> 00:11:00,080
+so what are we looking?
+
+244
+00:11:00,090 --> 00:11:05,180
+We're looking at 100 plus FPs with a minimum of 48 the entire time we've been planning here.
+
+245
+00:11:05,640 --> 00:11:12,520
+And that minimum is honestly mawr important to the gaming experience than that averages rocket leg.
+
+246
+00:11:13,240 --> 00:11:14,780
+Is this game just not even gonna launch?
+
+247
+00:11:15,440 --> 00:11:15,930
+Nope.
+
+248
+00:11:16,910 --> 00:11:17,650
+New plan.
+
+249
+00:11:17,660 --> 00:11:20,350
+Just for the sake of giving our slowest PC,
+
+250
+00:11:20,360 --> 00:11:22,000
+it's best possible shot.
+
+251
+00:11:22,240 --> 00:11:23,750
+We actually ripped the graphics card.
+
+252
+00:11:23,750 --> 00:11:25,620
+That wasn't letting us launch the game out.
+
+253
+00:11:25,840 --> 00:11:28,650
+And we're running off of the onboard graphics.
+
+254
+00:11:29,100 --> 00:11:40,520
+The problem with that is that we're running a single stick of memory because it's a bit of a Miss configured machine and now r a p U graphics has to share memory bend with with the CPU,
+
+255
+00:11:40,800 --> 00:11:43,310
+which was already half of what it ideally would be.
+
+256
+00:11:43,790 --> 00:11:46,750
+15 FPs in the menu.
+
+257
+00:11:48,240 --> 00:11:49,150
+Big goof Linus.
+
+258
+00:11:49,280 --> 00:11:50,950
+That same settings is the other one.
+
+259
+00:11:51,810 --> 00:11:53,180
+Oh boy,
+
+260
+00:11:54,040 --> 00:11:54,440
+You know,
+
+261
+00:11:54,440 --> 00:11:57,810
+having the game run in slow motion like this is actually kind of nice,
+
+262
+00:11:58,070 --> 00:11:59,560
+because it's not an online match.
+
+263
+00:11:59,560 --> 00:12:02,360
+So I think the game is actually running slow.
+
+264
+00:12:03,340 --> 00:12:03,890
+Finally,
+
+265
+00:12:03,890 --> 00:12:06,700
+let's go for a good old fashioned center bench drag race.
+
+266
+00:12:06,940 --> 00:12:08,660
+Are you gonna Are you even trying?
+
+267
+00:12:09,340 --> 00:12:12,470
+Maybe it didn't register and the 123 go.
+
+268
+00:12:12,590 --> 00:12:14,160
+I think we've all seen enough,
+
+269
+00:12:14,170 --> 00:12:17,460
+and I think we've all learned the lesson that we're trying to teach here.
+
+270
+00:12:17,520 --> 00:12:24,650
+Just because something is brand new off the shelf doesn't mean that it is a viable option for building a system.
+
+271
+00:12:25,340 --> 00:12:26,300
+And you might say,
+
+272
+00:12:26,750 --> 00:12:26,940
+Well,
+
+273
+00:12:26,940 --> 00:12:27,380
+look,
+
+274
+00:12:27,580 --> 00:12:30,630
+I've only got $50 to spend on a CPU,
+
+275
+00:12:30,840 --> 00:12:31,700
+and that's fine,
+
+276
+00:12:31,780 --> 00:12:32,750
+and that's fair.
+
+277
+00:12:33,240 --> 00:12:44,690
+But your best option at that point is to go back and look for something on the second hand market that is going to give you a better experience than this literally ah,
+
+278
+00:12:44,690 --> 00:12:54,560
+fraction of the speed of even a value chip like the rise and 3 31 100 really fantastic CPU for the money.
+
+279
+00:12:55,110 --> 00:12:57,200
+The other thing is graphics.
+
+280
+00:12:57,460 --> 00:13:01,490
+You know how there's a point of diminishing returns when you go into the very high end stuff.
+
+281
+00:13:01,780 --> 00:13:02,020
+Well,
+
+282
+00:13:02,020 --> 00:13:04,500
+there's a point of diminishing returns at the low end as well,
+
+283
+00:13:04,500 --> 00:13:06,320
+and it's something people don't really think about.
+
+284
+00:13:06,480 --> 00:13:07,950
+So I would give the same advice there.
+
+285
+00:13:07,950 --> 00:13:08,560
+In fact,
+
+286
+00:13:08,910 --> 00:13:13,210
+I don't want you to get discouraged if you've only got $300 to spend on a new computer.
+
+287
+00:13:13,220 --> 00:13:22,380
+What I want you to do is head down to the comments where some of our sad e bargain hunter viewers are gonna post some grapes back lists that they think they can put together for $300.
+
+288
+00:13:22,390 --> 00:13:23,460
+Because I guarantee you,
+
+289
+00:13:23,600 --> 00:13:24,800
+if you head up eBay,
+
+290
+00:13:24,800 --> 00:13:26,600
+Craigslist in all those kinds of places,
+
+291
+00:13:26,800 --> 00:13:33,280
+it can be done now for the portion of this video that is sponsored by last past.
+
+292
+00:13:33,490 --> 00:13:37,480
+Last Pass is the password manager that I use and honestly,
+
+293
+00:13:37,560 --> 00:13:40,530
+whether it's for personal use or for our corporate use,
+
+294
+00:13:40,600 --> 00:13:42,100
+I absolutely love it.
+
+295
+00:13:42,110 --> 00:13:48,910
+The corporate version has all kinds of tools that we can use to manage access to all the different accounts and not just accounts,
+
+296
+00:13:48,910 --> 00:13:52,240
+but little notes or credit card numbers,
+
+297
+00:13:52,240 --> 00:13:59,160
+or anything else that our staff needs access to no matter where they are and to do it securely and then for personal use.
+
+298
+00:13:59,240 --> 00:13:59,800
+Well,
+
+299
+00:13:59,900 --> 00:14:04,680
+it's great whether I'm using a PC and Android phone or an iPhone.
+
+300
+00:14:04,690 --> 00:14:09,790
+All I've got to do is enter one password and everything that I need is right at my fingertips.
+
+301
+00:14:09,910 --> 00:14:12,500
+I'm gonna just check and see if there's any talking points that I'm supposed.
+
+302
+00:14:12,500 --> 00:14:14,950
+I'm just talking about what I like about last pass right now.
+
+303
+00:14:15,230 --> 00:14:15,400
+Oh,
+
+304
+00:14:15,400 --> 00:14:15,580
+yeah,
+
+305
+00:14:15,580 --> 00:14:16,860
+it's way more secure,
+
+306
+00:14:16,980 --> 00:14:21,700
+because that way you only have to remember one really strong pass phrase,
+
+307
+00:14:21,710 --> 00:14:24,140
+and you never have to use duplicate passwords because,
+
+308
+00:14:24,140 --> 00:14:24,620
+let's face it,
+
+309
+00:14:24,620 --> 00:14:29,370
+who can remember all the literally hundreds of passwords that you have to have these days last past?
+
+310
+00:14:29,380 --> 00:14:32,870
+Auto fills your credentials through browser extensions or Absalon Mobile.
+
+311
+00:14:32,880 --> 00:14:34,970
+And if you go to last past Premium,
+
+312
+00:14:35,190 --> 00:14:40,110
+they've got advanced features like multi factor authentication options and emergency access.
+
+313
+00:14:40,240 --> 00:14:41,830
+So go check them out at the link.
+
+314
+00:14:41,840 --> 00:14:43,070
+In the video description,
+
+315
+00:14:43,070 --> 00:14:44,190
+I've been using them for years.
+
+316
+00:14:44,200 --> 00:14:45,270
+I've been super happy,
+
+317
+00:14:45,610 --> 00:14:49,510
+thanks last past for being awesome and thanks last pass for sponsoring this video.
+
+318
+00:14:50,240 --> 00:14:57,480
+If you guys enjoy this sort of thing and you're looking to maybe go a little bit deeper than the comments on this video to build a great value gaming rig,
+
+319
+00:14:57,720 --> 00:15:04,850
+maybe check out our This is a gaming rig where we converted a Dell OptiPlex into a very viable gaming solution.
+
