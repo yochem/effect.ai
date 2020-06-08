@@ -4,7 +4,7 @@ from datetime import timedelta
 import srt
 
 import caption
-import asr
+from asr import ASR
 
 
 
@@ -39,7 +39,7 @@ def process(word_objects) -> List[srt.Subtitle]:
 
 
 if __name__ == '__main__':
-    data = asr.load('asr/sample01.asrOutput.json')
+    data = ASR('asr/sample01.asrOutput.json').json()
     words = data['results']['items']
     subtitles = process(words)
     caption.write(subtitles, filename='sample01.srt')

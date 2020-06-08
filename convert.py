@@ -2,16 +2,6 @@
 This is where the magic happens.
 """
 import caption
-import asr
+from asr import ASR
 
-
-[                           # hele caption
-    [                       # een caption group
-        Word(),             # een woord
-        Word(),
-        ...
-    ],
-    [Word(), Word(), ...]
-]
-
-
+data = ASR('asr/sample01.asrOutput.json').groups()
