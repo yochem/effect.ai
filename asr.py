@@ -31,6 +31,10 @@ class ASR():
 
         self.data = json.loads(raw)
 
+    def transcript(self) -> str:
+        """Return the transcript as one big string."""
+        return self.data['results']['transcripts'][0]['transcript']
+
     def json(self) -> dict:
         """Return the full JSON file as python dictionary."""
         return self.data
