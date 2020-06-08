@@ -7,7 +7,6 @@ import caption
 from asr import ASR
 
 
-
 def process(word_objects) -> List[srt.Subtitle]:
     subs = []
     subtitle = dict()
