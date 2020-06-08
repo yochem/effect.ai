@@ -1,27 +1,11 @@
-import json
 from typing import List
-import sys
 from datetime import timedelta
+
 import srt
 
+import caption
+import asr
 
-def write_srt(subs: List[srt.Subtitle], filename=sys.stdout) -> None:
-    composed = srt.compose(subs)
-
-    if filename == sys.stdout:
-        print(composed)
-        return
-
-    with open(filename, 'w') as f:
-        f.write(composed)
-
-
-def load_asr(filename: str) -> dict:
-    """Load asr file with given filename. Returns JSON object as dict."""
-    with open(filename, 'r') as f:
-        raw = f.read()
-
-    return json.loads(raw)
 
 
 def process(word_objects) -> List[srt.Subtitle]:
@@ -43,9 +27,10 @@ def process(word_objects) -> List[srt.Subtitle]:
 
         if word['type'] == 'punctuation':
             subtitle_content = ' '.join(subtitle['content']) + content
-            subs.append(srt.Subtitle(index,
-                                     timedelta(seconds=float(subtitle['start'])),
-                                     timedelta(seconds=float(subtitle['end'])),
+            start_time = timedelta(seconds=float(subtitle['start']))
+            end_time = timedelta(seconds=float(subtitle['end']))
+
+            subs.append(srt.Subtitle(index, start_time, end_time,
                                      subtitle_content))
             index += 1
             subtitle = dict()
@@ -54,7 +39,7 @@ def process(word_objects) -> List[srt.Subtitle]:
 
 
 if __name__ == '__main__':
-    data = load_asr('asr/sample01.asrOutput.json')
+    data = asr.load('asr/sample01.asrOutput.json')
     words = data['results']['items']
     subtitles = process(words)
-    write_srt(subtitles, filename='sample01.srt')
+    caption.write(subtitles, filename='sample01.srt')
