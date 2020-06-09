@@ -2,7 +2,8 @@ import srt
 
 
 def basic_error(input_subs, manual_subs, max_width=42):
-    """Takes the generated subtitles and the manual subtitles and compares
+    """
+    Takes the generated subtitles and the manual subtitles and compares
     them. A caption group is considered to be correct if the last word of the
     caption group and the first word of the next are the same as in the manual
     subtitles. When max_width is exceeded we penalise the captiongroup. In the
