@@ -1,6 +1,4 @@
-*/.ipynb_checkpoints/*
 .DS_Store
-manual_subtitles/
 videos/
 README.html
 __pycache__/*
