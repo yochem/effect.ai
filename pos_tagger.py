@@ -1,22 +1,25 @@
 import json
 import nltk
 import numpy as np
+
 from asr import Word
 from dataclasses import dataclass
 
+
 """
-Creates new dataclass for words start time, end time and POS tag
+Creates new dataclass for words with start time, end time and POS tag.
 """
 @dataclass
 class Pos:
     text: str
     start: float
     end: float
-    pos: str
+    tag: str
+
 
 def basic_word_pos(word):
     """
-    Adds POS-tag to a Word or Punc dataclass.
+    Get POS-tag dataclass from a Word or Punc dataclass.
 
     inputs:
     Word or Punc tuple of the form:
@@ -25,10 +28,9 @@ def basic_word_pos(word):
         e.g: Word(text="make", start_time=10.14, end_time=10.2)
 
     outputs:
-    Word or Punc tuple with added POS-tag of the form:
-        Word(<word>, <start time>, <end_time>) or
-        Punc(<word>, <start time>, <end_time>)
-        e.g: Word(text="make", start_time=10.14, end_time=10.2, pos_tag="VBD")
+    Pos-tuple with added POS-tag of the form:
+        Pos(<word>, <start time>, <end_time>)
+        e.g: Pos(text="make", start_time=10.14, end_time=10.2, tag="VBD")
     """
     text = word.text.lower()
     tag = nltk.pos_tag([text])[0][1]
