@@ -2,7 +2,8 @@ import srt
 
 
 def basic_error(input_subs, manual_subs, max_width=42):
-    """Takes the generated subtitles and the manual subtitles and compares
+    """
+    Takes the generated subtitles and the manual subtitles and compares
     them. A caption group is considered to be correct if the last word of the
     caption group and the first word of the next are the same as in the manual
     subtitles. When max_width is exceeded we penalise the captiongroup. In the
@@ -11,7 +12,8 @@ def basic_error(input_subs, manual_subs, max_width=42):
     takes:
     input_subs: the generated subtitles as a srt parsed list
     manual_subs: the man-made subtitles we considered to correct
-    max_width: how long a caption is allowed to be, default 42
+    max_width: how long a caption is allowed to be, default 42, 0 means no
+    restrictions
 
     outputs: amount of correctly created captiongroups, and amount of times
     max_width was exceeded
@@ -20,18 +22,20 @@ def basic_error(input_subs, manual_subs, max_width=42):
     penalty = 0
     for i, (sub1, next_sub1) in enumerate(zip(input_subs, input_subs[1:])):
         for sub2, next_sub2 in zip(manual_subs[i:], manual_subs[i+1:]):
-            if sub1.content.split(' ')[-1] == sub2.content.split(' ')[-1] and next_sub1.content.split(' ')[0] == next_sub2.content.split(' ')[0]:
+            if sub1.content.split()[-1] == sub2.content.split()[-1] and \
+            next_sub1.content.split()[0] == next_sub2.content.split()[0]:
                 good += 1
                 break
 
-        if len(sub1.content) > max_width:
+        if max_width and len(sub1.content) > max_width:
             penalty += 1
 
-    return good, penalty
+    return -(good - penalty)
 
 
 ### EXAMPLE USAGE ###
-input_subs = list(srt.parse('''\
+if __name__ == '__main__':
+    input_subs = list(srt.parse('''\
 1
 00:00:00,240 --> 00:00:02,750
 thanks to last past for sponsoring a portion of this video.
@@ -92,7 +96,7 @@ don't worry,
 00:00:44,390 --> 00:00:47,400
 parts aren't in there already to throw that in joke.'''))
 
-manual_subs = list(srt.parse('''\
+    manual_subs = list(srt.parse('''\
 1
 00:00:00,370 --> 00:00:02,910
 - Thanks to LastPass for
@@ -172,6 +176,4 @@ It's already built.
 00:00:46,100 --> 00:00:48,359
 Let's roll that intro, tsk.'''))
 
-
-if __name__ == '__main__':
     print(basic_error(input_subs, manual_subs))
