@@ -14,5 +14,7 @@ Overview functionality:
 ├── caption.py
 │   ├── compose(): Compose a SRT string from captions
 │   └── write(): Compose SRT string and write to file
+├── error_function.py
+│   └── basic_error(): Compares generated subs with manual subs
 └── convert.py
 ```
