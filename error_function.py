@@ -1,6 +1,36 @@
 import srt
 
 
+def basic_error(input_subs, manual_subs, max_width=42):
+    """Takes the generated subtitles and the manual subtitles and compares
+    them. A caption group is considered to be correct if the last word of the
+    caption group and the first word of the next are the same as in the manual
+    subtitles. When max_width is exceeded we penalise the captiongroup. In the
+    end this function is intended to be maximalised.
+
+    takes:
+    input_subs: the generated subtitles as a srt parsed list
+    manual_subs: the man-made subtitles we considered to correct
+    max_width: how long a caption is allowed to be, default 42
+
+    outputs: amount of correctly created captiongroups, and amount of times
+    max_width was exceeded
+    """
+    good = 0
+    penalty = 0
+    for i, (sub1, next_sub1) in enumerate(zip(input_subs, input_subs[1:])):
+        for sub2, next_sub2 in zip(manual_subs[i:], manual_subs[i+1:]):
+            if sub1.content.split(' ')[-1] == sub2.content.split(' ')[-1] and next_sub1.content.split(' ')[0] == next_sub2.content.split(' ')[0]:
+                good += 1
+                break
+
+        if len(sub1.content) > max_width:
+            penalty += 1
+
+    return good, penalty
+
+
+### EXAMPLE USAGE ###
 input_subs = list(srt.parse("""1
 00:00:00,240 --> 00:00:02,750
 thanks to last past for sponsoring a portion of this video.
@@ -140,34 +170,5 @@ It's already built.
 18
 00:00:46,100 --> 00:00:48,359
 Let's roll that intro, tsk."""))
-
-
-def basic_error(input_subs, manual_subs, max_width=42):
-    """Takes the generated subtitles and the manual subtitles and compares
-    them. A caption group is considered to be correct if the last word of the
-    caption group and the first word of the next are the same as in the manual
-    subtitles. When max_width is exceeded we penalise the captiongroup.
-
-    takes:
-    input_subs: the generated subtitles as a srt parsed list
-    manual_subs: the man-made subtitles we considered to correct
-    max_width: how long a caption is allowed to be
-
-    outputs: amount of correctly created captiongroups, and amount of times
-    max_width was exceeded
-    """
-    good = 0
-    penalty = 0
-    for i, (sub1, next_sub1) in enumerate(zip(input_subs, input_subs[1:])):
-        for sub2, next_sub2 in zip(manual_subs[i:], manual_subs[i+1:]):
-            if sub1.content.split(' ')[-1] == sub2.content.split(' ')[-1] and next_sub1.content.split(' ')[0] == next_sub2.content.split(' ')[0]:
-                good += 1
-                break
-
-        if len(sub1.content) > max_width:
-            penalty += 1
-
-    return good, penalty
-
 
 print(basic_error(input_subs, manual_subs))
