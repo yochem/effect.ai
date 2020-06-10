@@ -2,16 +2,40 @@
 The ASR module.
 
 Module for working with ASR (Automatic Speech Recognition) files formatted as
-JSON. It provides the ASR() class.
+JSON. It provides the ASR() class and the Word() and Punc() dataclasses.
 """
-from collections import namedtuple
+from dataclasses import dataclass
 import json
-
-Word = namedtuple('Word', 'text start end')
-Punc = namedtuple('Punc', 'text start end')
+from typing import List, Union
 
 
-class ASR():
+@dataclass
+class Word:
+    """
+    Basic word data. Containing the word the start time of the word, end time
+    of the word and the splitting weight.
+    """
+    text: str
+    start: float
+    end: float
+    weight: float
+
+
+@dataclass
+class Punc(Word):
+    """
+    Basic punctuation data. Start and end time are kept for flexibility using
+    both Word() and Punc() together. This dataclass is used to simplify
+    recognising punctuation in the caption.
+    """
+
+
+class ASR:
+    """
+    This class helps working with ASR files. It provides an API for loading
+    these files and converting it to varias datastructures.
+    """
+
     def __init__(self, filename: str):
         """Load asr file with given filename. Returns JSON object."""
         with open(filename, 'r') as f:
@@ -19,11 +43,15 @@ class ASR():
 
         self.data = json.loads(raw)
 
-    def json(self):
+    def transcript(self) -> str:
+        """Return the transcript as one big string."""
+        return self.data['results']['transcripts'][0]['transcript']
+
+    def json(self) -> dict:
         """Return the full JSON file as python dictionary."""
         return self.data
 
-    def groups(self):
+    def groups(self) -> List[Union[Word, Punc]]:
         """
         Convert the ASR to the following format:
         [
@@ -36,10 +64,10 @@ class ASR():
             ...
         ]
         where the outer list is the complete caption, the inner lists are
-        caption groups and the Word() and Punc() are namedtuples containing
+        caption groups and the Word() and Punc() are dataclasses containing
         the textual representation and the start and end time.
         """
-        caption = []
+        cap: List[Union[Word, Punc]] = []
 
         words = self.data['results']['items']
 
@@ -49,12 +77,12 @@ class ASR():
             if word['type'] == 'pronunciation':
                 start = word['start_time']
                 end = word['end_time']
-                caption.append(Word(text, start, end))
+                cap.append(Word(text, float(start), float(end), weight=0))
             else:
-                time = caption[-1].end
-                caption.append(Punc(text, time, time))
+                time = cap[-1].end
+                cap.append(Punc(text, time, time, weight=0))
 
-        return caption
+        return cap
 
 
 if __name__ == '__main__':
