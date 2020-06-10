@@ -1,44 +1,25 @@
-import caption
-from asr import ASR
+from typing import List, Union
 
-data = ASR('asr/sample01.asrOutput.json').groups()
-print(data)
-# storage lists
+from asr import Punc, Word
 
 
-def time_gaps(data, threshold):
-	"""
-	Iterates trough data, and compares time between every word, if difference is not to high append second word to same list,
-	when the time diffenrece is to high, append second word to new list.
+def speech_gaps(data: List[Union[Word, Punc]],
+                threshold: int = 1) -> List[List[Union[Word, Punc]]]:
+    """
+    Split *transcript* into caption groups using time difference between words.
 
-	Inputs:
-	data: ASR data faile
-	threshold: how much time between words for splitting thermal
+    This uses a threshold (given in seconds). Returns Caption with caption
+    groups.
+    """
+    result = []
+    caption_group = []
 
-	Output: Big list that contains smaller lists that are splitted from eachother at points where
-	the time between two words was to big
+    # loop pairwise over data
+    for w1, w2 in zip(data, data[1:]):
+        caption_group.append(w1)
 
-	"""
-	result = []
-	store = []
-	#store first word
-	store.append(data[0])
+        if w2.start - w1.end > threshold:
+            result.append(caption_group)
+            caption_group = [w2]
 
-	#splitter
-	for i in range(0, len(data)-1):
-		first = data[i].end
-		second = data[i+1].start
-		first = float(first)
-		second = float(second)
-		if second-first<threshold:
-			store.append(data[i+1])
-		else:
-			result.append(store)
-			store= []
-			store.append(data[i+1])
-	return result
-
-# Visualize results
-for i in range(0, len(result)):
-	print(result[i])
-	print('                ')
+    return result
