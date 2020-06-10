@@ -22,7 +22,7 @@ def length(data, number=42, splits=[]):
     return splits
 
 
-def split_length(data):
+def split_length(data, factor=1):
     """
     Takes the datastructure as input and outputs the same datastructure with
     the changed weights according to a 42 character limit.
@@ -33,8 +33,8 @@ def split_length(data):
     number = 0
     for split in splits:
         number += len(split)
-        data[number-1].weight += 1
-        data[number-2].weight += 0.5
-        data[number-3].weight += 0.25
+        data[number-1].weight += 1 * factor
+        data[number-2].weight += 0.5 * factor
+        data[number-3].weight += 0.25 * factor
 
     return data
