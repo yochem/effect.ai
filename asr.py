@@ -14,13 +14,12 @@ class Word:
     text: str
     start: float
     end: float
+    weight: float
 
 
 @dataclass
-class Punc:
-    text: str
-    start: float
-    end: float
+class Punc(Word):
+    pass
 
 
 class ASR():
@@ -65,10 +64,10 @@ class ASR():
             if word['type'] == 'pronunciation':
                 start = word['start_time']
                 end = word['end_time']
-                cap.append(Word(text, float(start), float(end)))
+                cap.append(Word(text, float(start), float(end), weight=0))
             else:
                 time = cap[-1].end
-                cap.append(Punc(text, time, time))
+                cap.append(Punc(text, time, time, weight=0))
 
         return cap
 
