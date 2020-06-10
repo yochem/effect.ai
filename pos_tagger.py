@@ -1,16 +1,16 @@
+from dataclasses import dataclass
 import json
 import nltk
-import numpy as np
 
 from asr import Word
-from dataclasses import dataclass
 
 
-"""
-Creates new dataclass for words with start time, end time and POS tag.
-"""
 @dataclass
 class Pos(Word):
+    """
+    Creates new dataclass for words with start time, end time and POS tag.
+    """
+
     tag: str
 
 def basic_words_pos(words):
@@ -39,8 +39,6 @@ def basic_words_pos(words):
 
     return tagged_words
 
-# print(basic_words_pos([Word(text='had', start='322.65', end='322.75', weight=1.0)]))
-
 
 def no_apos(tokenized_text):
     """Concatenates splitted word contractions from a POS-tagged text
@@ -52,8 +50,7 @@ def no_apos(tokenized_text):
             together as one word.
     """
 
-    i=1
-
+    i = 1
     while i != len(tokenized_text):
 
         if "'" in tokenized_text[i][0]:
@@ -68,8 +65,7 @@ def no_apos(tokenized_text):
     return tokenized_text
 
 
-# TODO: language feature
-def basic_pos(asrfile, lang='eng', sents=True, split_apos=False):
+def basic_pos(asrfile, sents=True, split_apos=False):
     """
     Converts the transcript of an amazon-generated asr file to a pos-tagged list
 
@@ -96,10 +92,11 @@ def basic_pos(asrfile, lang='eng', sents=True, split_apos=False):
                 words.append(nltk.word_tokenize(sent))
 
             return nltk.pos_tag_sents(words)
-        else:
-            for sent in nltk.sent_tokenize(text):
-                words.append(no_apos(nltk.pos_tag(nltk.word_tokenize(sent))))
-            return words
+
+        for sent in nltk.sent_tokenize(text):
+            words.append(no_apos(nltk.pos_tag(nltk.word_tokenize(sent))))
+
+        return words
 
     if split_apos:
         return nltk.pos_tag(nltk.word_tokenize(text))
