@@ -22,16 +22,6 @@ def length(data, number=42, splits=[]):
     return splits
 
 
-def change_weight(data, number):
-    """
-    Changes the weight of the data according to the split function.
-    """
-    data[number].weight += 1
-    data[number-1].weight += 0.5
-    data[number-2].weight += 0.25
-    return data
-
-
 def split_length(data):
     """
     Takes the datastructure as input and outputs the same datastructure with
@@ -43,6 +33,8 @@ def split_length(data):
     number = 0
     for split in splits:
         number += len(split)
-        data = change_weight(data, number-1)
+        data[number-1].weight += 1
+        data[number-2].weight += 0.5
+        data[number-3].weight += 0.25
 
     return data
