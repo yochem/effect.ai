@@ -10,10 +10,10 @@ from dataclasses import dataclass
 Creates new dataclass for words with start time, end time and POS tag.
 """
 @dataclass
-class Pos:
-    text: str
-    start: float
-    end: float
+class Pos(Word):
+    # text: str
+    # start: float
+    # end: float
     tag: str
 
 
@@ -34,8 +34,8 @@ def basic_word_pos(word):
     """
     text = word.text.lower()
     tag = nltk.pos_tag([text])[0][1]
-
-    return Pos(word.text, word.start, word.end, tag)
+    print(Pos(word.text, word.start, word.end, "hello"))
+    return Pos(tag)
 
 print(basic_word_pos(Word(text='had', start='322.65', end='322.75')))
 
@@ -105,3 +105,5 @@ def basic_pos(asrfile, lang='eng', sents=True, split_apos=False):
     return no_apos(nltk.pos_tag(nltk.word_tokenize(text)))
 
 pos = basic_pos('asr/sample01.asrOutput.json')
+
+tagged = basic_word_pos()
