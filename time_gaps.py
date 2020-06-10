@@ -20,6 +20,8 @@ def speech_gaps(data: List[Union[Word, Punc]],
 
         if w2.start - w1.end > threshold:
             result.append(caption_group)
-            caption_group = [w2]
+            caption_group = []
+
+    result.append(caption_group)
 
     return result
