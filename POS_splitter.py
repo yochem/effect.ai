@@ -120,7 +120,7 @@ def pos_splitter_conj_phrase(words, split_weight=0.3):
             next_word = tagged_words[index+1]
             nextnext = tagged_words[index+2]
 
-            if word.tag == 'ADP' and \
+            if word.tag == 'CONJ' and \
                 ((next_word.tag == 'DET' and nextnext.tag == 'NOUN') or
                  (next_word.tag == 'ADJ' and nextnext.tag == 'NOUN') or
                  (next_word.tag == 'PRON' and nextnext.tag == 'NOUN')):
