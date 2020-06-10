@@ -22,15 +22,6 @@ def length(data, number=42, splits=[]):
     return splits
 
 
-def convert_text(data, ret_list=[]):
-    """
-    Converts the datastructure into a list of strings.
-    """
-    for i in data:
-        ret_list.append(i.text)
-    return ret_list
-
-
 def change_weight(data, number):
     """
     Changes the weight of the data according to the split function.
@@ -46,7 +37,7 @@ def split_length(data):
     Takes the datastructure as input and outputs the same datastructure with
     the changed weights according to a 42 character limit.
     """
-    sentence = convert_text(data)
+    sentence = [word.text for word in data]
     splits = length(sentence)
 
     number = 0
