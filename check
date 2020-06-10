@@ -20,7 +20,7 @@ autopep8 --diff ./*.py
 
 echo
 red_echo "Running pylint..."
-pylint -d C0103,C0114,C0115,C0116 ./*.py
+pylint -d C0103,C0114,C0115,C0116,W0102 ./*.py
 
 echo
 red_echo "Running mypy..."
