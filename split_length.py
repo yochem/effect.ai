@@ -22,13 +22,13 @@ def length(data, number=42, splits=[]):
     return splits
 
 
-def convert_text(data, list=[]):
+def convert_text(data, ret_list=[]):
     """
     Converts the datastructure into a list of strings.
     """
     for i in data:
-        list.append(i.text)
-    return list
+        ret_list.append(i.text)
+    return ret_list
 
 
 def change_weight(data, number):
