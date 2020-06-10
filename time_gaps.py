@@ -4,7 +4,7 @@ from asr import Punc, Word
 
 
 def speech_gaps(data: List[Union[Word, Punc]],
-                threshold: int = 1) -> List[List[Union[Word, Punc]]]:
+                threshold: float = 1.5) -> List[List[Union[Word, Punc]]]:
     """
     Split *transcript* into caption groups using time difference between words.
 
