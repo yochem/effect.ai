@@ -10,10 +10,7 @@ from dataclasses import dataclass
 Creates new dataclass for words with start time, end time and POS tag.
 """
 @dataclass
-class Pos:
-    text: str
-    start: float
-    end: float
+class Pos(Word):
     tag: str
 
 
@@ -33,11 +30,11 @@ def basic_word_pos(word):
         e.g: Pos(text="make", start_time=10.14, end_time=10.2, tag="VBD")
     """
     text = word.text.lower()
-    tag = nltk.pos_tag([text])[0][1]
+    tag = nltk.pos_tag([text], tagset='universal')[0][1]
 
-    return Pos(word.text, word.start, word.end, tag)
+    return Pos(word.text, word.start, word.end, tag=tag, weight=1.0)
 
-print(basic_word_pos(Word(text='had', start='322.65', end='322.75')))
+print(basic_word_pos(Word(text='had', start='322.65', end='322.75', weight=1.0)))
 
 
 def no_apos(tokenized_text):

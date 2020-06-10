@@ -1,6 +1,61 @@
 from asr import ASR
 from pos_tagger import basic_pos, no_apos, basic_word_pos, Pos
 
+def pos_splitter_pron_verb(tagged_data, split_weight):
+    """
+    Adjust weight of word where split is not recommended.
+
+    see: https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
+
+    Input:
+    1D list of Pos objects.
+    Split-weight indicating the importance of not-splitting on the word.
+
+    Output: 1D list with Pos object with adjusted weights.
+    """
+    for index, word in enumerate(tagged_data[:-1]):
+        next_word = tagged_data[index+1]
+
+        if word.tag == 'PRON' and next_word.tag == 'VERB':
+            word.weight = word.weight - split_weight
+
+
+
+def pos_splitter_det_noun(tagged_data, split_weight):
+    for index, word in enumerate(tagged_data[:-1]):
+        next_word = tagged_data[index+1]
+
+        # Determiner and Noun
+        if word.tag == 'DET' and next_word.tag == 'NOUN':
+            word.weight = word.weight - split_weight
+
+    return tagged_data
+
+
+def pos_splitter_prep_phrase(tagged_data, split_weight):
+    for index, word in enumerate(tagged_data[:-1]):
+        next_word = tagged_data[index+1]
+        nextnext = tagged_data[index+2]
+        nextnextnext = tagged_data[index+3]
+
+    	# Preposition and phrase
+        if word.tag == 'ADP' and ((next_word.tag == 'DET' and nextnext.tag == 'NOUN') or (next_word.tag == 'ADJ' and nextnext.tag == 'NOUN') or (next_word.tag == 'DET' and nextnext.tag == 'ADJ' and nextnextnext.tag == 'NOUN') or (next_word.tag == 'PRON' and nextnext.tag == 'NOUN')):
+            word.weight = 0.4
+
+    return tagged_data
+
+def pos_splitter_conj_phrase(tagged_data, split_weight):
+    for index, word in enumerate(tagged_data[:-1]):
+        next_word = tagged_data[index+1]
+        nextnext = tagged_data[index+2]
+        nextnextnext = tagged_data[index+3]
+
+        # Conjuction and phrase
+        if word.tag == 'CONJ' and ((next_word.tag == 'DET' and nextnext.tag == 'NOUN') or (next_word.tag == 'ADJ' and nextnext.tag == 'NOUN') or (next_word.tag == 'DET' and nextnext.tag == 'ADJ' and nextnextnext.tag == 'NOUN') or (next_word.tag == 'PRON' and nextnext.tag == 'NOUN')):
+			word.weight = 0.3
+
+    return tagged_data
+
 
 def pos_splitter(tagged_data):
     """
@@ -16,7 +71,10 @@ def pos_splitter(tagged_data):
     for index, word in enumerate(tagged_data):
 
         next = tagged_data[index+1]
+        nextnext = tagged_data[index+2]
+        nextnextnext = tagged_data[index+3]
 
+		# Determiner plus noun
         if word.tag == 'DT' and next.tag == 'NN':
 
             tagged_data[index].tag = 'No split'
@@ -24,6 +82,16 @@ def pos_splitter(tagged_data):
             tagged_data[index].end = next.end
 
             tagged_data.remove(next)
+
+		# Preposition and phrase
+        if word.tag == 'ADP' and ((next.tag == 'DET' and nextnext.tag == 'NOUN') or (next.tag == 'ADJ' and nextnext.tag == 'NOUN') or (next.tag == 'DET' and nextnext.tag == 'ADJ' and nextnextnext.tag == 'NOUN') or (next.tag == 'PRON' and nextnext.tag == 'NOUN')):
+            word.weight = 0.4
+
+		# Conjuction and phrase
+        if word.tag == 'CONJ' and ((next.tag == 'DET' and nextnext.tag == 'NOUN') or (next.tag == 'ADJ' and nextnext.tag == 'NOUN') or (next.tag == 'DET' and nextnext.tag == 'ADJ' and nextnextnext.tag == 'NOUN') or (next.tag == 'PRON' and nextnext.tag == 'NOUN')):
+			word.weight = 0.3
+
+
 
     return tagged_data
 
