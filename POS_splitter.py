@@ -2,7 +2,7 @@ from asr import ASR
 from pos_tagger import basic_words_pos
 
 
-def pos_splitter_pron_verb(words, split_weight=0.2):
+def pos_splitter_pron_verb(words, factor=1, split_weight=0.2):
     """
     Adjust weight of word where split is not recommended:
         Avoid splitting between pronoun + verb
@@ -22,11 +22,11 @@ def pos_splitter_pron_verb(words, split_weight=0.2):
         words[index].weight += 1
 
         if word.tag == 'PRON' and next_word.tag == 'VERB':
-            words[index].weight -= split_weight
+            words[index].weight -= split_weight * (1 / factor)
 
     return words
 
-def pos_splitter_det_noun(words, split_weight=0.3):
+def pos_splitter_det_noun(words, factor=1, split_weight=0.3):
     """
     Adjust weight of word where split is not recommended:
         Avoid splitting between determiner + noun
@@ -46,12 +46,12 @@ def pos_splitter_det_noun(words, split_weight=0.3):
         words[index].weight += 1
 
         if word.tag == 'DET' and next_word.tag == 'NOUN':
-            words[index].weight -= split_weight
+            words[index].weight -= split_weight * (1 / factor)
 
     return words
 
 
-def pos_splitter_prep_phrase(words, split_weight=0.4):
+def pos_splitter_prep_phrase(words, factor=1, split_weight=0.4):
     """
     Adjust weight of word where split is not recommended:
         Avoid splitting between Preposition + following phrase
@@ -77,7 +77,7 @@ def pos_splitter_prep_phrase(words, split_weight=0.4):
                 ((next_word.tag == 'DET' and nextnext.tag == 'NOUN') or
                  (next_word.tag == 'ADJ' and nextnext.tag == 'NOUN') or
                  (next_word.tag == 'PRON' and nextnext.tag == 'NOUN')):
-                words[index].weight -= split_weight
+                words[index].weight -= split_weight * (1 / factor)
 
             continue
 
@@ -94,11 +94,11 @@ def pos_splitter_prep_phrase(words, split_weight=0.4):
              (next_word.tag == 'DET' and nextnext.tag == 'ADJ' and
               nextnextnext.tag == 'NOUN') or
              (next_word.tag == 'PRON' and nextnext.tag == 'NOUN')):
-            words[index].weight -= split_weight
+            words[index].weight -= split_weight * (1 / factor)
 
     return words
 
-def pos_splitter_conj_phrase(words, split_weight=0.3):
+def pos_splitter_conj_phrase(words, factor=1, split_weight=0.3):
     """
     Adjust weight of word where split is not recommended:
         Avoid splitting between conjunction + following phrase
@@ -124,7 +124,7 @@ def pos_splitter_conj_phrase(words, split_weight=0.3):
                 ((next_word.tag == 'DET' and nextnext.tag == 'NOUN') or
                  (next_word.tag == 'ADJ' and nextnext.tag == 'NOUN') or
                  (next_word.tag == 'PRON' and nextnext.tag == 'NOUN')):
-                words[index].weight -= split_weight
+                words[index].weight -= split_weight * (1 / factor)
 
             continue
 
@@ -141,10 +141,10 @@ def pos_splitter_conj_phrase(words, split_weight=0.3):
              (next_word.tag == 'DET' and nextnext.tag == 'ADJ' and
               nextnextnext.tag == 'NOUN') or
              (next_word.tag == 'PRON' and nextnext.tag == 'NOUN')):
-            words[index].weight -= split_weight
+            words[index].weight -= split_weight * (1 / factor)
 
     return words
 
 if __name__ == '__main__':
     data = ASR('asr/sample01.asrOutput.json').groups()
-    print(pos_splitter_conj_phrase(data))
+    print(pos_splitter_conj_phrase(data, factor=2))
