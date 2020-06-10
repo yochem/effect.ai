@@ -23,7 +23,7 @@ def basic_error(input_subs, manual_subs, max_width=42):
     for i, (sub1, next_sub1) in enumerate(zip(input_subs, input_subs[1:])):
         for sub2, next_sub2 in zip(manual_subs[i:], manual_subs[i+1:]):
             if sub1.content.split()[-1] == sub2.content.split()[-1] and \
-            next_sub1.content.split()[0] == next_sub2.content.split()[0]:
+               next_sub1.content.split()[0] == next_sub2.content.split()[0]:
                 good += 1
                 break
 
