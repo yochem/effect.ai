@@ -11,6 +11,10 @@ from typing import List, Union
 
 @dataclass
 class Word:
+    """
+    Basic word data. Containing the word the start time of the word, end time
+    of the word and the splitting weight.
+    """
     text: str
     start: float
     end: float
@@ -19,10 +23,19 @@ class Word:
 
 @dataclass
 class Punc(Word):
-    pass
+    """
+    Basic punctuation data. Start and end time are kept for flexibility using
+    both Word() and Punc() together. This dataclass is used to simplify
+    recognising punctuation in the caption.
+    """
 
 
-class ASR():
+class ASR:
+    """
+    This class helps working with ASR files. It provides an API for loading
+    these files and converting it to varias datastructures.
+    """
+
     def __init__(self, filename: str):
         """Load asr file with given filename. Returns JSON object."""
         with open(filename, 'r') as f:
