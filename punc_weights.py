@@ -1,6 +1,7 @@
 from asr import Punc
 
-def punc_weights(words, factor=1.0, params=(2, 1.5, 0.9)):
+
+def punc_weights(words, factor=1.0, params=(0.95, 0.85, 0.6)):
     """
     Adjusts weights of punctuation.
 
@@ -13,26 +14,17 @@ def punc_weights(words, factor=1.0, params=(2, 1.5, 0.9)):
     Outputs:
     words with adjusted weights.
     """
-
     period, question, comma = params
+
+    punct_dict = {'.': period,
+                  '?': question,
+                  ',': comma,
+                  '!': 0.4,
+                  ';': 0.3,
+                  ':': 0.3}
+
     for word in words:
         if isinstance(word, Punc):
-            if word.text == '.':
-                word.weight += period * factor
-
-            elif word.text == '?':
-                word.weight += question * factor
-
-            elif word.text == ',':
-                word.weight += comma * factor
-
-            elif word.text == '!':
-                word.weight += 0.4 * factor
-
-            elif word.text == ';' or word.text == ':':
-                word.weight += 0.3 * factor
-
-            else:
-                word.weight += 0.2 * factor
+            word.weight += punct_dict.get(word.text, 0.2) * factor
 
     return words
