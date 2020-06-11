@@ -1,4 +1,4 @@
-from asr import ASR, Word, Punc
+from asr import Punc
 
 def punc_weights(words, factor=1.0, params=(2, 1.5, 0.9)):
     """
@@ -7,7 +7,7 @@ def punc_weights(words, factor=1.0, params=(2, 1.5, 0.9)):
     Takes:
     words: 1D list of Word tuples.
     params: tuple, weightmodifiers for the three
-    most common interpunction symbols, default = (0.95, 0.85, 0.6)
+    most common punctuation symbols, default = (0.95, 0.85, 0.6)
     all other weightmodifiers were arbitrarily chosen.
 
     Outputs:
@@ -16,27 +16,23 @@ def punc_weights(words, factor=1.0, params=(2, 1.5, 0.9)):
 
     period, question, comma = params
     for word in words:
-        if type(word) == Punc:
+        if isinstance(word, Punc):
             if word.text == '.':
-                word.weight += period
+                word.weight += period * factor
 
             elif word.text == '?':
-                word.weight += question
+                word.weight += question * factor
 
             elif word.text == ',':
-                word.weight += comma
+                word.weight += comma * factor
 
             elif word.text == '!':
-                word.weight += 0.4
+                word.weight += 0.4 * factor
 
             elif word.text == ';' or word.text == ':':
-                word.weight += 0.3
+                word.weight += 0.3 * factor
 
             else:
-                word.weight += 0.2
+                word.weight += 0.2 * factor
 
     return words
-
-data = ASR('asr/sample01.asrOutput.json').groups()
-for w1, w2, in zip(data, punc_weights(data, params=(0.95, 0.85, 0.6))):
-    print(w1.weight, w2.weight)
