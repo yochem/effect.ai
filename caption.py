@@ -1,31 +1,46 @@
+"""
+Functions to convert our dataformat (Caption) to various formats used by the
+srt package.
+"""
 from datetime import timedelta
+import re
 from typing import List, Union
 
 import srt
 
-from asr import ASR, Word, Punc
+import asr
 
 
 # Type alias
-Caption = List[List[Union[Word, Punc]]]
+Caption = List[List[Union[asr.Word, asr.Punc]]]
 
 
-def compose(caption: Caption) -> str:
+def create_subtitles(caption: Caption) -> List[srt.Subtitle]:
     """
-    Compose a SRT string. A srt.Subtitle instance is made for every caption
-    group, with the start time from the first element in the capture group and
-    the end time of the last element in the capture group. A list of these
-    subtitles is then composed using the srt.compose() function.
+    A srt.Subtitle instance is made for every caption group, with the start
+    time from the first element in the capture group and the end time of the
+    last element in the capture group.
     """
+    punc = re.compile(r' ([,.?!])')
+
     subtitles = []
     for i, group in enumerate(caption):
         text = ' '.join(word.text for word in group)
+
+        # strip spaces in front of punctuation
+        text = punc.sub(r'\g<1>', text)
+
         start = group[0].start
         end = group[-1].end
         sub = srt.Subtitle(i, timedelta(start), timedelta(end), text)
         subtitles.append(sub)
 
-    return srt.compose(subtitles)
+    return subtitles
+
+
+def compose(caption: Caption) -> str:
+    """Convert subtitles to the content of a srt file as a string."""
+    return srt.compose(create_subtitles(caption))
 
 
 def write(caption: Caption, filename: str) -> None:
@@ -33,12 +48,7 @@ def write(caption: Caption, filename: str) -> None:
     Compose the caption using the function above and write to file with given
     filename.
     """
-    composed = compose(caption)
+    composed = srt.compose(create_subtitles(caption))
 
     with open(filename, 'w') as f:
         f.write(composed)
-
-
-if __name__ == '__main__':
-    data = ASR('asr/sample01.asrOutput.json').groups()
-    print(compose([data]))
