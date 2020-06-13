@@ -1,16 +1,15 @@
 #!/usr/bin/env bash
 
 red_echo() {
+    echo
     echo -e "\033[0;31m$*\033[0m"
 }
 
 red_echo "Running autopep8..."
 autopep8 --diff src/*.py
 
-echo
 red_echo "Running pylint..."
 pylint -d C0103,C0114,C0115,C0116,W0102 src/*.py
 
-echo
 red_echo "Running mypy..."
 mypy src/*.py
