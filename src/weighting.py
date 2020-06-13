@@ -120,10 +120,10 @@ def pos_prep_phrase(words, factor=1, split_weight=0.4):
             next_word = tagged_words[index+1]
             nextnext = tagged_words[index+2]
 
-            if word.tag == 'ADP' and \
-                ((next_word.tag == 'DET' and nextnext.tag == 'NOUN') or
-                 (next_word.tag == 'ADJ' and nextnext.tag == 'NOUN') or
-                 (next_word.tag == 'PRON' and nextnext.tag == 'NOUN')):
+            adp_options = (('ADP', 'DET', 'NOUN'),
+                           ('ADP', 'ADJ', 'NOUN'),
+                           ('ADP', 'PRON', 'NOUN'))
+            if (word.tag, next_word.tag, nextnext.tag) in adp_options:
                 words[index].weight -= split_weight * (1 / factor)
 
             continue
