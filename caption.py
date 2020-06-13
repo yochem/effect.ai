@@ -32,7 +32,8 @@ def create_subtitles(caption: Caption) -> List[srt.Subtitle]:
 
         start = group[0].start
         end = group[-1].end
-        sub = srt.Subtitle(i, timedelta(start), timedelta(end), text)
+        sub = srt.Subtitle(i, timedelta(seconds=start),
+                           timedelta(seconds=end), text)
         subtitles.append(sub)
 
     return subtitles

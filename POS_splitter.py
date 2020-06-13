@@ -26,6 +26,7 @@ def pos_splitter_pron_verb(words, factor=1, split_weight=0.2):
 
     return words
 
+
 def pos_splitter_det_noun(words, factor=1, split_weight=0.3):
     """
     Adjust weight of word where split is not recommended:
@@ -144,6 +145,7 @@ def pos_splitter_conj_phrase(words, factor=1, split_weight=0.3):
             words[index].weight -= split_weight * (1 / factor)
 
     return words
+
 
 if __name__ == '__main__':
     data = ASR('asr/sample01.asrOutput.json').groups()
