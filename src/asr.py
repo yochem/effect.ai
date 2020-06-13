@@ -83,8 +83,3 @@ class ASR:
                 cap.append(Punc(text, time, time, weight=0))
 
         return cap
-
-
-if __name__ == '__main__':
-    a = ASR('asr/sample01.asrOutput.json')
-    print(a.groups())
