@@ -3,11 +3,14 @@ This module provides functions to add weights to words in a caption. All
 functions accept a List of Word or Punc classes and return the same type.
 """
 from dataclasses import dataclass
-from typing import List, Union
+from typing import List, Union, Sequence
 
 import nltk
 
 import asr
+
+
+Caption = List[Union[asr.Word, asr.Punc]]
 
 
 @dataclass
@@ -15,11 +18,10 @@ class Pos(asr.Word):
     """
     Creates new dataclass for words with start time, end time and POS tag.
     """
-
     tag: str
 
 
-def pos_tagger(words):
+def pos_tagger(words: Caption) -> List[Pos]:
     """
     Get POS-tag dataclass from a Word or Punc dataclass.
 
@@ -48,7 +50,8 @@ def pos_tagger(words):
     return tagged_words
 
 
-def pos_pron_verb(words, factor=1, split_weight=0.2):
+def pos_pron_verb(words: Caption, factor: float = 1,
+                  split_weight: float = 0.2) -> Caption:
     """
     Adjust weight of word where split is not recommended:
         Avoid splitting between pronoun + verb
@@ -73,7 +76,8 @@ def pos_pron_verb(words, factor=1, split_weight=0.2):
     return words
 
 
-def pos_det_noun(words, factor=1, split_weight=0.3):
+def pos_det_noun(words: Caption, factor: float = 1,
+                 split_weight: float = 0.3) -> Caption:
     """
     Adjust weight of word where split is not recommended:
         Avoid splitting between determiner + noun
@@ -98,7 +102,9 @@ def pos_det_noun(words, factor=1, split_weight=0.3):
     return words
 
 
-def pos_prep_phrase(words, factor=1, split_weight=0.4):
+def pos_prep_phrase(words: Caption,
+                    factor: float = 1,
+                    split_weight: float = 0.4) -> Caption:
     """
     Adjust weight of word where split is not recommended:
         Avoid splitting between Preposition + following phrase
@@ -146,7 +152,9 @@ def pos_prep_phrase(words, factor=1, split_weight=0.4):
     return words
 
 
-def pos_conj_phrase(words, factor=1, split_weight=0.3):
+def pos_conj_phrase(words: Caption,
+                    factor: float = 1,
+                    split_weight: float = 0.3) -> Caption:
     """
     Adjust weight of word where split is not recommended:
         Avoid splitting between conjunction + following phrase
@@ -194,8 +202,7 @@ def pos_conj_phrase(words, factor=1, split_weight=0.3):
     return words
 
 
-def speech_gaps(data: List[Union[asr.Word, asr.Punc]],
-                threshold: float = 1.5) -> List[Union[asr.Word, asr.Punc]]:
+def speech_gaps(data: Caption, threshold: float = 1.5) -> Caption:
     """
     Add weight to words with a speech gap after them. This function uses a
     threshold for the gap. The weight is hardcoded to be really high (100).
@@ -208,7 +215,9 @@ def speech_gaps(data: List[Union[asr.Word, asr.Punc]],
     return data
 
 
-def punctuation(words, factor=1.0, params=(0.95, 0.85, 0.6)):
+def punctuation(words: Caption,
+                factor: float = 1,
+                params: Sequence[float] = (0.95, 0.85, 0.6)) -> Caption:
     """
     Adjusts weights of punctuation.
 
@@ -237,7 +246,9 @@ def punctuation(words, factor=1.0, params=(0.95, 0.85, 0.6)):
     return words
 
 
-def length(data, max_length=42, splits=[]):
+def length(data: List[str],
+           max_length: int = 42,
+           splits: List[List[str]] = []) -> List[List[str]]:
     """
     Splits the data accordingly and finds the first space and makes the cut
     there. It does the same thing recursivly for words that are left in the
@@ -256,7 +267,9 @@ def length(data, max_length=42, splits=[]):
     return splits
 
 
-def split_length(data, factor=1, max_length=42):
+def split_length(data: Caption,
+                 factor: float = 1,
+                 max_length: int = 42) -> Caption:
     """
     Takes the datastructure as input and outputs the same datastructure with
     the changed weights according to a 42 character limit.

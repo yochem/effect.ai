@@ -53,21 +53,11 @@ class ASR:
 
     def groups(self) -> List[Union[Word, Punc]]:
         """
-        Convert the ASR to the following format:
-        [
-            [
-                Word(),
-                Word(),
-                Punc()
-            ],
-            [Word(), Word(), Punc()],
-            ...
-        ]
-        where the outer list is the complete caption, the inner lists are
-        caption groups and the Word() and Punc() are dataclasses containing
-        the textual representation and the start and end time.
+        Convert the ASR to the following format to a list of Word() and
+        Punc()'s. The Word() and Punc() are dataclasses containing the textual
+        representation and the start and end time.
         """
-        cap: List[Union[Word, Punc]] = []
+        cap = []
 
         words = self.data['results']['items']
 

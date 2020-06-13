@@ -1,9 +1,19 @@
-from asr import ASR
+from typing import List, Union
+
+import srt
+
+from asr import ASR, Word, Punc
 import caption
 import weighting
 
 
-def basic_error(input_subs, manual_subs, max_width=42):
+Caption = List[Union[Word, Punc]]
+Groups = List[Caption]
+
+
+def basic_error(input_subs: List[srt.Subtitle],
+                manual_subs: List[srt.Subtitle],
+                max_width: int = 42) -> int:
     """
     Takes the generated subtitles and the manual subtitles and compares
     them. A caption group is considered to be correct if the last word of the
@@ -35,7 +45,8 @@ def basic_error(input_subs, manual_subs, max_width=42):
     return -(good - penalty)
 
 
-def split_weights(subs, result=[], max_chars: int = 84):
+def split_weights(subs: Caption, result: Groups = [],
+                  max_chars: int = 84) -> Groups:
     if len(' '.join(x.text for x in subs)) <= max_chars:
         result.append(subs)
         return result
@@ -48,7 +59,7 @@ def split_weights(subs, result=[], max_chars: int = 84):
     return result
 
 
-def create_groups(subs):
+def create_groups(subs: Caption) -> Groups:
     subs = weighting.speech_gaps(subs)
     subs = weighting.punctuation(subs)
     subs = weighting.pos_pron_verb(subs)
@@ -60,6 +71,6 @@ def create_groups(subs):
 
 
 if __name__ == '__main__':
-    data = ASR('../asr/sample01.asrOutput.json').groups()
-    groups = create_groups(data)
-    caption.write(groups, 'videos/sample01.srt')
+    DATA = ASR('../asr/sample01.asrOutput.json').groups()
+    GROUPS = create_groups(DATA)
+    caption.write(GROUPS, 'videos/sample01.srt')
