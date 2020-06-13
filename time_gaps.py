@@ -4,24 +4,14 @@ from asr import Punc, Word
 
 
 def speech_gaps(data: List[Union[Word, Punc]],
-                threshold: float = 1.5) -> List[List[Union[Word, Punc]]]:
+                threshold: float = 1.5) -> List[Union[Word, Punc]]:
     """
-    Split *transcript* into caption groups using time difference between words.
-
-    This uses a threshold (given in seconds). Returns Caption with caption
-    groups.
+    Add weight to words with a speech gap after them. This function uses a
+    threshold for the gap. The weight is hardcoded to be really high (100).
     """
-    result = []
-    caption_group = []
-
     # loop pairwise over data
     for w1, w2 in zip(data, data[1:]):
-        caption_group.append(w1)
-
         if w2.start - w1.end > threshold:
-            result.append(caption_group)
-            caption_group = []
+            w1.weight = 100
 
-    result.append(caption_group)
-
-    return result
+    return data
