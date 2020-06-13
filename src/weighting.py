@@ -201,9 +201,9 @@ def speech_gaps(data: List[Union[asr.Word, asr.Punc]],
     threshold for the gap. The weight is hardcoded to be really high (100).
     """
     # loop pairwise over data
-    for w1, w2 in zip(data, data[1:]):
-        if w2.start - w1.end > threshold:
-            w1.weight = 100
+    for word_1, word_2 in zip(data, data[1:]):
+        if word_2.start - word_1.end > threshold:
+            word_1.weight = 100
 
     return data
 
