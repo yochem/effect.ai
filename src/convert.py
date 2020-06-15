@@ -2,12 +2,12 @@ from typing import List, Union
 
 import srt
 
-from asr import ASR, Word, Punc
+import asr
 import caption
 import weighting
 
 
-Caption = List[Union[Word, Punc]]
+Caption = List[Union[asr.Word, asr.Punc]]
 Groups = List[Caption]
 
 
@@ -71,6 +71,6 @@ def create_groups(subs: Caption) -> Groups:
 
 
 if __name__ == '__main__':
-    DATA = ASR('../asr/sample01.asrOutput.json').groups()
+    DATA = asr.ASR('../asr/sample01.asrOutput.json').groups()
     GROUPS = create_groups(DATA)
     caption.write(GROUPS, 'videos/sample01.srt')
