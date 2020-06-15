@@ -1,7 +1,7 @@
 """
 The convert module.
 
-Module for converting the input data, consisting of words with time stamps, to caption groups.
+Module for converting the input data, consisting of words with time stamps and POS-tags, to caption groups.
 The error between the created output and the manual-subtitles can also be measured by basic_error.
 """
 
@@ -34,7 +34,7 @@ def basic_error(input_subs: List[srt.Subtitle],
         max_width: how long a caption is allowed to be, default 42, 0 means no restrictions.
 
     Returns:
-        amount of correctly created captiongroups, and amount of times max_width was exceeded.
+        amount of correctly created caption groups, and amount of times max_width was exceeded.
     """
     good = 0
     penalty = 0
@@ -54,13 +54,13 @@ def basic_error(input_subs: List[srt.Subtitle],
 def split_weights(subs: Caption, result: Groups = [],
                   max_chars: int = 84) -> Groups:
     """
-    Function that splits the data based on the highest weights.
+    Function that splits the input data based on the highest weights.
     Recursively go trough the input data and split at the word after the highest weight.
-    For every caption group is checked if the caption group doesn't exceed the maximum characters.
+    For every caption group created is checked if the caption group doesn't exceed the maximum characters.
     If it doesn't exceed the maximum characters, append the caption group to the result list.
 
     Args:
-        subs: The list of words with added weights.
+        subs: The caption-list with added weights.
         result: Empty list for the caption groups.
         max_chars: Maximal number of characters for one caption group, which is standard 84.
 
@@ -81,9 +81,9 @@ def split_weights(subs: Caption, result: Groups = [],
 
 def create_groups(subs: Caption) -> Groups:
     """
-    Function that first adds the weights to the subtitles and then uses the split_weight function to create caption groups.
-    Adding weight is done by using the function for adding weight in weighting.py. They are listed in order of importance.
-    Now that the words have weights, the function split_weight can be used to create the groups.
+    Function that first adds the weights to the words in the caption-list and then uses the split_weight function to create caption groups.
+    Adding weight is done by using the functions for adding weight in weighting.py. They are listed in order of importance.
+    Now that the words have weights, the function split_weight can be used to create the caption groups.
 
     Args:
         subs: Input data without weighting.
