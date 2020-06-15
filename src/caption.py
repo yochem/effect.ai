@@ -23,7 +23,7 @@ def create_subtitles(caption: Groups) -> List[srt.Subtitle]:
 
     Args:
         caption: The caption groups, consists of a list of our custom
-        Caption-list dataformats.
+            Caption-list dataformats.
 
     Returns:
         List of srt.Subtitle instances, created from the caption groups.
@@ -51,7 +51,7 @@ def compose(caption: Groups) -> str:
 
     Args:
         caption: The caption groups, consists of a list of our custom
-        Caption-list dataformats.
+            Caption-list dataformats.
 
     Returns:
         A formatted srt file as a string.
@@ -66,12 +66,9 @@ def write(caption: Groups, filename: str) -> None:
 
     Args:
         caption: The caption groups, consists of a list of our custom
-        Caption-list dataformats.
-        filename: name of the file to write the srt file to. Filename is
-        recommended to end with '.srt'
-
-    Returns:
-        None, writes a file instead.
+            Caption-list dataformats.
+        filename: Name of the file to write the srt file to. Filename is
+            recommended to end with '.srt'.
     """
     composed = srt.compose(create_subtitles(caption))
 

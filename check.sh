@@ -15,3 +15,6 @@ pylint -d C0103,C0114,C0115,C0116,W0102 "$src_files"
 
 red_echo "Running mypy..."
 mypy --disallow-untyped-defs --disallow-incomplete-defs "$src_files"
+
+red_echo "Running darglint..."
+darglint -m "{path}:{line}: {msg}" -v 2 "$src_files"

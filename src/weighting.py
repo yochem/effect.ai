@@ -20,10 +20,10 @@ class Pos(asr.Word):
     Has same attributes as Word with additional POS-tag attribute.
 
     Attributes:
-        text: See Word dataclass documentation
-        start: See Word dataclass documentation
+        text: See Word dataclass documentation.
+        start: See Word dataclass documentation.
         end: See Word dataclass documentation.
-        weight: See Word dataclass documentation
+        weight: See Word dataclass documentation.
         tag: Part-Of-Speech tag assigned to a word.
 
     """
@@ -45,7 +45,7 @@ def pos_tagger(words: Caption) -> List[Pos]:
         words: The custom Caption-list dataformat.
 
     Returns:
-        tagged_words: The Caption-list with added universal POS-tags.
+        The Caption-list with added universal POS-tags.
     """
     tagged_words = []
     for word in words:
@@ -63,8 +63,8 @@ def pos_pron_verb(words: Caption, factor: float = 1,
     """Avoid splitting between pronoun + verb by adjusting weight.
 
     Returns the custom Caption-list dataformat with adjusted weights for the
-    elements in the Caption-list where split is not recommended according
-    to one of the BBC subtitle guidelines.
+    elements in the Caption-list where split is not recommended according to
+    one of the BBC subtitle guidelines.
 
     For documentation of the guidelines see:
         https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
@@ -72,12 +72,12 @@ def pos_pron_verb(words: Caption, factor: float = 1,
     Args:
         words: The custom POS-tagged Caption-list dataformat.
         factor: Float indicating the importance of this split function.
-        split-weight:   Float indicating the importance of not splitting on the
-                        word.
+        split_weight: Float indicating the importance of not splitting on the
+            word.
 
     Returns:
-        words:  The custom POS-tagged Caption-list dataformat with adjusted
-                weight-attribute.
+        The custom POS-tagged Caption-list dataformat with adjusted weight
+        attribute.
     """
     tagged_words = pos_tagger(words)
 
@@ -96,21 +96,21 @@ def pos_det_noun(words: Caption, factor: float = 1,
     """Avoid splitting between determiner + noun by adjusting weight.
 
     Returns the custom Caption-list dataformat with adjusted weights for the
-    elements in the Caption-list where split is not recommended according
-    to one of the BBC subtitle guidelines.
+    elements in the Caption-list where split is not recommended according to
+    one of the BBC subtitle guidelines.
 
     For documentation of the guidelines see:
         https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
 
     Args:
         words: The custom POS-tagged Caption-list dataformat.
-        factor: Float indicating the importance of this split function.
-        split-weight:   Float indicating the importance of not splitting on the
-                        word.
+        factor: Indicating the importance of this split function.
+        split_weight: Indicating the importance of not splitting on the
+            word.
 
     Returns:
-        words:  The custom POS-tagged Caption-list dataformat with adjusted
-                weight-attribute.
+        The custom POS-tagged Caption-list dataformat with adjusted weight
+        attribute.
     """
     tagged_words = pos_tagger(words)
 
@@ -130,20 +130,21 @@ def pos_prep_phrase(words: Caption,
     """Avoid splitting between preposition + following phrase.
 
     Returns the custom Caption-list dataformat with adjusted weights for the
-    elements in the Caption-list where split is not recommended according
-    to one of the BBC subtitle guidelines.
+    elements in the Caption-list where split is not recommended according to
+    one of the BBC subtitle guidelines.
 
     For documentation of the guidelines see:
         https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
 
     Args:
         words: The custom POS-tagged Caption-list dataformat.
-        factor: Float indicating the importance of this split function.
-        split-weight:   Float indicating the importance of not splitting on the
-                        word.
+        factor: Indicating the importance of this split function.
+        split_weight: Indicating the importance of not splitting on the
+            word.
+
     Returns:
-        words:  The custom POS-tagged Caption-list dataformat with adjusted
-                weight-attribute.
+        The custom POS-tagged Caption-list dataformat with adjusted weight
+        attribute.
     """
     tagged_words = pos_tagger(words)
 
@@ -186,21 +187,21 @@ def pos_conj_phrase(words: Caption,
     """Avoid splitting between conjunction + following phrase.
 
     Returns the custom Caption-list dataformat with adjusted weights for the
-    elements in the Caption-list where split is not recommended according
-    to one of the BBC subtitle guidelines.
+    elements in the Caption-list where split is not recommended according to
+    one of the BBC subtitle guidelines.
 
     For documentation of the guidelines see:
         https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
 
     Args:
         words: The custom POS-tagged Caption-list dataformat.
-        factor: Float indicating the importance of this split function.
-        split-weight: Float indicating the importance of not splitting on the
-        word.
+        factor: Indicating the importance of this split function.
+        split_weight: Indicating the importance of not splitting on the
+            word.
 
     Returns:
-        words:  The custom POS-tagged Caption-list dataformat with adjusted
-                weight-attribute.
+        The custom POS-tagged Caption-list dataformat with adjusted weight
+        attribute.
     """
     tagged_words = pos_tagger(words)
 
@@ -238,17 +239,18 @@ def pos_conj_phrase(words: Caption,
 
 
 def speech_gaps(data: Caption, threshold: float = 1.5) -> Caption:
-    """
-    Add weight to words with a speech gap after them. This function uses a
-    threshold for the gap. The weight is hardcoded to be really high (100).
+    """Add weight to words with a speech gap after them.
+
+    This function uses a threshold for the gap. The weight is hardcoded to be
+    really high (100).
 
     Args:
         data: The transcript subtitles according to our custom Caption-list
-            dataframe
-        threshold: Float that determines the length of a speech gap
+            datastructure.
+        threshold: Determines the length of a speech gap.
 
     Returns:
-        data: The same Caption-list dataframe with adjusted weights
+        The Caption-list datastructure with adjusted weights.
     """
     # loop pairwise over data
     for word_1, word_2 in zip(data, data[1:]):
@@ -261,19 +263,18 @@ def speech_gaps(data: Caption, threshold: float = 1.5) -> Caption:
 def punctuation(words: Caption,
                 factor: float = 1,
                 params: Sequence[float] = (0.95, 0.85, 0.6)) -> Caption:
-    """
-    Adjusts weights of punctuation.
+    """Adjusts weights of punctuation.
 
     Args:
         words: The transcript subtitles according to our custom Caption-list
-            dataframe
-        factor: Float indicating the importance of this split function.
-        params: tuple, weightmodifiers for the three
-            most common punctuation symbols, default = (0.95, 0.85, 0.6)
-            all other weightmodifiers were arbitrarily chosen.
+            datastructure.
+        factor: Indicating the importance of this split function.
+        params: Weightmodifiers for the three most common punctuation symbols,
+            default = (0.95, 0.85, 0.6) all other weightmodifiers were
+            arbitrarily chosen.
 
     Returns:
-        words: The same Caption-list dataframe with adjusted weights
+        The Caption-list datastructure with adjusted weights.
     """
     period, question, comma = params
 
@@ -301,14 +302,13 @@ def length(data: List[str],
 
     Args:
         data: A list containing multiple strings
-        max_length: Integer indicating the character limit. This is usually
-            84 or 42 characters.
-        splits: At first an empty list that would be filled recursivly with
+        max_length: Indicating the character limit. This is usually 84 or 42
+            characters.
+        splits: At first an empty list that would be filled recursively with
             multiple lists with each containing multiple strings
 
     Returns:
-        splits: A list containing multiple lists with each containing multiple
-            strings.
+        A list containing multiple lists with each containing multiple strings.
     """
     if sum([len(x) for x in data]) <= 42:
         splits.append(data)
@@ -329,18 +329,19 @@ def split_length(data: Caption,
     """
     Adjusts the weights of words according to a character limit of either 84 or
     42 characters. The words that needs adjusting are determined by the
-    function length().
+    function length.
 
     Args:
         data: With a character limit of 84 it takes the transcript subtitles
-            according to our custom Caption-list dataframe. With a 42 character
-            limit it takes a caption group according to our custom Caption-list
-            dataframe.
-        factor: Float indicating the importance of this split function.
-        max_length: Integer indicating the character limit. This is usually
-            84 or 42 characters.
+            according to our custom Caption-list datastructure. With a 42
+            character limit it takes a caption group according to our custom
+            Caption-list datastructure.
+        factor: Indicating the importance of this split function.
+        max_length: Integer indicating the character limit. This is usually 84
+            or 42 characters.
 
     Returns:
+        The Caption-list datastructure with adjusted weights.
     """
     sentence = [word.text for word in data]
     splits = length(sentence, max_length=max_length)
