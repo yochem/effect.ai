@@ -195,7 +195,8 @@ def pos_conj_phrase(words: Caption,
     Args:
         words: The custom POS-tagged Caption-list dataformat.
         factor: Float indicating the importance of this split function.
-        split-weight: Float indicating the importance of not splitting on the word.
+        split-weight: Float indicating the importance of not splitting on the
+        word.
 
     Returns:
         words:  The custom POS-tagged Caption-list dataformat with adjusted
@@ -240,6 +241,14 @@ def speech_gaps(data: Caption, threshold: float = 1.5) -> Caption:
     """
     Add weight to words with a speech gap after them. This function uses a
     threshold for the gap. The weight is hardcoded to be really high (100).
+
+    Args:
+        data: The transcript subtitles according to our custom Caption-list
+            dataframe
+        threshold: Float that determines the length of a speech gap
+
+    Returns:
+        data: The same Caption-list dataframe with adjusted weights
     """
     # loop pairwise over data
     for word_1, word_2 in zip(data, data[1:]):
@@ -255,14 +264,16 @@ def punctuation(words: Caption,
     """
     Adjusts weights of punctuation.
 
-    Takes:
-    words: 1D list of Word tuples.
-    params: tuple, weightmodifiers for the three
-    most common punctuation symbols, default = (0.95, 0.85, 0.6)
-    all other weightmodifiers were arbitrarily chosen.
+    Args:
+        words: The transcript subtitles according to our custom Caption-list
+            dataframe
+        factor: Float indicating the importance of this split function.
+        params: tuple, weightmodifiers for the three
+            most common punctuation symbols, default = (0.95, 0.85, 0.6)
+            all other weightmodifiers were arbitrarily chosen.
 
-    Outputs:
-    words with adjusted weights.
+    Returns:
+        words: The same Caption-list dataframe with adjusted weights
     """
     period, question, comma = params
 
@@ -287,6 +298,17 @@ def length(data: List[str],
     Splits the data accordingly and finds the first space and makes the cut
     there. It does the same thing recursivly for words that are left in the
     sentence.
+
+    Args:
+        data: A list containing multiple strings
+        max_length: Integer indicating the character limit. This is usually
+            84 or 42 characters.
+        splits: At first an empty list that would be filled recursivly with
+            multiple lists with each containing multiple strings
+
+    Returns:
+        splits: A list containing multiple lists with each containing multiple
+            strings.
     """
     if sum([len(x) for x in data]) <= 42:
         splits.append(data)
@@ -305,8 +327,20 @@ def split_length(data: Caption,
                  factor: float = 1,
                  max_length: int = 42) -> Caption:
     """
-    Takes the datastructure as input and outputs the same datastructure with
-    the changed weights according to a 42 character limit.
+    Adjusts the weights of words according to a character limit of either 84 or
+    42 characters. The words that needs adjusting are determined by the
+    function length().
+
+    Args:
+        data: With a character limit of 84 it takes the transcript subtitles
+            according to our custom Caption-list dataframe. With a 42 character
+            limit it takes a caption group according to our custom Caption-list
+            dataframe.
+        factor: Float indicating the importance of this split function.
+        max_length: Integer indicating the character limit. This is usually
+            84 or 42 characters.
+
+    Returns:
     """
     sentence = [word.text for word in data]
     splits = length(sentence, max_length=max_length)
