@@ -27,7 +27,7 @@ class Word:
         start: Begin time of the word in seconds.
         end: End time of the word in seconds.
         weight: How good a split after this word would be. How higher the
-            value, how better the split would be.
+            value, the better the split would be.
     """
     text: str
     start: float
