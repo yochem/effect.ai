@@ -39,7 +39,7 @@ class Word:
 class Punc(Word):
     """Python representation of punctuation from the ASR file.
 
-    Basic data of punctuation.
+    Basic data of a punctuation mark.
 
     Attributes:
         text: The punctuation character.
@@ -54,10 +54,10 @@ class ASR:
     """Automatic Speech Recognition class.
 
     This class helps working with ASR files. It provides an API for loading
-    these files and converting it to varias datastructures.
+    these files and converting it to various datastructures.
 
     Attributes:
-        data: all data from the ASR file loaded with the JSON module.
+        data: All data from the ASR file loaded with the JSON module.
     """
 
     def __init__(self, filename: str):
@@ -83,18 +83,21 @@ class ASR:
         """Return the full JSON file as python dictionary.
 
         Returns:
-            a dictionary containing the transcript and all words with times
+            A dictionary containing the transcript and all words with times
             and precision rates. For full overview of what this returns, see
             the contents of ../asr/sample01.asrOutput.json.
         """
         return self.data
 
     def groups(self) -> List[Union[Word, Punc]]:
-        """Convert the ASR to the following format to a list of Word and
-        Punc's.
+        """Convert the ASR to the following format to the Caption-list format:
+
+            [Word(text='An', start=0, end=1, weight=0),
+             Word(text='example', start=1, end=2, weight=0),
+             Punc(text='.', start=2, end=2, weight=0)]
 
         Returns:
-            A list of Word and Punc dataclasses with weights initialised at 0.
+            Caption-list with weights initialised at 0.
         """
         cap = []
 
