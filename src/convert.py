@@ -1,3 +1,10 @@
+"""
+The convert module.
+
+Module for converting the input data, consisting of words with time stamps, to caption groups.
+The error between the created output and the manual-subtitles can also be measured by basic_error.
+"""
+
 from typing import List, Union
 
 import srt
@@ -21,14 +28,13 @@ def basic_error(input_subs: List[srt.Subtitle],
     subtitles. When max_width is exceeded we penalise the captiongroup. In the
     end this function is intended to be maximalised.
 
-    takes:
-    input_subs: the generated subtitles as a srt parsed list
-    manual_subs: the man-made subtitles we considered to correct
-    max_width: how long a caption is allowed to be, default 42, 0 means no
-    restrictions
+    Args:
+    input_subs: the generated subtitles as a srt parsed list.
+    manual_subs: the man-made subtitles we considered to correct.
+    max_width: how long a caption is allowed to be, default 42, 0 means no restrictions.
 
-    outputs: amount of correctly created captiongroups, and amount of times
-    max_width was exceeded
+    Returns:
+    amount of correctly created captiongroups, and amount of times max_width was exceeded.
     """
     good = 0
     penalty = 0
@@ -47,6 +53,20 @@ def basic_error(input_subs: List[srt.Subtitle],
 
 def split_weights(subs: Caption, result: Groups = [],
                   max_chars: int = 84) -> Groups:
+    """
+    Function that splits the data based on the highest weights.
+    Recursively go trough the input data and split at the word after the highest weight.
+    For every caption group is checked if the caption group doesn't exceed the maximum characters.
+    If it doesn't exceed the maximum characters, append the caption group to the result list.
+
+    Args:
+    subs: The list of words with added weights.
+    result: Empty list for the caption groups.
+    max_chars: Maximal number of characters for one caption group, which is standard 84.
+
+    Returns:
+    List that contains the caption groups.
+    """
     if len(' '.join(x.text for x in subs)) <= max_chars:
         result.append(subs)
         return result
@@ -60,6 +80,18 @@ def split_weights(subs: Caption, result: Groups = [],
 
 
 def create_groups(subs: Caption) -> Groups:
+    """
+    Function that first adds the weights to the subtitles and then uses the split_weight function to create caption groups.
+    Adding weight is done by using the function for adding weight in weighting.py. They are listed in order of importance.
+    Now that the words have weights, the function split_weight can be used to create the groups.
+
+    Args:
+    subs: Input data without weighting.
+
+    Returns:
+    List that contains the caption groups.
+
+    """
     subs = weighting.speech_gaps(subs)
     subs = weighting.punctuation(subs)
     subs = weighting.pos_pron_verb(subs)
