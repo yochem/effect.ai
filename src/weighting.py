@@ -15,29 +15,37 @@ Caption = List[Union[asr.Word, asr.Punc]]
 
 @dataclass
 class Pos(asr.Word):
-    """
-    Creates new dataclass for words with start time, end time and POS tag.
+    """Part-Of-Speech-Tag dataclass.
+
+    Has same attributes as Word with additional POS-tag attribute.
+
+    Attributes:
+        text: See Word dataclass documentation
+        start: See Word dataclass documentation
+        end: See Word dataclass documentation.
+        weight: See Word dataclass documentation
+        tag: Part-Of-Speech tag assigned to a word.
+
     """
     tag: str
 
 
 def pos_tagger(words: Caption) -> List[Pos]:
-    """
-    Get POS-tag dataclass from a Word or Punc dataclass.
+    """Tagging Caption elements with Part-Of-Speech tags.
 
-    inputs:
-    List of Words or Puncs tuples of the form:
-        Word(<word>, <start time>, <end_time>) or
-        Punc(<word>, <start time>, <end_time>)
-        e.g: [Word(text="make", start_time=10.14, end_time=10.2, weight=1.0),
-        Punc(text=".", start_time=10.25, end_time=10.25, weight=1.0)]
+    Returns a universal POS-tagged list of the custom Caption-list dataformat
+    using the NLTK library function pos_tag().
 
-    outputs:
-    Pos-tuple with added POS-tag of the form:
-        Pos(<word>, <start time>, <end_time>)
-        e.g: [Pos(text="make", start_time=10.14, end_time=10.2, weight=1.0,
-        tag="VBD"), Pos(text=".", start_time=10.25, end_time=10.25,
-        weight=1.0, tag=".")]]
+    When tagging with the pos_tag() function, the optional parameter 'tagset'
+    is set to 'universal' to simplify tags.
+
+    See https://www.nltk.org/book/ch05.html for documentation.
+
+    Args:
+        words: The custom Caption-list dataformat.
+
+    Returns:
+        tagged_words: The Caption-list with added universal POS-tags.
     """
     tagged_words = []
     for word in words:
@@ -52,17 +60,24 @@ def pos_tagger(words: Caption) -> List[Pos]:
 
 def pos_pron_verb(words: Caption, factor: float = 1,
                   split_weight: float = 0.2) -> Caption:
-    """
-    Adjust weight of word where split is not recommended:
-        Avoid splitting between pronoun + verb
+    """Avoid splitting between pronoun + verb by adjusting weight.
 
-    see: https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
+    Returns the custom Caption-list dataformat with adjusted weights for the
+    elements in the Caption-list where split is not recommended according
+    to one of the BBC subtitle guidelines.
 
-    Input:
-    words: 1D list of Word tuples.
-    split-weight: float indicating the importance of not splitting on the word.
+    For documentation of the guidelines see:
+        https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
 
-    Output: 1D list of Word tuples with adjusted weights.
+    Args:
+        words: The custom POS-tagged Caption-list dataformat.
+        factor: Float indicating the importance of this split function.
+        split-weight:   Float indicating the importance of not splitting on the
+                        word.
+
+    Returns:
+        words:  The custom POS-tagged Caption-list dataformat with adjusted
+                weight-attribute.
     """
     tagged_words = pos_tagger(words)
 
@@ -78,17 +93,24 @@ def pos_pron_verb(words: Caption, factor: float = 1,
 
 def pos_det_noun(words: Caption, factor: float = 1,
                  split_weight: float = 0.3) -> Caption:
-    """
-    Adjust weight of word where split is not recommended:
-        Avoid splitting between determiner + noun
+    """Avoid splitting between determiner + noun by adjusting weight.
 
-    see: https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
+    Returns the custom Caption-list dataformat with adjusted weights for the
+    elements in the Caption-list where split is not recommended according
+    to one of the BBC subtitle guidelines.
 
-    Input:
-    words: 1D list of Word tuples.
-    split-weight: float indicating the importance of not splitting on the word.
+    For documentation of the guidelines see:
+        https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
 
-    Output: 1D list of Word tuples with adjusted weights.
+    Args:
+        words: The custom POS-tagged Caption-list dataformat.
+        factor: Float indicating the importance of this split function.
+        split-weight:   Float indicating the importance of not splitting on the
+                        word.
+
+    Returns:
+        words:  The custom POS-tagged Caption-list dataformat with adjusted
+                weight-attribute.
     """
     tagged_words = pos_tagger(words)
 
@@ -105,17 +127,23 @@ def pos_det_noun(words: Caption, factor: float = 1,
 def pos_prep_phrase(words: Caption,
                     factor: float = 1,
                     split_weight: float = 0.4) -> Caption:
-    """
-    Adjust weight of word where split is not recommended:
-        Avoid splitting between Preposition + following phrase
+    """Avoid splitting between preposition + following phrase.
 
-    see: https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
+    Returns the custom Caption-list dataformat with adjusted weights for the
+    elements in the Caption-list where split is not recommended according
+    to one of the BBC subtitle guidelines.
 
-    Input:
-    words: 1D list of Word tuples.
-    split-weight: float indicating the importance of not splitting on the word.
+    For documentation of the guidelines see:
+        https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
 
-    Output: 1D list of Word tuples with adjusted weights.
+    Args:
+        words: The custom POS-tagged Caption-list dataformat.
+        factor: Float indicating the importance of this split function.
+        split-weight:   Float indicating the importance of not splitting on the
+                        word.
+    Returns:
+        words:  The custom POS-tagged Caption-list dataformat with adjusted
+                weight-attribute.
     """
     tagged_words = pos_tagger(words)
 
@@ -155,17 +183,23 @@ def pos_prep_phrase(words: Caption,
 def pos_conj_phrase(words: Caption,
                     factor: float = 1,
                     split_weight: float = 0.3) -> Caption:
-    """
-    Adjust weight of word where split is not recommended:
-        Avoid splitting between conjunction + following phrase
+    """Avoid splitting between conjunction + following phrase.
 
-    see: https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
+    Returns the custom Caption-list dataformat with adjusted weights for the
+    elements in the Caption-list where split is not recommended according
+    to one of the BBC subtitle guidelines.
 
-    Input:
-    words: 1D list of Word tuples.
-    split-weight: float indicating the importance of not splitting on the word.
+    For documentation of the guidelines see:
+        https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
 
-    Output: 1D list of Word tuples with adjusted weights.
+    Args:
+        words: The custom POS-tagged Caption-list dataformat.
+        factor: Float indicating the importance of this split function.
+        split-weight: Float indicating the importance of not splitting on the word.
+
+    Returns:
+        words:  The custom POS-tagged Caption-list dataformat with adjusted
+                weight-attribute.
     """
     tagged_words = pos_tagger(words)
 
