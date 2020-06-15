@@ -29,12 +29,12 @@ def basic_error(input_subs: List[srt.Subtitle],
     end this function is intended to be maximalised.
 
     Args:
-    input_subs: the generated subtitles as a srt parsed list.
-    manual_subs: the man-made subtitles we considered to correct.
-    max_width: how long a caption is allowed to be, default 42, 0 means no restrictions.
+        input_subs: the generated subtitles as a srt parsed list.
+        manual_subs: the man-made subtitles we considered to correct.
+        max_width: how long a caption is allowed to be, default 42, 0 means no restrictions.
 
     Returns:
-    amount of correctly created captiongroups, and amount of times max_width was exceeded.
+        amount of correctly created captiongroups, and amount of times max_width was exceeded.
     """
     good = 0
     penalty = 0
@@ -60,12 +60,12 @@ def split_weights(subs: Caption, result: Groups = [],
     If it doesn't exceed the maximum characters, append the caption group to the result list.
 
     Args:
-    subs: The list of words with added weights.
-    result: Empty list for the caption groups.
-    max_chars: Maximal number of characters for one caption group, which is standard 84.
+        subs: The list of words with added weights.
+        result: Empty list for the caption groups.
+        max_chars: Maximal number of characters for one caption group, which is standard 84.
 
     Returns:
-    List that contains the caption groups.
+        List that contains the caption groups.
     """
     if len(' '.join(x.text for x in subs)) <= max_chars:
         result.append(subs)
@@ -86,10 +86,10 @@ def create_groups(subs: Caption) -> Groups:
     Now that the words have weights, the function split_weight can be used to create the groups.
 
     Args:
-    subs: Input data without weighting.
+        subs: Input data without weighting.
 
     Returns:
-    List that contains the caption groups.
+        List that contains the caption groups.
 
     """
     subs = weighting.speech_gaps(subs)
