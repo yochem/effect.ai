@@ -1,6 +1,5 @@
 """
-Functions to convert our dataformat (Caption) to various formats used by the
-srt package.
+Module to convert our Caption dataformat to various srt package formats.
 """
 from datetime import timedelta
 import re
@@ -11,15 +10,23 @@ import srt
 import asr
 
 
-# Type alias
-Caption = List[List[Union[asr.Word, asr.Punc]]]
+# Type aliases
+Caption = List[Union[asr.Word, asr.Punc]]
+Groups = List[Caption]
 
 
-def create_subtitles(caption: Caption) -> List[srt.Subtitle]:
+def create_subtitles(caption: Groups) -> List[srt.Subtitle]:
     """
     A srt.Subtitle instance is made for every caption group, with the start
-    time from the first element in the capture group and the end time of the
-    last element in the capture group.
+    time from the first element in the caption group and the end time of the
+    last element in the caption group.
+
+    Args:
+        caption: The caption groups, consists of a list of our custom
+        Caption-list dataformats.
+
+    Returns:
+        List of srt.Subtitle instances, created from the caption groups.
     """
     punc = re.compile(r' ([,.?!])')
 
@@ -39,15 +46,32 @@ def create_subtitles(caption: Caption) -> List[srt.Subtitle]:
     return subtitles
 
 
-def compose(caption: Caption) -> str:
-    """Convert subtitles to the content of a srt file as a string."""
+def compose(caption: Groups) -> str:
+    """Convert caption groups to the content of a srt file as a string.
+
+    Args:
+        caption: The caption groups, consists of a list of our custom
+        Caption-list dataformats.
+
+    Returns:
+        A formatted srt file as a string.
+    """
     return srt.compose(create_subtitles(caption))
 
 
-def write(caption: Caption, filename: str) -> None:
+def write(caption: Groups, filename: str) -> None:
     """
-    Compose the caption using the function above and write to file with given
-    filename.
+    Writes a srt file from the caption groups using the srt.compose() function.
+    Writes to a file with the given filename.
+
+    Args:
+        caption: The caption groups, consists of a list of our custom
+        Caption-list dataformats.
+        filename: name of the file to write the srt file to. Filename is
+        recommended to end with '.srt'
+
+    Returns:
+        None, writes a file instead.
     """
     composed = srt.compose(create_subtitles(caption))
 
