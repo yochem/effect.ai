@@ -1,5 +1,5 @@
 .. effect.ai documentation master file, created by
-   sphinx-quickstart on Tue Jun 16 13:37:46 2020.
+   sphinx-quickstart on Tue Jun 16 14:16:35 2020.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 

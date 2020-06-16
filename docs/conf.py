@@ -18,8 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'effect.ai'
-copyright = '2020, Yochem van Rosmalen, Lysa Ngouateu, Bas de Boer, Florian van der Steen, Anne Kaal'
-author = 'Yochem van Rosmalen, Lysa Ngouateu, Bas de Boer, Florian van der Steen, Anne Kaal'
+copyright = '2020, Anne Kaal, Bas de Boer, Florian van der Steen, Lysa Ngouateu, Yochem van Rosmalen'
+author = 'Anne Kaal, Bas de Boer, Florian van der Steen, Lysa Ngouateu, Yochem van Rosmalen'
 
 
 # -- General configuration ---------------------------------------------------
