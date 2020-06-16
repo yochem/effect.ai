@@ -47,7 +47,8 @@ def create_subtitles(caption: Groups) -> List[srt.Subtitle]:
 
 
 def compose(caption: Groups) -> str:
-    """Convert caption groups to the content of a srt file as a string.
+    """
+    Convert caption groups to the content of a srt file as a string.
 
     Args:
         caption: The caption groups, consists of a list of our custom

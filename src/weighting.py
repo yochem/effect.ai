@@ -302,8 +302,7 @@ def length(data: List[str],
 
     Args:
         data: A list containing multiple strings
-        max_length: Indicating the character limit. This is usually 84 or 42
-            characters.
+        max_length: A character limit of 84 or 42 characters
         splits: At first an empty list that would be filled recursively with
             multiple lists with each containing multiple strings
 
@@ -337,8 +336,7 @@ def split_length(data: Caption,
             character limit it takes a caption group according to our custom
             Caption-list datastructure.
         factor: Indicating the importance of this split function.
-        max_length: Integer indicating the character limit. This is usually 84
-            or 42 characters.
+        max_length: A character limit of 84 or 42 characters.
 
     Returns:
         The Caption-list datastructure with adjusted weights.
