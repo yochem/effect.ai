@@ -10,9 +10,9 @@ from typing import List, Union
 
 import srt
 
-import asr
-import caption
-import weighting
+from . import asr
+from . import caption
+from . import weighting
 
 
 Caption = List[Union[asr.Word, asr.Punc]]

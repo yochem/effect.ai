@@ -7,7 +7,7 @@ from typing import List, Union
 
 import srt
 
-import asr
+from . import asr
 
 
 # Type aliases

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-src_files="$(dirname $(realpath $0))"/src
+src_files="$(dirname $(realpath $0))"/cap
 
 red_echo() {
     echo

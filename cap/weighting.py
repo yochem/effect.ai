@@ -7,7 +7,7 @@ from typing import List, Union, Sequence
 
 import nltk
 
-import asr
+from . import asr
 
 
 Caption = List[Union[asr.Word, asr.Punc]]
