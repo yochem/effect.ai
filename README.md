@@ -1,55 +1,67 @@
-# effect.ai - AI powered subtitling
-> This project converts a JSON speech-to-text file to a fully functional SRT
+# `effect.ai` - AI powered subtitling
+
+This project converts a JSON speech-to-text file to a fully functional SRT
 subtitle file. This SRT file consists of caption groups with if needed, line
-breaks according to the subtitle guidelines of the BBC.
+breaks according to the [subtitle guidelines of the
+BBC](https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points).
 
-> https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
 
-
----
-
-## Table of Contents (Optional)
-
-> If your `README` has a lot of info, section headers might be nice.
-
+## Table of Contents
+- [Features](#features)
 - [Badges](#badges)
 - [Preview](#preview)
 - [Installation](#installation)
+- [How to run](#how_to_run)
 - [Overview functionality](#overview_functionality)
 - [Support](#support)
 
----
+## Features
+This project mainly generates proper formatted caption groups given a transcript
+with word-timing. It implements the following rules from the BBC guide mentioned
+above:
 
-### Badges
-![Issues](https://img.shields.io/bitbucket/issues-raw/yochem/effect.ai?style=for-the-badge)     ![Last Commit](https://img.shields.io/github/last-commit/yochem/effect.ai?style=for-the-badge)  ![Licence](https://img.shields.io/github/license/yochem/effect.ai?style=for-the-badge)
+- Part-Of-Speech tags
+- Punctuation
+- Gaps in speech
+- Character limit (< 84)
+- Line limit (< 42)
+- And more to come!
 
----
 
-### Preview
+## Badges
+![Issues](https://img.shields.io/github/issues-raw/yochem/effect.ai?style=for-the-badge)
+![Last Commit](https://img.shields.io/github/last-commit/yochem/effect.ai?style=for-the-badge)
+![Licence](https://img.shields.io/github/license/yochem/effect.ai?style=for-the-badge)
+
+## Preview
 <INSERT VIDEO WITH SUBTITLES>
 
----
-
-### Installation
-#### Clone
-- Clone this repo to your local machine using 'git@github.com:yochem/effect.ai.git'
-
-#### Setup
-Update and install the following packages:
-> SRT
+## Installation
+1. [Clone](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) this repository.
+2. Install requirements:
 ```shell
-$ pip3 install srt
+$ pip3 install -r requirements.txt
 ```
 
-> NLTK
+## How to run
+In your shell, run the following:
 ```shell
-$ pip3 install nltk
+$ python3 src/convert.py
 ```
 
----
+And from Python:
+```python
+# TODO
+```
 
-### Overview functionality
+## Development
+We use [pylint](pylint.org), [autopep8](pypi.org/project/autopep8/),
+[mypy](mypy-lang.org/) and [darglint](github.com/terrencepreilly/darglint) for
+linting. These can be run using the [check.sh](check.sh) script. Please make
+sure [editorconfig](editorconfig.org/) is installed in your editor of choice.
 
+
+The project structure is the folowing:
 ```
 .
 ├── asr.py
@@ -80,11 +92,4 @@ $ pip3 install nltk
 |   └── split_length(): Adds weights according to length()
 ```
 
----
-
 ## Support
-
-Reach out to us at one of the following places!
-<ff mailtj>
-
--
