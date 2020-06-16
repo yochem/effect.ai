@@ -1,4 +1,4 @@
-# `effect.ai` - AI powered subtitling
+# cap - AI powered subtitling
 
 This project converts a JSON speech-to-text file to a fully functional SRT
 subtitle file. This SRT file consists of caption groups with if needed, line
@@ -42,32 +42,40 @@ guide mentioned above:
 
 ## Installation
 1. [Clone](https://bit.ly/2BcAdRs) this repository.
-2. Install requirements:
+2. Install requirements (GNU Make is needed)
+
 ```shell
-$ pip3 install -r requirements.txt
+$ make install
 ```
 
 ## How to run
 
 In your shell, run the following:
+
 ```shell
 $ python3 src/convert.py
 ```
 
 And from Python:
+
 ```python
 # TODO
 ```
 
 ## Development
 
-We use [pylint](pylint.org), [autopep8](pypi.org/project/autopep8/),
-[mypy](mypy-lang.org/) and [darglint](github.com/terrencepreilly/darglint) for
-linting. These can be run using the [check.sh](check.sh) script. Please make
-sure [editorconfig](editorconfig.org/) is installed in your editor of choice.
+To install the needed packages for development, run this:
 
+```shell
+$ make development
+```
 
-The project structure is the folowing:
+Also make sure [editorconfig](editorconfig.org/) is installed in your editor
+of choice.
+
+When pushing code, first run `$ make check` to lint your code. The project
+structure is the folowing:
+
 ```
 .
 ├── asr.py
