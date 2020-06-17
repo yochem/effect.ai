@@ -49,7 +49,7 @@ def basic_error(input_subs: List[srt.Subtitle],
         amount_input += 1
     for sub in zip(manual_subs):
         amount_manual += 1
-    amount_difference = amount_input - amount_manual
+    amount_difference = abs(amount_input - amount_manual)
 
     for i, (sub1, next_sub1) in enumerate(zip(input_subs, input_subs[1:])):
         for sub2, next_sub2 in zip(manual_subs[i:], manual_subs[i+1:]):
