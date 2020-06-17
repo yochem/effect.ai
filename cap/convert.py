@@ -26,8 +26,9 @@ def basic_error(input_subs: List[srt.Subtitle],
     Takes the generated subtitles and the manual subtitles and compares
     them. A caption group is considered to be correct if the last word of the
     caption group and the first word of the next are the same as in the manual
-    subtitles. When max_width is exceeded we penalise the captiongroup. In the
-    end this function is intended to be maximalised.
+    subtitles. When max_width is exceeded we penalise the captiongroup.
+    When there is a difference in the amount of caption groups, this is also a penalty.
+    In the end this function is intended to be maximalised.
 
     Args:
         input_subs: The generated subtitles as a srt parsed list.
@@ -36,11 +37,20 @@ def basic_error(input_subs: List[srt.Subtitle],
             restrictions.
 
     Returns:
-        Amount of correctly created caption groups, and amount of times
-        max_width was exceeded.
+        Amount of correctly created caption groups minus amount of times
+        max_width was exceeded minus the difference in the amount of caption groups.
     """
     good = 0
     penalty = 0
+    amount_input = 0
+    amount_manual = 0
+
+    for sub in zip(input_subs):
+        amount_input += 1
+    for sub in zip(manual_subs):
+        amount_manual += 1
+    amount_difference = amount_input - amount_manual
+
     for i, (sub1, next_sub1) in enumerate(zip(input_subs, input_subs[1:])):
         for sub2, next_sub2 in zip(manual_subs[i:], manual_subs[i+1:]):
             if sub1.content.split()[-1] == sub2.content.split()[-1] and \
@@ -50,8 +60,7 @@ def basic_error(input_subs: List[srt.Subtitle],
 
         if max_width and len(sub1.content) > max_width:
             penalty += 1
-
-    return -(good - penalty)
+    return -(good - penalty - amount_difference*0.4)
 
 
 def split_weights(subs: Caption, result: Groups = [],
