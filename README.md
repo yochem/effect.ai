@@ -1,4 +1,4 @@
-# cap - AI powered subtitling
+# SubtAI - AI powered subtitling
 
 This project converts a JSON speech-to-text file to a fully functional SRT
 subtitle file. This SRT file consists of caption groups with if needed, line
