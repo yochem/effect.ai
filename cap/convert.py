@@ -11,7 +11,6 @@ from typing import List, Union
 import srt
 
 from . import asr
-from . import caption
 from . import weighting
 
 
@@ -105,10 +104,4 @@ def create_groups(subs: Caption) -> Groups:
     subs = weighting.pos_prep_phrase(subs)
     subs = weighting.pos_conj_phrase(subs)
 
-    return split_weights(subs)
-
-
-if __name__ == '__main__':
-    DATA = asr.ASR('../asr/sample01.asrOutput.json').groups()
-    GROUPS = create_groups(DATA)
-    caption.write(GROUPS, 'videos/sample01.srt')
+    return weighting.line_breaks(split_weights(subs))

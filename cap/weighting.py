@@ -4,6 +4,7 @@ functions accept a List of Word or Punc classes and return the same type.
 """
 from dataclasses import dataclass
 from typing import List, Union, Sequence
+import math
 
 import nltk
 
@@ -352,3 +353,64 @@ def split_length(data: Caption,
         data[number-2].weight += 0.25 * factor
 
     return data
+
+
+def _abs_linspace(start: int, stop: int, step: int) -> List[float]:
+    """Simple version of np.abs(np.linspace())."""
+    if step == 1:
+        return [start]
+
+    return [abs(start + x * (stop-start)/(step - 1)) for x in range(step)]
+
+
+def line_breaks(groups: List[Caption], factor: float = 1,
+                bound: int = 42) -> List[Caption]:
+    r"""Add line breaks to caption groups.
+
+    This function appends the string '\n' to the word in the middle of the
+    caption group with the highest weight, if the caption is longer than
+    <bound> characters (usually 42).
+
+    First, a list of split options is created. This makes sure both lines are
+    shorter than <bound> characters. Then it add weights to these split options
+    using numpy's linspace over a parabola with roots at the number of split
+    options: \(\frac{-1}{l^2}\cdot x^2 + 1\).
+
+    Args:
+        groups: The caption groups, consists of a list of our custom
+            Caption-list dataformats.
+        factor: Giving extra (or less) weight to the function's weights.
+        bound: the maximal length of a line.
+
+    Returns:
+        The caption groups, consists of a list of our custom Caption-list
+        dataformats.
+    """
+    f = lambda x, h: -1 / (h**2) * x**2 + 1
+    line_in_bound = lambda s: len(' '.join(x.text for x in s)) <= bound
+
+    for group in groups:
+        # don't split small caption groups
+        if len(group) < bound:
+            continue
+
+        goods = []
+
+        for i, _ in enumerate(group):
+            if line_in_bound(group[:i]) and line_in_bound(group[i:]):
+                goods.append(group[i-1])
+
+        if len(goods) == 0:
+            print('ERROR: no split found in:', ' '.join(x.text for x in group))
+            continue
+
+        half = math.ceil(len(goods) / 2)
+        weights = _abs_linspace(-half, half, len(goods) + 2)[1:-1]
+
+        for word, weight in zip(goods, weights):
+            word.weight += f(weight, half) * factor
+
+        split = max(goods, key=lambda t: t.weight)
+        split.text += '\n'
+
+    return groups
