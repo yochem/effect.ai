@@ -29,6 +29,7 @@ def create_subtitles(caption: Groups) -> List[srt.Subtitle]:
         List of srt.Subtitle instances, created from the caption groups.
     """
     punc = re.compile(r' ([,.?!])')
+    nl = re.compile(r'\n ')
 
     subtitles = []
     for i, group in enumerate(caption):
@@ -36,6 +37,7 @@ def create_subtitles(caption: Groups) -> List[srt.Subtitle]:
 
         # strip spaces in front of punctuation
         text = punc.sub(r'\g<1>', text)
+        text = nl.sub(r'\n', text)
 
         start = group[0].start
         end = group[-1].end

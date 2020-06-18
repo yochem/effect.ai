@@ -391,7 +391,7 @@ def line_breaks(groups: List[Caption], factor: float = 1,
 
     for group in groups:
         # don't split small caption groups
-        if len(group) < bound:
+        if len(' '.join(w.text for w in group)) < bound:
             continue
 
         goods = []
