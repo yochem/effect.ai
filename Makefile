@@ -4,7 +4,7 @@ check:
 	darglint -z short -m "{path}:{line}: {msg}" -v 2 cap/
 
 doc:
-	pdoc3 --html cap/ -o docs/ --force
+	pdoc3 --config latex_math=True --html cap/ -o docs/ --force
 
 install:
 	pip3 install -r requirements.txt

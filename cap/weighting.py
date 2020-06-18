@@ -374,7 +374,7 @@ def line_breaks(groups: List[Caption], factor: float = 1,
     First, a list of split options is created. This makes sure both lines are
     shorter than <bound> characters. Then it add weights to these split options
     using numpy's linspace over a parabola with roots at the number of split
-    options: \(\frac{-1}{l^2}\cdot x^2 + 1\).
+    options: \(-\frac{1}{h^2}x^2 + 1\).
 
     Args:
         groups: The caption groups, consists of a list of our custom
