@@ -56,9 +56,9 @@ guide mentioned above:</p>
 <h2 id="installation">Installation</h2>
 <ol>
 <li><a href="https://bit.ly/2BcAdRs">Clone</a> this repository.</li>
-<li>Install requirements (GNU Make is needed)</li>
+<li>Install the package:</li>
 </ol>
-<pre><code class="shell">$ make install
+<pre><code class="shell">$ pip3 install -e .
 </code></pre>
 <h2 id="how-to-use">How to use</h2>
 <p>In your shell, run the following:</p>
@@ -75,7 +75,7 @@ with open('srt-file.srt', 'w') as f:
 </code></pre>
 <h2 id="development">Development</h2>
 <p>To install the needed packages for development, run this:</p>
-<pre><code class="shell">$ make development
+<pre><code class="shell">$ pip3 install -e .[dev]
 </code></pre>
 <p>Also make sure <a href="editorconfig.org/">editorconfig</a> is installed in your editor
 of choice.</p>
@@ -127,7 +127,7 @@ def group(asr_file: str) -&gt; str:
 </dd>
 <dt><code class="name"><a title="cap.cli" href="cli.html">cap.cli</a></code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>The command line interface for this module …</p></div>
 </dd>
 <dt><code class="name"><a title="cap.convert" href="convert.html">cap.convert</a></code></dt>
 <dd>

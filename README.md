@@ -45,8 +45,7 @@ guide mentioned above:
 2. Install the package:
 
 ```shell
-$ python3 setup.py install
-$ pip3 install .
+$ pip3 install -e .
 ```
 
 
@@ -77,7 +76,7 @@ with open('srt-file.srt', 'w') as f:
 To install the needed packages for development, run this:
 
 ```shell
-$ make development
+$ pip3 install -e .[dev]
 ```
 
 Also make sure [editorconfig](editorconfig.org/) is installed in your editor

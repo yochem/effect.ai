@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
 <title>cap.cli API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="The command line interface for this module …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -21,11 +21,19 @@
 <h1 class="title">Module <code>cap.cli</code></h1>
 </header>
 <section id="section-intro">
+<p>The command line interface for this module.</p>
+<p>This file contains functions which are used by the command line interface. It
+is used by the 'special' file <strong>main</strong>.py.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">import argparse
+<pre><code class="python">&#34;&#34;&#34;The command line interface for this module.
+
+This file contains functions which are used by the command line interface. It
+is used by the &#39;special&#39; file __main__.py.
+&#34;&#34;&#34;
+import argparse
 import json
 import os
 import sys
@@ -69,7 +77,17 @@ def cli(args: argparse.Namespace) -&gt; None:
     name, _ = os.path.splitext(args.file)
     out_file = args.output or name + &#39;.srt&#39;
 
-    caption.write(groups, out_file)</code></pre>
+    caption.write(groups, out_file)
+
+
+def parse_args() -&gt; None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(&#39;-o&#39;, &#39;--output&#39;, help=&#39;Name of the srt file&#39;)
+    parser.add_argument(&#39;file&#39;, help=&#39;The ASR file to extract data from&#39;)
+    parser.add_argument(&#39;-v&#39;, &#39;--verbose&#39;, action=&#39;store_true&#39;,
+                        help=&#39;Show traceback if error occurs&#39;)
+
+    cli(parser.parse_args())</code></pre>
 </details>
 </section>
 <section>
@@ -143,6 +161,25 @@ SRT file using the write() function from the caption module.</p>
     sys.exit(1)</code></pre>
 </details>
 </dd>
+<dt id="cap.cli.parse_args"><code class="name flex">
+<span>def <span class="ident">parse_args</span></span>(<span>) -> NoneType</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def parse_args() -&gt; None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(&#39;-o&#39;, &#39;--output&#39;, help=&#39;Name of the srt file&#39;)
+    parser.add_argument(&#39;file&#39;, help=&#39;The ASR file to extract data from&#39;)
+    parser.add_argument(&#39;-v&#39;, &#39;--verbose&#39;, action=&#39;store_true&#39;,
+                        help=&#39;Show traceback if error occurs&#39;)
+
+    cli(parser.parse_args())</code></pre>
+</details>
+</dd>
 </dl>
 </section>
 <section>
@@ -163,6 +200,7 @@ SRT file using the write() function from the caption module.</p>
 <ul class="">
 <li><code><a title="cap.cli.cli" href="#cap.cli.cli">cli</a></code></li>
 <li><code><a title="cap.cli.err_print" href="#cap.cli.err_print">err_print</a></code></li>
+<li><code><a title="cap.cli.parse_args" href="#cap.cli.parse_args">parse_args</a></code></li>
 </ul>
 </li>
 </ul>

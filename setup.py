@@ -20,6 +20,18 @@ setuptools.setup(
             'cap = cap.cli:parse_args'
         ],
     },
+    install_requires=[
+        'srt',
+        'nltk'
+    ],
+    extras_require={
+        'dev': [
+            'pylint',
+            'mypy',
+            'darglint',
+            'pdoc3'
+        ]
+    },
     classifiers=[
         'Programming Language :: Python :: 3',
         'Operating System :: OS Independent'
