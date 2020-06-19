@@ -239,6 +239,40 @@ def pos_conj_phrase(words: Caption,
     return words
 
 
+def complex_verbs(words: Caption, factor: float = 1,
+                  split_weight: float = 0.3) -> Caption:
+    """Avoid splitting between complex verbs # BUG: y adjusting weight.
+
+    Returns the custom Caption-list dataformat with adjusted weights for the
+    elements in the Caption-list where split is not recommended according to
+    one of the BBC subtitle guidelines.
+
+    For documentation of the guidelines see:
+        https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
+
+    Args:
+        words: The custom POS-tagged Caption-list dataformat.
+        factor: Indicating the importance of this split function.
+        split_weight: Indicating the importance of not splitting on the
+            word.
+
+    Returns:
+        The custom POS-tagged Caption-list dataformat with adjusted weight
+        attribute.
+    """
+    tagged_words = pos_tagger(words)
+
+    for index, word in enumerate(tagged_words[:-1]):
+        next_word = tagged_words[index+1]
+        words[index].weight += 1
+
+        if word.tag == 'VERB' and next_word.tag == 'VERB':
+            words[index].weight -= split_weight * (1 / factor)
+
+    return words
+
+
+
 def speech_gaps(data: Caption, threshold: float = 1.5) -> Caption:
     """Add weight to words with a speech gap after them.
 
