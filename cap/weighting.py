@@ -380,7 +380,7 @@ def line_breaks(groups: List[Caption], factor: float = 1,
         groups: The caption groups, consists of a list of our custom
             Caption-list dataformats.
         factor: Giving extra (or less) weight to the function's weights.
-        bound: the maximal length of a line.
+        bound: The maximal length of a line.
 
     Returns:
         The caption groups, consists of a list of our custom Caption-list
