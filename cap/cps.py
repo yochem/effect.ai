@@ -108,7 +108,5 @@ def wps(data):
         if check == -1:
             data[-1].end -= 0.04
             data[0].start += 0.01
-        elif check == 1:
-            pass
         check = check_wps(data)
     return data
