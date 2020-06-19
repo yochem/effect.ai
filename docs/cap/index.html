@@ -12,6 +12,7 @@
 <style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
 <style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_CHTML'></script>
 </head>
 <body>
 <main>
@@ -52,7 +53,6 @@ guide mentioned above:</p>
 <img alt="Last Commit" src="https://img.shields.io/github/last-commit/yochem/effect.ai?style=for-the-badge">
 <img alt="Licence" src="https://img.shields.io/github/license/yochem/effect.ai?style=for-the-badge"></p>
 <h2 id="preview">Preview</h2>
-<p><INSERT VIDEO WITH SUBTITLES></p>
 <h2 id="installation">Installation</h2>
 <ol>
 <li><a href="https://bit.ly/2BcAdRs">Clone</a> this repository.</li>
@@ -60,12 +60,18 @@ guide mentioned above:</p>
 </ol>
 <pre><code class="shell">$ make install
 </code></pre>
-<h2 id="how-to-run">How to run</h2>
+<h2 id="how-to-use">How to use</h2>
 <p>In your shell, run the following:</p>
-<pre><code class="shell">$ python3 src/convert.py
+<pre><code class="shell">$ cap &lt;asr-file&gt; --output &lt;srt-file&gt;
 </code></pre>
-<p>And from Python:</p>
-<pre><code class="python"># TODO
+<p>For more options, run <code>$ cap -h</code>.</p>
+<p>Or use this module in Python:</p>
+<pre><code class="python">import cap
+
+subs = cap.group('asr-file.json')
+
+with open('srt-file.srt', 'w') as f:
+    f.write(subs)
 </code></pre>
 <h2 id="development">Development</h2>
 <p>To install the needed packages for development, run this:</p>
@@ -73,38 +79,8 @@ guide mentioned above:</p>
 </code></pre>
 <p>Also make sure <a href="editorconfig.org/">editorconfig</a> is installed in your editor
 of choice.</p>
-<p>When pushing code, first run <code>$ make check</code> to lint your code. The project
-structure is the folowing:</p>
-<pre><code>.
-├── asr.py
-│   ├── Word(): Word with start time, end time and weight
-│   ├── Punc(): Punctuation with start and end time being end time of
-│   │           prev word plus weight
-│   └── ASR(): Class for loading in an ASR file
-│       ├── transcript(): Return the transcript as one big string.
-│       ├── json(): Return the full JSON file as python dictionary.
-│       └── groups(): Convert the ASR to the following format
-├── caption.py
-|   ├── create_subtitles(): Creates a start time and end time for each
-│   │                       caption group
-│   ├── compose(): Compose a SRT string from captions
-│   └── write(): Compose SRT string and write to file
-├── convert.py
-│   ├── basic_error(): Compares generated subs with manual subs
-|   ├── split_weights(): Creates caption groups by splitting the highest weight
-|   └── create_groups(): Adds weights and lists order of importance of POS
-└── weighting.py
-    ├── Pos(): Word with start time, end time, weight and POS-tag
-    ├── pos_tag(): Adds POS-tag
-    ├── pos_pron_verb(): Lowers weight between pronoun+verb
-    ├── pos_det_noun(): Lowers weight between determiner+noun  
-    ├── pos_prep_phrase(): Lowers weight between prepostion+following phrase
-    ├── pos_conj_phrase(): Lowers weight between conjunction+following phrase
-    ├── speech_gaps(): Adds weight to word before speech gaps
-    ├── punctuation(): Adds weight to punctuation
-    ├── length(): Returns list of possible splits
-    └── split_length(): Adds weights according to length()
-</code></pre>
+<p>When pushing code, first run <code>$ make check</code> to lint your code and <code># make doc</code>
+to create the docs.</p>
 <h2 id="support">Support</h2>
 <p>Found a bug? Please report it using Github
 <a href="https://github.com/yochem/effect.ai/issues">issues</a>!</p>
@@ -115,10 +91,27 @@ structure is the folowing:</p>
 <pre><code class="python">&#34;&#34;&#34;
 .. include:: ../README.md
 &#34;&#34;&#34;
+
+
 from . import asr
 from . import caption
 from . import convert
-from . import weighting</code></pre>
+from . import weighting
+
+
+def group(asr_file: str) -&gt; str:
+    &#34;&#34;&#34;Convert ASR to SRT file with well formatted caption groups.
+
+    Args:
+        asr_file: Filename of the ASR file.
+
+    Returns:
+        The content of a srt file as string, which can be written to a srt
+        file.
+    &#34;&#34;&#34;
+    data = asr.ASR(asr_file).groups()
+    groups = convert.create_groups(data)
+    return caption.compose(groups)</code></pre>
 </details>
 </section>
 <section>
@@ -146,6 +139,44 @@ functions accept a List of Word or Punc classes and return the same type.</p></d
 <section>
 </section>
 <section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="cap.group"><code class="name flex">
+<span>def <span class="ident">group</span></span>(<span>asr_file: str) -> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert ASR to SRT file with well formatted caption groups.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>asr_file</code></strong></dt>
+<dd>Filename of the ASR file.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>The content</code> of <code>a srt file as string, which can be written to a srt</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<p>file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def group(asr_file: str) -&gt; str:
+    &#34;&#34;&#34;Convert ASR to SRT file with well formatted caption groups.
+
+    Args:
+        asr_file: Filename of the ASR file.
+
+    Returns:
+        The content of a srt file as string, which can be written to a srt
+        file.
+    &#34;&#34;&#34;
+    data = asr.ASR(asr_file).groups()
+    groups = convert.create_groups(data)
+    return caption.compose(groups)</code></pre>
+</details>
+</dd>
+</dl>
 </section>
 <section>
 </section>
@@ -160,7 +191,7 @@ functions accept a List of Word or Punc classes and return the same type.</p></d
 <li><a href="#badges">Badges</a></li>
 <li><a href="#preview">Preview</a></li>
 <li><a href="#installation">Installation</a></li>
-<li><a href="#how-to-run">How to run</a></li>
+<li><a href="#how-to-use">How to use</a></li>
 <li><a href="#development">Development</a></li>
 <li><a href="#support">Support</a></li>
 </ul>
@@ -174,6 +205,11 @@ functions accept a List of Word or Punc classes and return the same type.</p></d
 <li><code><a title="cap.caption" href="caption.html">cap.caption</a></code></li>
 <li><code><a title="cap.convert" href="convert.html">cap.convert</a></code></li>
 <li><code><a title="cap.weighting" href="weighting.html">cap.weighting</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="cap.group" href="#cap.group">group</a></code></li>
 </ul>
 </li>
 </ul>
