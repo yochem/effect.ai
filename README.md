@@ -45,7 +45,7 @@ guide mentioned above:
 2. Install the package:
 
 ```shell
-$ pip3 install -e .
+$ pip3 install -e cap
 ```
 
 
@@ -76,7 +76,7 @@ with open('srt-file.srt', 'w') as f:
 To install the needed packages for development, run this:
 
 ```shell
-$ pip3 install -e .[dev]
+$ pip3 install -e cap[dev]
 ```
 
 Also make sure [editorconfig](editorconfig.org/) is installed in your editor
