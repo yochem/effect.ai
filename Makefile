@@ -1,11 +1,10 @@
 check:
-	autopep8 --diff cap/*.py
 	pylint -d C0103,C0114,C0115,C0116,W0102 --exit-zero cap/
 	mypy --disallow-untyped-defs --disallow-incomplete-defs cap/
-	darglint -m "{path}:{line}: {msg}" -v 2 cap/
+	darglint -z short -m "{path}:{line}: {msg}" -v 2 cap/
 
 doc:
-	pdoc3 --html cap/ -o docs/ --force
+	pdoc3 --config latex_math=True --html cap/ -o docs/ --force
 
 install:
 	pip3 install -r requirements.txt
