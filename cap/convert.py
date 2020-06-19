@@ -19,6 +19,87 @@ Caption = List[Union[asr.Word, asr.Punc]]
 Groups = List[Caption]
 
 
+def check_cps(data: Caption,
+              max_cps: float = 15,
+              deviation: float = 1.5) -> int:
+    """
+    Checks if the caption group follows the rule of around 15 characters per
+    second.
+
+    Args:
+        data: Caption group according to our custom Caption-list datastructure.
+        max_cps: Indicates the optimal characters per second, which is 15.
+        deviation: Indicates how much it can deviate from the optimal 15
+            characters per second.
+
+    Returns:
+        1 if the characters per second is too high.
+        0 if the characters per second is just right.
+        -1 if the characters per second is too low.
+    """
+    tot_time = data[-1].end - data[0].start
+    characters = len(' '.join(word.text for word in data))
+    cur_cps = characters / tot_time
+
+    if cur_cps > max_cps + deviation:
+        return 1
+
+    elif cur_cps < max_cps - deviation:
+        return -1
+
+    else:
+        return 0
+
+
+def cps(data: Groups, threshold: float = 0.75) -> Groups:
+    """
+    Adjusts the time of the caption group so the subtitles stay shorter or
+    longer on the screen. It adjusts it according to the 15 characters per
+    second limit.
+
+    Args:
+        data: Caption group according to our custom Caption-list datastructure.
+
+    Returns:
+        The data with changed a changed start time for the first word of the
+        caption group and a changed end time for the last word of the caption
+        group
+    """
+    max_it = int((threshold / 0.05) - 1)
+    for i, group in enumerate(data):
+
+        it = 0
+        check = check_cps(group)
+
+        while check != 0:
+            if check == -1:
+                group[-1].end -= 0.035
+                group[0].start += 0.015
+
+                if it == max_it:
+                    check = 0
+                else:
+                    check = check_cps(group)
+
+                it += 1
+
+            elif check == 1:
+                if data[i+1][0].start - group[-1].end > threshold:
+                    group[-1].end += 0.05
+
+                    if it == max_it:
+                        check = 0
+                    else:
+                        check = check_cps(group)
+
+                    it += 1
+
+                else:
+                    check = 0
+
+    return data
+
+
 def basic_error(input_subs: List[srt.Subtitle],
                 manual_subs: List[srt.Subtitle],
                 max_width: int = 42) -> int:
@@ -105,7 +186,9 @@ def create_groups(subs: Caption) -> Groups:
     subs = weighting.pos_prep_phrase(subs)
     subs = weighting.pos_conj_phrase(subs)
 
-    return split_weights(subs)
+    groups = split_weights(subs)
+
+    return cps(groups)
 
 
 if __name__ == '__main__':
