@@ -88,5 +88,5 @@ to create the docs.
 
 ## Support
 
-Found a bug? Please report it using Github
+Found a bug? Got a question? Please report it using Github
 [issues](https://github.com/yochem/effect.ai/issues)!
