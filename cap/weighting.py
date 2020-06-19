@@ -1,6 +1,7 @@
 """
-This module provides functions to add weights to words in a caption. All
-functions accept a List of Word or Punc classes and return the same type.
+This module provides functions to add weights to words in a caption.
+
+All functions accept a List of Word or Punc classes and return the same type.
 """
 from dataclasses import dataclass
 from typing import List, Union, Sequence
@@ -27,6 +28,7 @@ class Pos(asr.Word):
         tag: Part-Of-Speech tag assigned to a word.
 
     """
+
     tag: str
 
 
@@ -133,6 +135,18 @@ def pos_prep_phrase(words: Caption,
     elements in the Caption-list where split is not recommended according to
     one of the BBC subtitle guidelines.
 
+    The pronoun + following phrase takes into account
+    the following tag combinations:
+
+    COMBINATION                  EXAMPLE
+
+    Adp + Det + Noun           - in the books
+    Adp + Adj + Noun           - in new books
+    Adp + Det + Adj + Noun     - in those new books
+    Adp + Pron + Noun          - in her books
+    Adp + Num + Noun           - in twenty-four books
+    Adp + Num + Noun + Verb    - in twenty-four books
+
     For documentation of the guidelines see:
         https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
 
@@ -175,7 +189,10 @@ def pos_prep_phrase(words: Caption,
              (next_word.tag == 'ADJ' and nextnext.tag == 'NOUN') or
              (next_word.tag == 'DET' and nextnext.tag == 'ADJ' and
               nextnextnext.tag == 'NOUN') or
-             (next_word.tag == 'PRON' and nextnext.tag == 'NOUN')):
+             (next_word.tag == 'PRON' and nextnext.tag == 'NOUN') or
+             (next_word.tag == 'NUM' and nextnext.tag == 'NOUN') or
+             (next_word.tag == 'NUM' and nextnext.tag == 'NOUN' and
+              nextnextnext == 'VERB')):
             words[index].weight -= split_weight * (1 / factor)
 
     return words
@@ -189,6 +206,24 @@ def pos_conj_phrase(words: Caption,
     Returns the custom Caption-list dataformat with adjusted weights for the
     elements in the Caption-list where split is not recommended according to
     one of the BBC subtitle guidelines.
+
+    The conjunction + following phrase takes into account
+    the following tag combinations:
+
+    COMBINATION                   EXAMPLE
+
+    Conj + Det + Noun           - but the books
+    Conj + Adj + Noun           - but new books
+    Conj + Det + Adj + Noun     - but the new books
+    Conj + Pron + Noun          - but her books
+    Conj + Pron + Verb          - but I went
+    Conj + Pron + Verb + Noun   - but I went there
+    Conj + Part + Noun          - but that book
+    Conj + Part + Adj + Noun    - but that new book
+    Conj + Part + Noun + Verb   - but that book is
+    Conj + Adp  + Noun          - but under books
+    Conj + Adp  + Noun + Verb   - but under books are
+    Conj + Adp  + Det + Noun    - but under the books
 
     For documentation of the guidelines see:
         https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
@@ -232,7 +267,20 @@ def pos_conj_phrase(words: Caption,
              (next_word.tag == 'ADJ' and nextnext.tag == 'NOUN') or
              (next_word.tag == 'DET' and nextnext.tag == 'ADJ' and
               nextnextnext.tag == 'NOUN') or
-             (next_word.tag == 'PRON' and nextnext.tag == 'NOUN')):
+             (next_word.tag == 'PRON' and nextnext.tag == 'NOUN') or
+             (next_word.tag == 'PRON' and nextnext.tag == 'VERB') or
+             (next_word.tag == 'PRON' and nextnext.tag == 'VERB' and
+              nextnextnext.tag == 'NOUN') or
+             (next_word.tag == 'PART' and nextnext.tag == 'NOUN') or
+             (next_word.tag == 'PART' and nextnext.tag == 'ADJ' and
+              nextnextnext.tag == 'NOUN') or
+             (next_word.tag == 'PART' and nextnext.tag == 'NOUN' and
+              nextnextnext.tag == 'VERB') or
+             (next_word.tag == 'ADP' and nextnext.tag == 'NOUN') or
+             (next_word.tag == 'ADP' and nextnext.tag == 'NOUN' and
+              nextnextnext == 'VERB') or
+             (next_word.tag == 'ADP' and nextnext.tag == 'DET' and
+              nextnextnext == 'NOUN')):
             words[index].weight -= split_weight * (1 / factor)
 
     return words
@@ -263,7 +311,7 @@ def speech_gaps(data: Caption, threshold: float = 1.5) -> Caption:
 def punctuation(words: Caption,
                 factor: float = 1,
                 params: Sequence[float] = (0.95, 0.85, 0.6)) -> Caption:
-    """Adjusts weights of punctuation.
+    """Adjust weights of punctuation.
 
     Args:
         words: The transcript subtitles according to our custom Caption-list
@@ -295,10 +343,10 @@ def punctuation(words: Caption,
 def length(data: List[str],
            max_length: int = 42,
            splits: List[List[str]] = []) -> List[List[str]]:
-    """
-    Splits the data accordingly and finds the first space and makes the cut
-    there. It does the same thing recursivly for words that are left in the
-    sentence.
+    """Split the data according to length.
+
+    Find the first space and make the cut there. Do the same thing recursivly
+    for words that are left in the sentence.
 
     Args:
         data: A list containing multiple strings
@@ -325,8 +373,9 @@ def length(data: List[str],
 def split_length(data: Caption,
                  factor: float = 1,
                  max_length: int = 42) -> Caption:
-    """
-    Adjusts the weights of words according to a character limit of either 84 or
+    """Split caption on line length.
+
+    Adjust the weights of words according to a character limit of either 84 or
     42 characters. The words that needs adjusting are determined by the
     function length.
 
