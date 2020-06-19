@@ -16,6 +16,7 @@ BBC](https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points).
 - [Overview functionality](#overview_functionality)
 - [Support](#support)
 
+
 ## Features
 
 This project mainly generates proper formatted caption groups given a
@@ -36,9 +37,8 @@ guide mentioned above:
 ![Last Commit](https://img.shields.io/github/last-commit/yochem/effect.ai?style=for-the-badge)
 ![Licence](https://img.shields.io/github/license/yochem/effect.ai?style=for-the-badge)
 
-## Preview
 
-<INSERT VIDEO WITH SUBTITLES>
+## Preview
 
 ## Installation
 1. [Clone](https://bit.ly/2BcAdRs) this repository.
@@ -48,19 +48,28 @@ guide mentioned above:
 $ make install
 ```
 
-## How to run
+
+## How to use
 
 In your shell, run the following:
 
 ```shell
-$ python3 src/convert.py
+$ cap <asr-file> --output <srt-file>
 ```
 
-And from Python:
+For more options, run `$ cap -h`.
+
+Or use this module in Python:
 
 ```python
-# TODO
+import cap
+
+subs = cap.group('asr-file.json')
+
+with open('srt-file.srt', 'w') as f:
+    f.write(subs)
 ```
+
 
 ## Development
 
@@ -73,41 +82,11 @@ $ make development
 Also make sure [editorconfig](editorconfig.org/) is installed in your editor
 of choice.
 
-When pushing code, first run `$ make check` to lint your code. The project
-structure is the folowing:
+When pushing code, first run `$ make check` to lint your code and `# make doc`
+to create the docs.
 
-```
-.
-├── asr.py
-│   ├── Word(): Word with start time, end time and weight
-│   ├── Punc(): Punctuation with start and end time being end time of
-│   │           prev word plus weight
-│   └── ASR(): Class for loading in an ASR file
-│       ├── transcript(): Return the transcript as one big string.
-│       ├── json(): Return the full JSON file as python dictionary.
-│       └── groups(): Convert the ASR to the following format
-├── caption.py
-|   ├── create_subtitles(): Creates a start time and end time for each
-│   │                       caption group
-│   ├── compose(): Compose a SRT string from captions
-│   └── write(): Compose SRT string and write to file
-├── convert.py
-│   ├── basic_error(): Compares generated subs with manual subs
-|   ├── split_weights(): Creates caption groups by splitting the highest weight
-|   └── create_groups(): Adds weights and lists order of importance of POS
-└── weighting.py
-    ├── Pos(): Word with start time, end time, weight and POS-tag
-    ├── pos_tag(): Adds POS-tag
-    ├── pos_pron_verb(): Lowers weight between pronoun+verb
-    ├── pos_det_noun(): Lowers weight between determiner+noun  
-    ├── pos_prep_phrase(): Lowers weight between prepostion+following phrase
-    ├── pos_conj_phrase(): Lowers weight between conjunction+following phrase
-    ├── speech_gaps(): Adds weight to word before speech gaps
-    ├── punctuation(): Adds weight to punctuation
-    ├── length(): Returns list of possible splits
-    └── split_length(): Adds weights according to length()
-```
 
 ## Support
+
 Found a bug? Please report it using Github
 [issues](https://github.com/yochem/effect.ai/issues)!
