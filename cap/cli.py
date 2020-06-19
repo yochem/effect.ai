@@ -48,3 +48,13 @@ def cli(args: argparse.Namespace) -> None:
     out_file = args.output or name + '.srt'
 
     caption.write(groups, out_file)
+
+
+def parse_args() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-o', '--output', help='Name of the srt file')
+    parser.add_argument('file', help='The ASR file to extract data from')
+    parser.add_argument('-v', '--verbose', action='store_true',
+                        help='Show traceback if error occurs')
+
+    cli(parser.parse_args())

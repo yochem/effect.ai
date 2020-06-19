@@ -42,10 +42,11 @@ guide mentioned above:
 
 ## Installation
 1. [Clone](https://bit.ly/2BcAdRs) this repository.
-2. Install requirements (GNU Make is needed)
+2. Install the package:
 
 ```shell
-$ make install
+$ python3 setup.py install
+$ pip3 install .
 ```
 
 
