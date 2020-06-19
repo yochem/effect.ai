@@ -1,6 +1,4 @@
-def check_cps(data,
-              max_cps: float = 15,
-              diviation: float = 1.5):
+def check_cps(data, max_cps: float = 15, diviation: float = 1.5) -> int:
     """
     Checks if the caption group follows the rule of around 15 characters per
     second.
@@ -17,18 +15,16 @@ def check_cps(data,
         -1 if the characters per second is too low.
     """
     tot_time = data[-1].end - data[0].start
-    characters = len(' '.join([word.text for word in data]))
+    characters = len(' '.join(word.text for word in data))
     cps = characters / tot_time
-    print(cps)
 
     if cps > max_cps + diviation:
         return 1
 
-    elif cps < max_cps - diviation:
+    if cps < max_cps - diviation:
         return -1
 
-    else:
-        return 0
+    return 0
 
 
 def cps(data):
@@ -56,9 +52,7 @@ def cps(data):
     return data
 
 
-def check_wps(data,
-              min_wps: float = 0.33,
-              max_wps: float = 0.375):
+def check_wps(data, min_wps: float = 0.33, max_wps: float = 0.375) -> int:
     """
     Checks if the caption group follows the rule of one word every 0.33 to
     0.375 seconds.
@@ -82,11 +76,10 @@ def check_wps(data,
     if spw > max_wps:
         return 1
 
-    elif spw < min_wps:
+    if spw < min_wps:
         return -1
 
-    else:
-        return 0
+    return 0
 
 
 def wps(data):
