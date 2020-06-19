@@ -59,6 +59,7 @@ def cps(data: Groups, threshold: float = 0.75) -> Groups:
 
     Args:
         data: Caption group according to our custom Caption-list datastructure.
+        threshold: Indicates the maximum time difference.
 
     Returns:
         The data with changed a changed start time for the first word of the
