@@ -15,7 +15,6 @@ import torch.optim as optim
 
 import srt
 
-import matplotlib.pyplot as plt
 import asr
 
 # map de woorden naar indices
@@ -28,47 +27,32 @@ def prepare_sequence(seq, to_ix):
 # Hier voegen we de tag <eoc> (End-Of-Caption) toe aan het einde van de caption groepen
 # (+ meer preprocessing steps ..)
 
-# Verder: het model neemt input van 6 woorden per keer, dus voor kortere zinnen
-# vullen we met <pad> aan tot 6
-
-
-def create_data(filename):
-    with open(filename) as f:
-        training_data = []
-        for sub in list(srt.parse(f)):
-            sub.content += " <eoc>"
-            sub.content = sub.content.replace('\n', ' <nl> ')
-            training_data.append(sub.content.lower().split())
+def create_traindata(directory):
+    training_data = []
+    for entry in os.scandir(directory):
+        filename = entry.path
+        with open(filename) as subs:
+            training_data = []
+            for sub in list(srt.parse(subs)):
+                sub.content += " <eoc>"
+                sub.content = sub.content.replace('\n', ' <nl> ')
+                training_data.append(sub.content.lower().split())
 
     return training_data
 
-training_data = create_data('../manual_subtitles/manual_2.srt')
+def create_testdata(training_data, test_set_path):
+    max_len = max([len(x) for x in training_data])
 
-eval_data = asr.ASR('../asr/sample01.asrOutput.json').transcript()
+    test_set = asr.ASR(test_set_path).transcript().split()
+    eval_data = []
+    for i in range(len(test_set) // max_len):
+        eval_data.append(test_set[i*max_len:i*max_len+max_len])
 
-eval_data += " <eoc>"
-eval_data = eval_data.replace('\n', ' <nl> ')
-eval_data = eval_data.lower().split()
 
-eval_data = [eval_data]
+    eval_data.append(test_set[(i+1)*max_len:(i+1)*max_len+len(test_set)%max_len])
 
-# Maak een index set van de geobserveerde woorden
-word_to_ix = {'unk': 0}
-for sent in training_data:
-    for word in sent:
-        if word not in word_to_ix:
-            word_to_ix[word] = len(word_to_ix)
-print(word_to_ix)
+    return eval_data
 
-# maak een map terug van de index set naar de woorden
-ix_to_word = {v:k for (k, v) in word_to_ix.items()}
-
-print(ix_to_word)
-
-# These will usually be more like 32 or 64 dimensional.
-# We will keep them small, so we can see how the weights change as we train.
-EMBEDDING_DIM = 64
-HIDDEN_DIM = 2600
 
 class LSTMCaption(nn.Module):
 
@@ -94,16 +78,9 @@ class LSTMCaption(nn.Module):
         output_scores = F.log_softmax(output_space, dim=1)
         return output_scores
 
-model = LSTMCaption(EMBEDDING_DIM, HIDDEN_DIM, len(word_to_ix))
-loss_function = nn.NLLLoss()
-optimizer = optim.SGD(model.parameters(), lr=0.1)
 
-
-def train(n_epochs, training_data, eval_data, debug=False):
-    train_losses = []
-    val_losses = []
-
-    for epoch in range(n_epochs):  # again, normally you would NOT do 300 epochs, it is toy data
+def train(n_epochs, training_data):
+    for epoch in range(n_epochs):
 
         # Go once over the entire train data
         for sentence in training_data:
@@ -119,51 +96,48 @@ def train(n_epochs, training_data, eval_data, debug=False):
             # Step 3. Run our forward pass.
             output_scores = model(sentence_in)
 
-            # Hier kunnen we even kijken hoe het gaat: dit laat de predictions van het model zien
-            if debug:
-                indices = torch.argmax(output_scores, axis=1)
-                print([ix_to_word[index.item()] for index in indices])
-
-
-
-            # Voor het evalueren van de loss willen we alleen de woorden meenemen, niet de padding
-            try:
-                pad_idx = sentence.index('<pad>')
-            except:
-                pad_idx = len(sentence)
+            pad_idx = len(sentence)
 
             # Step 4. Compute the loss, gradients, and update the parameters by
             #  calling optimizer.step()
             loss = loss_function(output_scores[:pad_idx, :], sentence_in[:pad_idx])
             loss.backward()
-            train_losses.append(loss.item())
             optimizer.step()
 
-        # Na elke train epoch gaan we op de val set kijken hoe goed het model werkt
-        with torch.no_grad():
-            for sentence in eval_data:
-                inputs = prepare_sequence(sentence, word_to_ix)
-                output_scores = model(inputs)
+directory = r'../dataset/srt/'
+training_data = create_traindata(directory)
+eval_data = create_testdata(training_data, '../asr/sample01.asrOutput.json')
+
+# Maak een index set van de geobserveerde woorden
+word_to_ix = {'unk': 0}
+for sent in training_data:
+    for word in sent:
+        if word not in word_to_ix:
+            word_to_ix[word] = len(word_to_ix)
+
+# maak een map terug van de index set naar de woorden
+ix_to_word = {v:k for (k, v) in word_to_ix.items()}
+
+EMBEDDING_DIM = 64
+HIDDEN_DIM = 64
+
+model = LSTMCaption(EMBEDDING_DIM, HIDDEN_DIM, len(word_to_ix))
+loss_function = nn.NLLLoss()
+optimizer = optim.SGD(model.parameters(), lr=0.1)
 
 
-                # (even kijken naar wat het model predict)
-                if debug:
-                    indices = torch.argmax(output_scores, axis=1)
-                    print([ix_to_word[index.item()] for index in indices])
+train(10, training_data)
+with torch.no_grad():
+    for sentence in eval_data:
+        inputs = prepare_sequence(sentence, word_to_ix)
+        output_scores = model(inputs)
 
-                val_loss = loss_function(output_scores, sentence_in)
-                val_losses.append(val_loss)
+        indices = torch.argmax(output_scores, axis=1)
+        modeled = [ix_to_word[index.item()] for index in indices]
+        for model_word, word in zip(modeled, sentence):
+            if model_word == '<eoc>':
+                print(f"{word}")
+                print("----")
 
-    # Validation curve plotten
-    plt.plot(val_losses)
-    plt.title("valiation loss")
-    plt.show()
-
-
-    # Train curve plotten
-    plt.plot(train_losses)
-    plt.title("training loss")
-    plt.show()
-
-train(2, training_data, eval_data, debug=True)
-
+            else:
+                print(f"{word} ", end='')
