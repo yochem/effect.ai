@@ -11,7 +11,6 @@ from typing import List, Union
 import srt
 
 from . import asr
-from . import caption
 from . import weighting
 
 
@@ -76,23 +75,19 @@ def cps(data: Groups, threshold: float = 0.75) -> Groups:
             if check == -1:
                 group[-1].end -= 0.035
                 group[0].start += 0.015
-
                 if it == max_it:
                     check = 0
                 else:
                     check = check_cps(group)
-
                 it += 1
 
-            elif check == 1:
+            else:
                 if data[i+1][0].start - group[-1].end > threshold:
                     group[-1].end += 0.05
-
                     if it == max_it:
                         check = 0
                     else:
                         check = check_cps(group)
-
                     it += 1
 
                 else:
@@ -190,9 +185,3 @@ def create_groups(subs: Caption) -> Groups:
     groups = split_weights(subs)
 
     return cps(groups)
-
-
-if __name__ == '__main__':
-    DATA = asr.ASR('../asr/sample01.asrOutput.json').groups()
-    GROUPS = create_groups(DATA)
-    caption.write(GROUPS, 'videos/sample01.srt')
