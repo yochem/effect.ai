@@ -73,6 +73,8 @@ with open('srt-file.srt', 'w') as f:
 
 ## Development
 
+Documentation can be found at [Github Pages](yochem.github.io/caps/).
+
 To install the needed packages for development, run this:
 
 ```shell
@@ -82,7 +84,7 @@ $ pip3 install -e cap[dev]
 Also make sure [editorconfig](editorconfig.org/) is installed in your editor
 of choice.
 
-When pushing code, first run `$ make check` to lint your code and `# make doc`
+When pushing code, first run `$ make check` to lint your code and `$ make doc`
 to create the docs.
 
 
