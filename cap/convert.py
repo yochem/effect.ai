@@ -18,8 +18,7 @@ Caption = List[Union[asr.Word, asr.Punc]]
 Groups = List[Caption]
 
 
-def check_cps(data: Caption,
-              max_cps: float = 15,
+def check_cps(data: Caption, max_cps: float = 15,
               deviation: float = 1.5) -> int:
     """
     Checks if the caption group follows the rule of around 15 characters per
@@ -68,7 +67,7 @@ def cps(data: Groups, threshold: float = 0.75) -> Groups:
     for i, group in enumerate(data):
         it = 0
         check = check_cps(group)
-        
+
         while check != 0 or it != max_it:
             if check == -1:
                 group[-1].end -= 0.035
@@ -88,8 +87,7 @@ def cps(data: Groups, threshold: float = 0.75) -> Groups:
     return data
 
 
-def basic_error(input_subs: List[srt.Subtitle],
-                manual_subs: List[srt.Subtitle],
+def basic_error(input_subs: List[srt.Subtitle], manual_subs: List[srt.Subtitle],
                 max_width: int = 42) -> int:
     """
     Takes the generated subtitles and the manual subtitles and compares
@@ -167,7 +165,6 @@ def create_groups(subs: Caption) -> Groups:
     Returns:
         List that contains the caption groups.
     """
-    # adjusts weights
     subs = weighting.speech_gaps(subs)
     subs = weighting.punctuation(subs)
     subs = weighting.pos_pron_verb(subs)
@@ -175,12 +172,8 @@ def create_groups(subs: Caption) -> Groups:
     subs = weighting.pos_prep_phrase(subs)
     subs = weighting.pos_conj_phrase(subs)
     subs = weighting.complex_verbs(subs)
-    
-    # create groups
-    groups = split_weights(subs)
-    
-    # adjust time intervals
-    groups = cps(groups)
-    
-    return weighting.line_breaks(groups)
 
+    groups = split_weights(subs)
+    groups = cps(groups)
+
+    return weighting.line_breaks(groups)
