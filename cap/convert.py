@@ -103,5 +103,6 @@ def create_groups(subs: Caption) -> Groups:
     subs = weighting.pos_det_noun(subs)
     subs = weighting.pos_prep_phrase(subs)
     subs = weighting.pos_conj_phrase(subs)
+    subs = weighting.complex_verbs(subs)
 
     return weighting.line_breaks(split_weights(subs))
