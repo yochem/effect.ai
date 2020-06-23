@@ -43,11 +43,10 @@ def check_cps(data: Caption,
     if cur_cps > max_cps + deviation:
         return 1
 
-    elif cur_cps < max_cps - deviation:
+    if cur_cps < max_cps - deviation:
         return -1
 
-    else:
-        return 0
+    return 0
 
 
 def cps(data: Groups, threshold: float = 0.75) -> Groups:
