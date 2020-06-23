@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
 <title>cap API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="cap - AI powered subtitling …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -21,14 +21,97 @@
 <h1 class="title">Package <code>cap</code></h1>
 </header>
 <section id="section-intro">
+<h1 id="cap-ai-powered-subtitling">cap - AI powered subtitling</h1>
+<p>This project converts a JSON speech-to-text file to a fully functional SRT
+subtitle file. This SRT file consists of caption groups with if needed, line
+breaks according to the <a href="https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points">subtitle guidelines of the
+BBC</a>.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#features">Features</a></li>
+<li><a href="#badges">Badges</a></li>
+<li><a href="#preview">Preview</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#how_to_run">How to run</a></li>
+<li><a href="#overview_functionality">Overview functionality</a></li>
+<li><a href="#support">Support</a></li>
+</ul>
+<h2 id="features">Features</h2>
+<p>This project mainly generates proper formatted caption groups given a
+transcript with word-timing. It implements the following rules from the BBC
+guide mentioned above:</p>
+<ul>
+<li>Part-of-Speech tags</li>
+<li>Punctuation</li>
+<li>Gaps in speech</li>
+<li>Character limit (&lt; 84)</li>
+<li>Line limit (&lt; 42)</li>
+<li>And more to come!</li>
+</ul>
+<h2 id="badges">Badges</h2>
+<p><img alt="Issues" src="https://img.shields.io/github/issues-raw/yochem/effect.ai?style=for-the-badge">
+<img alt="Last Commit" src="https://img.shields.io/github/last-commit/yochem/effect.ai?style=for-the-badge">
+<img alt="Licence" src="https://img.shields.io/github/license/yochem/effect.ai?style=for-the-badge"></p>
+<h2 id="preview">Preview</h2>
+<h2 id="installation">Installation</h2>
+<ol>
+<li><a href="https://bit.ly/2BcAdRs">Clone</a> this repository.</li>
+<li>Install the package:</li>
+</ol>
+<pre><code class="shell">$ pip3 install -e cap
+</code></pre>
+<h2 id="how-to-use">How to use</h2>
+<p>In your shell, run the following:</p>
+<pre><code class="shell">$ cap &lt;asr-file&gt; --output &lt;srt-file&gt;
+</code></pre>
+<p>For more options, run <code>$ cap -h</code>.</p>
+<p>Or use this module in Python:</p>
+<pre><code class="python">import cap
+
+subs = cap.group('asr-file.json')
+
+with open('srt-file.srt', 'w') as f:
+    f.write(subs)
+</code></pre>
+<h2 id="development">Development</h2>
+<p>To install the needed packages for development, run this:</p>
+<pre><code class="shell">$ pip3 install -e cap[dev]
+</code></pre>
+<p>Also make sure <a href="editorconfig.org/">editorconfig</a> is installed in your editor
+of choice.</p>
+<p>When pushing code, first run <code>$ make check</code> to lint your code and <code># make doc</code>
+to create the docs.</p>
+<h2 id="support">Support</h2>
+<p>Found a bug? Got a question? Please report it using Github
+<a href="https://github.com/yochem/effect.ai/issues">issues</a>!</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from . import asr
+<pre><code class="python">&#34;&#34;&#34;
+.. include:: ../README.md
+&#34;&#34;&#34;
+
+
+from . import asr
 from . import caption
 from . import convert
-from . import weighting</code></pre>
+from . import weighting
+
+
+def group(asr_file: str) -&gt; str:
+    &#34;&#34;&#34;Convert ASR to SRT file with well formatted caption groups.
+
+    Args:
+        asr_file: Filename of the ASR file.
+
+    Returns:
+        The content of a srt file as string, which can be written to a srt
+        file.
+    &#34;&#34;&#34;
+    data = asr.ASR(asr_file).groups()
+    groups = convert.create_groups(data)
+    return caption.compose(groups)</code></pre>
 </details>
 </section>
 <section>
@@ -41,6 +124,10 @@ from . import weighting</code></pre>
 <dt><code class="name"><a title="cap.caption" href="caption.html">cap.caption</a></code></dt>
 <dd>
 <div class="desc"><p>Module to convert our Caption dataformat to various srt package formats.</p></div>
+</dd>
+<dt><code class="name"><a title="cap.cli" href="cli.html">cap.cli</a></code></dt>
+<dd>
+<div class="desc"><p>The command line interface for this module …</p></div>
 </dd>
 <dt><code class="name"><a title="cap.convert" href="convert.html">cap.convert</a></code></dt>
 <dd>
@@ -56,6 +143,44 @@ functions accept a List of Word or Punc classes and return the same type.</p></d
 <section>
 </section>
 <section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="cap.group"><code class="name flex">
+<span>def <span class="ident">group</span></span>(<span>asr_file: str) -> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert ASR to SRT file with well formatted caption groups.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>asr_file</code></strong></dt>
+<dd>Filename of the ASR file.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>The content</code> of <code>a srt file as string, which can be written to a srt</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<p>file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def group(asr_file: str) -&gt; str:
+    &#34;&#34;&#34;Convert ASR to SRT file with well formatted caption groups.
+
+    Args:
+        asr_file: Filename of the ASR file.
+
+    Returns:
+        The content of a srt file as string, which can be written to a srt
+        file.
+    &#34;&#34;&#34;
+    data = asr.ASR(asr_file).groups()
+    groups = convert.create_groups(data)
+    return caption.compose(groups)</code></pre>
+</details>
+</dd>
+</dl>
 </section>
 <section>
 </section>
@@ -63,15 +188,33 @@ functions accept a List of Word or Punc classes and return the same type.</p></d
 <nav id="sidebar">
 <h1>Index</h1>
 <div class="toc">
-<ul></ul>
+<ul>
+<li><a href="#cap-ai-powered-subtitling">cap - AI powered subtitling</a><ul>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#badges">Badges</a></li>
+<li><a href="#preview">Preview</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#how-to-use">How to use</a></li>
+<li><a href="#development">Development</a></li>
+<li><a href="#support">Support</a></li>
+</ul>
+</li>
+</ul>
 </div>
 <ul id="index">
 <li><h3><a href="#header-submodules">Sub-modules</a></h3>
 <ul>
 <li><code><a title="cap.asr" href="asr.html">cap.asr</a></code></li>
 <li><code><a title="cap.caption" href="caption.html">cap.caption</a></code></li>
+<li><code><a title="cap.cli" href="cli.html">cap.cli</a></code></li>
 <li><code><a title="cap.convert" href="convert.html">cap.convert</a></code></li>
 <li><code><a title="cap.weighting" href="weighting.html">cap.weighting</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="cap.group" href="#cap.group">group</a></code></li>
 </ul>
 </li>
 </ul>

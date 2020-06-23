@@ -5,9 +5,3 @@ check:
 
 doc:
 	pdoc3 --config latex_math=True --html cap/ -o docs/ --force
-
-install:
-	pip3 install -r requirements.txt
-
-development:
-	pip3 install pdoc3 pylint autopep8 mypy darglint
