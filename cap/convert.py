@@ -42,13 +42,9 @@ def basic_error(input_subs: List[srt.Subtitle],
     """
     good = 0
     penalty = 0
-    amount_input = 0
-    amount_manual = 0
+    amount_input = len(input_subs)
+    amount_manual = len(manual_subs)
 
-    for sub in zip(input_subs):
-        amount_input += 1
-    for sub in zip(manual_subs):
-        amount_manual += 1
     amount_difference = abs(amount_input - amount_manual)
 
     for i, (sub1, next_sub1) in enumerate(zip(input_subs, input_subs[1:])):
