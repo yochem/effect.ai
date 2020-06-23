@@ -2,3 +2,5 @@
 videos/
 __pycache__/
 *.pyc
+asr/
+manual_subtitles/
