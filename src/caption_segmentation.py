@@ -16,6 +16,7 @@ import torch.optim as optim
 import srt
 
 import asr
+import caption
 
 # map de woorden naar indices
 def prepare_sequence(seq, to_ix):
@@ -36,14 +37,20 @@ def create_traindata(directory):
             for sub in list(srt.parse(subs)):
                 sub.content += " <eoc>"
                 sub.content = sub.content.replace('\n', ' <nl> ')
+                sub.content = sub.content.replace('.', ' .')
+                sub.content = sub.content.replace('?', ' ?')
+                sub.content = sub.content.replace('!', ' !')
+                sub.content = sub.content.replace(',', ' ,')
+                sub.content = sub.content.replace(';', ' ;')
+                sub.content = sub.content.replace(':', ' :')
                 training_data.append(sub.content.lower().split())
 
     return training_data
 
-def create_testdata(training_data, test_set_path):
+def create_testdata(training_data, groups):
     max_len = max([len(x) for x in training_data])
 
-    test_set = asr.ASR(test_set_path).transcript().split()
+    test_set = [word.text for word in groups]
     eval_data = []
     for i in range(len(test_set) // max_len):
         eval_data.append(test_set[i*max_len:i*max_len+max_len])
@@ -66,9 +73,7 @@ class LSTMCaption(nn.Module):
         # with dimensionality hidden_dim.
         self.lstm = nn.LSTM(embedding_dim, hidden_dim)
 
-        # The linear layer that maps from hidden state space to tag space
-
-        # in dit geval terug naar de vocabulary space
+        # The linear layer that maps from hidden state space to vocabulary space
         self.hidden2output = nn.Linear(hidden_dim, vocab_size)
 
     def forward(self, sentence):
@@ -106,7 +111,10 @@ def train(n_epochs, training_data):
 
 directory = r'../dataset/srt/'
 training_data = create_traindata(directory)
-eval_data = create_testdata(training_data, '../asr/sample01.asrOutput.json')
+path = '../asr/sample01.asrOutput.json'
+
+groups = asr.ASR(path).groups()
+eval_data = create_testdata(training_data, groups)
 
 # Maak een index set van de geobserveerde woorden
 word_to_ix = {'unk': 0}
@@ -126,18 +134,28 @@ loss_function = nn.NLLLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.1)
 
 
-train(10, training_data)
+train(5, training_data)
 with torch.no_grad():
+    ix = 0
+    optimized_groups = []
+    caption_group = []
+
     for sentence in eval_data:
         inputs = prepare_sequence(sentence, word_to_ix)
         output_scores = model(inputs)
 
         indices = torch.argmax(output_scores, axis=1)
         modeled = [ix_to_word[index.item()] for index in indices]
-        for model_word, word in zip(modeled, sentence):
+
+        for model_word, word in zip(modeled, groups[ix:]):
             if model_word == '<eoc>':
-                print(f"{word}")
-                print("----")
+                optimized_groups.append(caption_group)
+                caption_group = []
 
             else:
-                print(f"{word} ", end='')
+                caption_group.append(word)
+
+            ix += 1
+
+    optimized_groups.append(caption_group)
+    caption.write(optimized_groups, 'lstm_output.srt')
