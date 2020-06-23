@@ -8,7 +8,7 @@ setuptools.setup(
     name='cap',
     version='0.1.0',
     author='Bas de Boer, Anne Kaal, Lysa Ngouateu, Yochem van Rosmalen,' +
-    'Florian van der steen',
+    'Florian van der Steen',
     author_email='yochem+git@icloud.com',
     description='Create well-formatted captions from ASR files.',
     long_description=long_description,
