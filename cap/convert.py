@@ -71,21 +71,16 @@ def cps(data: Groups, threshold: float = 0.75) -> Groups:
         it = 0
         check = check_cps(group)
 
-        while check != 0:
+        while check != 0 or it != max_it:
             if check == -1:
                 group[-1].end -= 0.035
                 group[0].start += 0.015
-                if it == max_it:
-                    check = 0
-                else:
-                    check = check_cps(group)
+                check = check_cps(group)
                 it += 1
 
             else:
                 if data[i+1][0].start - group[-1].end > threshold:
                     group[-1].end += 0.05
-                    if it == max_it:
-                        check = 0
                     else:
                         check = check_cps(group)
                     it += 1
