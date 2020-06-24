@@ -5,7 +5,6 @@ Module for converting the input data, consisting of words with time stamps and
 POS-tags, to caption groups.  The error between the created output and the
 manual-subtitles can also be measured by basic_error.
 """
-
 from typing import List, Union
 
 import srt
@@ -154,9 +153,8 @@ def split_weights(subs: Caption, result: Groups = [],
         max_weight = max(subs[char_limit_div:-char_limit_div],
                          key=lambda t: t.weight)
     except ValueError:
-        print(len(' '.join(x.text for x in subs)))
-        print(subs[char_limit_div:-char_limit_div])
-        exit()
+        return result
+
     max_index = subs.index(max_weight)
 
     split_weights(subs[:max_index+1])
