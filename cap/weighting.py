@@ -3,6 +3,7 @@ This module provides functions to add weights to words in a caption. All
 functions accept a List of Word or Punc classes and return the same type.
 """
 from dataclasses import dataclass
+import re
 from typing import List, Union, Sequence
 import math
 
@@ -424,8 +425,12 @@ def line_breaks(groups: List[Caption], factor: float = 1,
     line_in_bound = lambda s: len(' '.join(x.text for x in s)) <= bound
 
     for group in groups:
-        # don't split small caption groups
-        if len(' '.join(w.text for w in group)) < bound:
+        # don't split caption groups with fewer characters than bound
+        sent = ' '.join(w.text for w in group)
+        punc = re.compile(r' ([,.?!])')
+        sent = punc.sub(r'\g<1>', sent)
+
+        if len(sent) <= bound:
             continue
 
         goods = []
@@ -434,6 +439,7 @@ def line_breaks(groups: List[Caption], factor: float = 1,
             if line_in_bound(group[:i]) and line_in_bound(group[i:]):
                 goods.append(group[i-1])
 
+        # if there's no 'right' split, just split in half
         if len(goods) == 0:
             group[len(group)//2].text += '\n'
             continue
