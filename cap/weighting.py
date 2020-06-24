@@ -52,7 +52,12 @@ def pos_tagger(words: Caption) -> List[Pos]:
     tagged_words = []
     for word in words:
         text = word.text.lower()
-        tag = nltk.pos_tag([text], tagset='universal')[0][1]
+        try:
+            tag = nltk.pos_tag([text], tagset='universal')[0][1]
+        except LookupError:
+            nltk.download('averaged_perceptron_tagger')
+            nltk.download('universal_tagset')
+            tag = nltk.pos_tag([text], tagset='universal')[0][1]
 
         tagged_words.append(Pos(word.text, word.start, word.end, word.weight,
                                 tag=tag))
