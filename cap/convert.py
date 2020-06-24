@@ -68,7 +68,7 @@ def cps(data: Groups, threshold: float = 0.75) -> Groups:
         it = 0
         check = check_cps(group)
 
-        while check != 0 or it != max_it:
+        while check != 0 and it != max_it:
             if check == -1:
                 group[-1].end -= 0.035
                 group[0].start += 0.015
@@ -76,7 +76,12 @@ def cps(data: Groups, threshold: float = 0.75) -> Groups:
                 it += 1
 
             else:
-                if data[i+1][0].start - group[-1].end > threshold:
+                try:
+                    strt = data[i+1][0].start
+                except IndexError:
+                    break
+
+                if strt - group[-1].end > threshold:
                     group[-1].end += 0.05
                     check = check_cps(group)
                     it += 1
@@ -122,7 +127,7 @@ def basic_error(input_subs: List[srt.Subtitle], manual_subs: List[srt.Subtitle],
 
 
 def split_weights(subs: Caption, result: Groups = [],
-                  max_chars: int = 84) -> Groups:
+                  char_limit: int = 81, char_limit_div: int = 5) -> Groups:
     """
     Function that splits the input data based on the highest weights.
     Recursively go trough the input data and split at the word after the
@@ -133,18 +138,27 @@ def split_weights(subs: Caption, result: Groups = [],
     Args:
         subs: The caption-list with added weights.
         result: Empty list for the caption groups.
-        max_chars: Maximal number of characters for one caption group, which is
-            standard 84.
+        char_limit: Maximal number of characters for one caption group, which is
+            standard 81.
+        char_limit_div: The diviation of the maximal characters in a caption
+            group.
 
     Returns:
         List that contains the caption groups.
     """
-    if len(' '.join(x.text for x in subs)) <= max_chars:
+    if len(' '.join(x.text for x in subs)) <= char_limit:
         result.append(subs)
         return result
 
-    max_weight = max(subs[5:-5], key=lambda t: t.weight)
+    try:
+        max_weight = max(subs[char_limit_div:-char_limit_div],
+                         key=lambda t: t.weight)
+    except ValueError:
+        print(len(' '.join(x.text for x in subs)))
+        print(subs[char_limit_div:-char_limit_div])
+        exit()
     max_index = subs.index(max_weight)
+
     split_weights(subs[:max_index+1])
     split_weights(subs[max_index+1:])
 
