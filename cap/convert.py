@@ -118,22 +118,28 @@ def create_groups(subs: Caption, params) -> Groups:
 
 
 # parse the manual subs
-with open('../manual_subs/sample01.manual.srt') as manual_file:
-    manual = list(srt.parse(manual_file))
 
 parameters = [0.2, 0.2, 0.2, 0.2, 0.2]
 
-def MSE_fit_func(params, *args):
-    manual_subs = args
-    # generate the custom subs
+def fit_func(params, *args):
+    data, manual_subs = args[:2]
 
-    groups = asr.ASR('/home/lysa/Subtitle_project/effect.ai-pos/asr/sample01.asrOutput.json').groups()
-    print(type(groups))
-    caption.write(create_groups(groups, params), 'custom.srt')
-    with open('custom.srt') as custom_file:
-        custom = list(srt.parse(custom_file))
+    res = caption.create_subtitles(create_groups(data, params))
 
-    return basic_error(custom, manual_subs)
+    error = basic_error(res, manual_subs)
+    print(error)
+    return error
 
-fit = optimize.minimize(MSE_fit_func, parameters, args=(manual), method='BFGS', options={'maxiter': 10})
-print(fit)
+
+def optimizer(data_file, test_file):
+    data = asr.ASR(data_file).groups()
+
+    with open(test_file, 'r') as f:
+        manual = list(srt.parse(f))
+
+    fit = optimize.minimize(fit_func,
+                            np.array((0.2, 0.2, 0.2, 0.2, 0.2)),
+                            args=(data, manual),
+                            method='BFGS',
+                            options={'maxiter': 10})
+    print(fit)
