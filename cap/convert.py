@@ -10,9 +10,18 @@ from typing import List, Union
 
 import srt
 
+from . import caption
 from . import asr
 from . import weighting
+####
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+np.random.seed(seed=99999)
 
+from scipy import optimize
+
+####
 
 Caption = List[Union[asr.Word, asr.Punc]]
 Groups = List[Caption]
@@ -83,7 +92,7 @@ def split_weights(subs: Caption, result: Groups = [],
     return result
 
 
-def create_groups(subs: Caption) -> Groups:
+def create_groups(subs: Caption, params) -> Groups:
     """
     Function that first adds the weights to the words in the caption-list and
     then uses the split_weight function to create caption groups. Adding
@@ -98,10 +107,33 @@ def create_groups(subs: Caption) -> Groups:
         List that contains the caption groups.
     """
     subs = weighting.speech_gaps(subs)
-    subs = weighting.punctuation(subs)
-    subs = weighting.pos_pron_verb(subs)
-    subs = weighting.pos_det_noun(subs)
-    subs = weighting.pos_prep_phrase(subs)
-    subs = weighting.pos_conj_phrase(subs)
+    subs = weighting.punctuation(subs, factor=params[0])
+    subs = weighting.pos_pron_verb(subs, factor=params[1])
+    subs = weighting.pos_det_noun(subs, factor=params[2])
+    subs = weighting.pos_prep_phrase(subs, factor=params[3])
+    subs = weighting.pos_conj_phrase(subs, factor=params[4])
 
     return weighting.line_breaks(split_weights(subs))
+
+
+
+# parse the manual subs
+with open('../manual_subs/sample01.manual.srt') as manual_file:
+    manual = list(srt.parse(manual_file))
+
+parameters = [0.2, 0.2, 0.2, 0.2, 0.2]
+
+def MSE_fit_func(params, *args):
+    manual_subs = args
+    # generate the custom subs
+
+    groups = asr.ASR('/home/lysa/Subtitle_project/effect.ai-pos/asr/sample01.asrOutput.json').groups()
+    print(type(groups))
+    caption.write(create_groups(groups, params), 'custom.srt')
+    with open('custom.srt') as custom_file:
+        custom = list(srt.parse(custom_file))
+
+    return basic_error(custom, manual_subs)
+
+fit = optimize.minimize(MSE_fit_func, parameters, args=(manual), method='BFGS', options={'maxiter': 10})
+print(fit)
