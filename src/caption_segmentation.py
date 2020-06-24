@@ -11,7 +11,7 @@ the results of the model is to train the model specifically on one video
 creator or train the model on one genre of videos. Especially when a video
 creator uses the same intro or has certain catchphrases this can be useful. We
 therefore recommend creating a specialised dataset in adjusting the contents of
-the variable 'directory' variable.
+the 'directory' variable.
 """
 import os
 from typing import List, Union
