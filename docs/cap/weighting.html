@@ -465,7 +465,7 @@ def line_breaks(groups: List[Caption], factor: float = 1,
                 goods.append(group[i-1])
 
         if len(goods) == 0:
-            print(&#39;ERROR: no split found in:&#39;, &#39; &#39;.join(x.text for x in group))
+            group[len(group)//2].text += &#39;\n&#39;
             continue
 
         half = math.ceil(len(goods) / 2)
@@ -673,7 +673,7 @@ Caption-list dataformats.</dd>
                 goods.append(group[i-1])
 
         if len(goods) == 0:
-            print(&#39;ERROR: no split found in:&#39;, &#39; &#39;.join(x.text for x in group))
+            group[len(group)//2].text += &#39;\n&#39;
             continue
 
         half = math.ceil(len(goods) / 2)
