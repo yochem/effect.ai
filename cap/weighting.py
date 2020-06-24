@@ -184,16 +184,21 @@ def pos_prep_phrase(words: Caption,
         nextnext = tagged_words[index+2]
         nextnextnext = tagged_words[index+3]
 
-        if word.tag == 'ADP' and \
-            ((next_word.tag == 'DET' and nextnext.tag == 'NOUN') or
-             (next_word.tag == 'ADJ' and nextnext.tag == 'NOUN') or
-             (next_word.tag == 'DET' and nextnext.tag == 'ADJ' and
-              nextnextnext.tag == 'NOUN') or
-             (next_word.tag == 'PRON' and nextnext.tag == 'NOUN') or
-             (next_word.tag == 'NUM' and nextnext.tag == 'NOUN') or
-             (next_word.tag == 'NUM' and nextnext.tag == 'NOUN' and
-              nextnextnext == 'VERB')):
-            words[index].weight -= split_weight * (1 / factor)
+        combos = [('DET', 'NOUN'), ('ADJ', 'NOUN'), ('DET', 'ADJ', 'NOUN'),
+                  ('PRON', 'NOUN'), ('NUM', 'NOUN'), ('NUM', 'NOUN', 'VERB')]
+
+        for combo in combos:
+            if len(combo) == 2:
+                if word.tag == 'ADP' and \
+                   next_word.tag == option[0] and nextnext.tag == option[1]):
+
+                   words[index].weight -= split_weight * (1 / factor)
+
+            if len(combo) == 3:
+                (next_word.tag == option[0] and nextnext.tag == option[1]
+                and nextnextnext.tag == option[2])):
+
+                words[index].weight -= split_weight * (1 / factor)
 
     return words
 
@@ -262,26 +267,25 @@ def pos_conj_phrase(words: Caption,
         nextnext = tagged_words[index+2]
         nextnextnext = tagged_words[index+3]
 
-        if word.tag == 'CONJ' and \
-            ((next_word.tag == 'DET' and nextnext.tag == 'NOUN') or
-             (next_word.tag == 'ADJ' and nextnext.tag == 'NOUN') or
-             (next_word.tag == 'DET' and nextnext.tag == 'ADJ' and
-              nextnextnext.tag == 'NOUN') or
-             (next_word.tag == 'PRON' and nextnext.tag == 'NOUN') or
-             (next_word.tag == 'PRON' and nextnext.tag == 'VERB') or
-             (next_word.tag == 'PRON' and nextnext.tag == 'VERB' and
-              nextnextnext.tag == 'NOUN') or
-             (next_word.tag == 'PART' and nextnext.tag == 'NOUN') or
-             (next_word.tag == 'PART' and nextnext.tag == 'ADJ' and
-              nextnextnext.tag == 'NOUN') or
-             (next_word.tag == 'PART' and nextnext.tag == 'NOUN' and
-              nextnextnext.tag == 'VERB') or
-             (next_word.tag == 'ADP' and nextnext.tag == 'NOUN') or
-             (next_word.tag == 'ADP' and nextnext.tag == 'NOUN' and
-              nextnextnext == 'VERB') or
-             (next_word.tag == 'ADP' and nextnext.tag == 'DET' and
-              nextnextnext == 'NOUN')):
-            words[index].weight -= split_weight * (1 / factor)
+        combos = [('DET', 'NOUN'), ('ADJ', 'NOUN'), ('DET', 'ADJ', 'NOUN'),
+                   ('PRON', 'NOUN'), ('PRON', 'VERB'),
+                   ('PRON', 'VERB', 'NOUN'), ('PART', 'NOUN'),
+                   'PART', 'ADJ', 'NOUN'), ('PART', 'NOUN', 'VERB'),
+                   ('ADP', 'NOUN'), ('ADP', 'NOUN', 'VERB'),
+                   ('ADP', 'DET', 'NOUN')]
+
+        for combo in combos:
+            if len(combo) == 2:
+                if word.tag == 'ADP' and \
+                   next_word.tag == option[0] and nextnext.tag == option[1]):
+
+                   words[index].weight -= split_weight * (1 / factor)
+
+            if len(combo) == 3:
+                (next_word.tag == option[0] and nextnext.tag == option[1]
+                and nextnextnext.tag == option[2])):
+
+                words[index].weight -= split_weight * (1 / factor)
 
     return words
 
