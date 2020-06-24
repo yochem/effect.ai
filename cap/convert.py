@@ -5,31 +5,97 @@ Module for converting the input data, consisting of words with time stamps and
 POS-tags, to caption groups.  The error between the created output and the
 manual-subtitles can also be measured by basic_error.
 """
-
 from typing import List, Union
 
+import numpy as np
+from scipy import optimize
 import srt
 
 from . import caption
 from . import asr
 from . import weighting
-####
-import math
-import numpy as np
-import matplotlib.pyplot as plt
-np.random.seed(seed=99999)
 
-from scipy import optimize
-
-####
 
 Caption = List[Union[asr.Word, asr.Punc]]
 Groups = List[Caption]
 
 
+def check_cps(data: Caption, max_cps: float = 15,
+              deviation: float = 1.5) -> int:
+    """
+    Checks if the caption group follows the rule of around 15 characters per
+    second.
+
+    Args:
+        data: Caption group according to our custom Caption-list datastructure.
+        max_cps: Indicates the optimal characters per second, which is 15.
+        deviation: Indicates how much it can deviate from the optimal 15
+            characters per second.
+
+    Returns:
+        1 if the characters per second is too high.
+        0 if the characters per second is just right.
+        -1 if the characters per second is too low.
+    """
+    tot_time = data[-1].end - data[0].start
+    characters = len(' '.join(word.text for word in data))
+    cur_cps = characters / tot_time
+
+    if cur_cps > max_cps + deviation:
+        return 1
+
+    if cur_cps < max_cps - deviation:
+        return -1
+
+    return 0
+
+
+def cps(data: Groups, threshold: float = 0.75) -> Groups:
+    """
+    Adjusts the time of the caption group so the subtitles stay shorter or
+    longer on the screen. It adjusts it according to the 15 characters per
+    second limit.
+
+    Args:
+        data: Caption group according to our custom Caption-list datastructure.
+        threshold: Indicates the maximum time difference.
+
+    Returns:
+        The data with changed a changed start time for the first word of the
+        caption group and a changed end time for the last word of the caption
+        group
+    """
+    max_it = int((threshold / 0.05) - 1)
+    for i, group in enumerate(data):
+        it = 0
+        check = check_cps(group)
+
+        while check != 0 and it != max_it:
+            if check == -1:
+                group[-1].end -= 0.035
+                group[0].start += 0.015
+                check = check_cps(group)
+                it += 1
+
+            else:
+                try:
+                    strt = data[i+1][0].start
+                except IndexError:
+                    break
+
+                if strt - group[-1].end > threshold:
+                    group[-1].end += 0.05
+                    check = check_cps(group)
+                    it += 1
+
+                else:
+                    check = 0
+
+    return data
+
+
 def basic_error(input_subs: List[srt.Subtitle],
-                manual_subs: List[srt.Subtitle],
-                max_width: int = 42) -> int:
+                manual_subs: List[srt.Subtitle], max_width: int = 42) -> int:
     """
     Takes the generated subtitles and the manual subtitles and compares
     them. A caption group is considered to be correct if the last word of the
@@ -59,11 +125,11 @@ def basic_error(input_subs: List[srt.Subtitle],
         if max_width and len(sub1.content) > max_width:
             penalty += 1
 
-    return -(good - penalty)
+    return penalty - good
 
 
 def split_weights(subs: Caption, result: Groups = [],
-                  max_chars: int = 84) -> Groups:
+                  char_limit: int = 81, char_limit_div: int = 5) -> Groups:
     """
     Function that splits the input data based on the highest weights.
     Recursively go trough the input data and split at the word after the
@@ -74,18 +140,26 @@ def split_weights(subs: Caption, result: Groups = [],
     Args:
         subs: The caption-list with added weights.
         result: Empty list for the caption groups.
-        max_chars: Maximal number of characters for one caption group, which is
-            standard 84.
+        char_limit: Maximal number of characters for one caption group, which
+            is standard 81.
+        char_limit_div: The diviation of the maximal characters in a caption
+            group.
 
     Returns:
         List that contains the caption groups.
     """
-    if len(' '.join(x.text for x in subs)) <= max_chars:
+    if len(' '.join(x.text for x in subs)) <= char_limit:
         result.append(subs)
         return result
 
-    max_weight = max(subs[5:-5], key=lambda t: t.weight)
+    try:
+        max_weight = max(subs[char_limit_div:-char_limit_div],
+                         key=lambda t: t.weight)
+    except ValueError:
+        return result
+
     max_index = subs.index(max_weight)
+
     split_weights(subs[:max_index+1])
     split_weights(subs[max_index+1:])
 
@@ -116,18 +190,15 @@ def create_groups(subs: Caption, params) -> Groups:
     return weighting.line_breaks(split_weights(subs))
 
 
-
-# parse the manual subs
-
-parameters = [0.2, 0.2, 0.2, 0.2, 0.2]
-
 def fit_func(params, *args):
-    data, manual_subs = args[:2]
+    data = args[0]
+    manual_subs = args[1]
 
     res = caption.create_subtitles(create_groups(data, params))
 
-    error = basic_error(res, manual_subs)
-    print(error)
+    error = basic_error(res, manual_subs, max_width=0)
+    print(params, ':', error)
+
     return error
 
 
@@ -138,8 +209,10 @@ def optimizer(data_file, test_file):
         manual = list(srt.parse(f))
 
     fit = optimize.minimize(fit_func,
-                            np.array((0.2, 0.2, 0.2, 0.2, 0.2)),
+                            x0=np.array((2, 1, 1, 1, 1)),
+                            bounds=[(0.000000001, None)] * 5,
+                            method='L-BFGS-B',
                             args=(data, manual),
-                            method='BFGS',
+                            tol=1e-6,
                             options={'maxiter': 10})
     print(fit)

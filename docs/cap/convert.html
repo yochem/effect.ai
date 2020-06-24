@@ -37,7 +37,6 @@ Module for converting the input data, consisting of words with time stamps and
 POS-tags, to caption groups.  The error between the created output and the
 manual-subtitles can also be measured by basic_error.
 &#34;&#34;&#34;
-
 from typing import List, Union
 
 import srt
@@ -50,8 +49,81 @@ Caption = List[Union[asr.Word, asr.Punc]]
 Groups = List[Caption]
 
 
-def basic_error(input_subs: List[srt.Subtitle],
-                manual_subs: List[srt.Subtitle],
+def check_cps(data: Caption, max_cps: float = 15,
+              deviation: float = 1.5) -&gt; int:
+    &#34;&#34;&#34;
+    Checks if the caption group follows the rule of around 15 characters per
+    second.
+
+    Args:
+        data: Caption group according to our custom Caption-list datastructure.
+        max_cps: Indicates the optimal characters per second, which is 15.
+        deviation: Indicates how much it can deviate from the optimal 15
+            characters per second.
+
+    Returns:
+        1 if the characters per second is too high.
+        0 if the characters per second is just right.
+        -1 if the characters per second is too low.
+    &#34;&#34;&#34;
+    tot_time = data[-1].end - data[0].start
+    characters = len(&#39; &#39;.join(word.text for word in data))
+    cur_cps = characters / tot_time
+
+    if cur_cps &gt; max_cps + deviation:
+        return 1
+
+    if cur_cps &lt; max_cps - deviation:
+        return -1
+
+    return 0
+
+
+def cps(data: Groups, threshold: float = 0.75) -&gt; Groups:
+    &#34;&#34;&#34;
+    Adjusts the time of the caption group so the subtitles stay shorter or
+    longer on the screen. It adjusts it according to the 15 characters per
+    second limit.
+
+    Args:
+        data: Caption group according to our custom Caption-list datastructure.
+        threshold: Indicates the maximum time difference.
+
+    Returns:
+        The data with changed a changed start time for the first word of the
+        caption group and a changed end time for the last word of the caption
+        group
+    &#34;&#34;&#34;
+    max_it = int((threshold / 0.05) - 1)
+    for i, group in enumerate(data):
+        it = 0
+        check = check_cps(group)
+
+        while check != 0 and it != max_it:
+            if check == -1:
+                group[-1].end -= 0.035
+                group[0].start += 0.015
+                check = check_cps(group)
+                it += 1
+
+            else:
+                try:
+                    strt = data[i+1][0].start
+                except IndexError:
+                    break
+
+                if strt - group[-1].end &gt; threshold:
+                    group[-1].end += 0.05
+                    check = check_cps(group)
+                    it += 1
+
+                else:
+                    check = 0
+
+    return data
+
+
+def basic_error(input_subs: List[srt.Subtitle], manual_subs: List[srt.Subtitle],
                 max_width: int = 42) -&gt; int:
     &#34;&#34;&#34;
     Takes the generated subtitles and the manual subtitles and compares
@@ -86,7 +158,7 @@ def basic_error(input_subs: List[srt.Subtitle],
 
 
 def split_weights(subs: Caption, result: Groups = [],
-                  max_chars: int = 84) -&gt; Groups:
+                  char_limit: int = 81, char_limit_div: int = 5) -&gt; Groups:
     &#34;&#34;&#34;
     Function that splits the input data based on the highest weights.
     Recursively go trough the input data and split at the word after the
@@ -97,18 +169,26 @@ def split_weights(subs: Caption, result: Groups = [],
     Args:
         subs: The caption-list with added weights.
         result: Empty list for the caption groups.
-        max_chars: Maximal number of characters for one caption group, which is
-            standard 84.
+        char_limit: Maximal number of characters for one caption group, which is
+            standard 81.
+        char_limit_div: The diviation of the maximal characters in a caption
+            group.
 
     Returns:
         List that contains the caption groups.
     &#34;&#34;&#34;
-    if len(&#39; &#39;.join(x.text for x in subs)) &lt;= max_chars:
+    if len(&#39; &#39;.join(x.text for x in subs)) &lt;= char_limit:
         result.append(subs)
         return result
 
-    max_weight = max(subs[5:-5], key=lambda t: t.weight)
+    try:
+        max_weight = max(subs[char_limit_div:-char_limit_div],
+                         key=lambda t: t.weight)
+    except ValueError:
+        return result
+
     max_index = subs.index(max_weight)
+
     split_weights(subs[:max_index+1])
     split_weights(subs[max_index+1:])
 
@@ -135,8 +215,12 @@ def create_groups(subs: Caption) -&gt; Groups:
     subs = weighting.pos_det_noun(subs)
     subs = weighting.pos_prep_phrase(subs)
     subs = weighting.pos_conj_phrase(subs)
+    subs = weighting.complex_verbs(subs)
 
-    return weighting.line_breaks(split_weights(subs))</code></pre>
+    groups = split_weights(subs)
+    groups = cps(groups)
+
+    return weighting.line_breaks(groups)</code></pre>
 </details>
 </section>
 <section>
@@ -175,8 +259,7 @@ restrictions.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def basic_error(input_subs: List[srt.Subtitle],
-                manual_subs: List[srt.Subtitle],
+<pre><code class="python">def basic_error(input_subs: List[srt.Subtitle], manual_subs: List[srt.Subtitle],
                 max_width: int = 42) -&gt; int:
     &#34;&#34;&#34;
     Takes the generated subtitles and the manual subtitles and compares
@@ -208,6 +291,131 @@ restrictions.</dd>
             penalty += 1
 
     return -(good - penalty)</code></pre>
+</details>
+</dd>
+<dt id="cap.convert.check_cps"><code class="name flex">
+<span>def <span class="ident">check_cps</span></span>(<span>data: List[Union[cap.asr.Word, cap.asr.Punc]], max_cps: float = 15, deviation: float = 1.5) -> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks if the caption group follows the rule of around 15 characters per
+second.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong></dt>
+<dd>Caption group according to our custom Caption-list datastructure.</dd>
+<dt><strong><code>max_cps</code></strong></dt>
+<dd>Indicates the optimal characters per second, which is 15.</dd>
+<dt><strong><code>deviation</code></strong></dt>
+<dd>Indicates how much it can deviate from the optimal 15
+characters per second.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>1 if the characters per second is too high.
+0 if the characters per second is just right.
+-1 if the characters per second is too low.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_cps(data: Caption, max_cps: float = 15,
+              deviation: float = 1.5) -&gt; int:
+    &#34;&#34;&#34;
+    Checks if the caption group follows the rule of around 15 characters per
+    second.
+
+    Args:
+        data: Caption group according to our custom Caption-list datastructure.
+        max_cps: Indicates the optimal characters per second, which is 15.
+        deviation: Indicates how much it can deviate from the optimal 15
+            characters per second.
+
+    Returns:
+        1 if the characters per second is too high.
+        0 if the characters per second is just right.
+        -1 if the characters per second is too low.
+    &#34;&#34;&#34;
+    tot_time = data[-1].end - data[0].start
+    characters = len(&#39; &#39;.join(word.text for word in data))
+    cur_cps = characters / tot_time
+
+    if cur_cps &gt; max_cps + deviation:
+        return 1
+
+    if cur_cps &lt; max_cps - deviation:
+        return -1
+
+    return 0</code></pre>
+</details>
+</dd>
+<dt id="cap.convert.cps"><code class="name flex">
+<span>def <span class="ident">cps</span></span>(<span>data: List[List[Union[cap.asr.Word, cap.asr.Punc]]], threshold: float = 0.75) -> List[List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Adjusts the time of the caption group so the subtitles stay shorter or
+longer on the screen. It adjusts it according to the 15 characters per
+second limit.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong></dt>
+<dd>Caption group according to our custom Caption-list datastructure.</dd>
+<dt><strong><code>threshold</code></strong></dt>
+<dd>Indicates the maximum time difference.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>The data with changed a changed start time for the first word</code> of <code>the</code></dt>
+<dd>&nbsp;</dd>
+<dt><code>caption group and a changed end time for the last word</code> of <code>the caption</code></dt>
+<dd>&nbsp;</dd>
+<dt><code>group</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cps(data: Groups, threshold: float = 0.75) -&gt; Groups:
+    &#34;&#34;&#34;
+    Adjusts the time of the caption group so the subtitles stay shorter or
+    longer on the screen. It adjusts it according to the 15 characters per
+    second limit.
+
+    Args:
+        data: Caption group according to our custom Caption-list datastructure.
+        threshold: Indicates the maximum time difference.
+
+    Returns:
+        The data with changed a changed start time for the first word of the
+        caption group and a changed end time for the last word of the caption
+        group
+    &#34;&#34;&#34;
+    max_it = int((threshold / 0.05) - 1)
+    for i, group in enumerate(data):
+        it = 0
+        check = check_cps(group)
+
+        while check != 0 and it != max_it:
+            if check == -1:
+                group[-1].end -= 0.035
+                group[0].start += 0.015
+                check = check_cps(group)
+                it += 1
+
+            else:
+                try:
+                    strt = data[i+1][0].start
+                except IndexError:
+                    break
+
+                if strt - group[-1].end &gt; threshold:
+                    group[-1].end += 0.05
+                    check = check_cps(group)
+                    it += 1
+
+                else:
+                    check = 0
+
+    return data</code></pre>
 </details>
 </dd>
 <dt id="cap.convert.create_groups"><code class="name flex">
@@ -250,12 +458,16 @@ the function split_weight can be used to create the caption groups.</p>
     subs = weighting.pos_det_noun(subs)
     subs = weighting.pos_prep_phrase(subs)
     subs = weighting.pos_conj_phrase(subs)
+    subs = weighting.complex_verbs(subs)
 
-    return weighting.line_breaks(split_weights(subs))</code></pre>
+    groups = split_weights(subs)
+    groups = cps(groups)
+
+    return weighting.line_breaks(groups)</code></pre>
 </details>
 </dd>
 <dt id="cap.convert.split_weights"><code class="name flex">
-<span>def <span class="ident">split_weights</span></span>(<span>subs: List[Union[cap.asr.Word, cap.asr.Punc]], result: List[List[Union[cap.asr.Word, cap.asr.Punc]]] = [], max_chars: int = 84) -> List[List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]]</span>
+<span>def <span class="ident">split_weights</span></span>(<span>subs: List[Union[cap.asr.Word, cap.asr.Punc]], result: List[List[Union[cap.asr.Word, cap.asr.Punc]]] = [], char_limit: int = 81, char_limit_div: int = 5) -> List[List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Function that splits the input data based on the highest weights.
@@ -269,9 +481,12 @@ maximum characters, append the caption group to the result list.</p>
 <dd>The caption-list with added weights.</dd>
 <dt><strong><code>result</code></strong></dt>
 <dd>Empty list for the caption groups.</dd>
-<dt><strong><code>max_chars</code></strong></dt>
+<dt><strong><code>char_limit</code></strong></dt>
 <dd>Maximal number of characters for one caption group, which is
-standard 84.</dd>
+standard 81.</dd>
+<dt><strong><code>char_limit_div</code></strong></dt>
+<dd>The diviation of the maximal characters in a caption
+group.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>List that contains the caption groups.</p></div>
@@ -280,7 +495,7 @@ standard 84.</dd>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def split_weights(subs: Caption, result: Groups = [],
-                  max_chars: int = 84) -&gt; Groups:
+                  char_limit: int = 81, char_limit_div: int = 5) -&gt; Groups:
     &#34;&#34;&#34;
     Function that splits the input data based on the highest weights.
     Recursively go trough the input data and split at the word after the
@@ -291,18 +506,26 @@ standard 84.</dd>
     Args:
         subs: The caption-list with added weights.
         result: Empty list for the caption groups.
-        max_chars: Maximal number of characters for one caption group, which is
-            standard 84.
+        char_limit: Maximal number of characters for one caption group, which is
+            standard 81.
+        char_limit_div: The diviation of the maximal characters in a caption
+            group.
 
     Returns:
         List that contains the caption groups.
     &#34;&#34;&#34;
-    if len(&#39; &#39;.join(x.text for x in subs)) &lt;= max_chars:
+    if len(&#39; &#39;.join(x.text for x in subs)) &lt;= char_limit:
         result.append(subs)
         return result
 
-    max_weight = max(subs[5:-5], key=lambda t: t.weight)
+    try:
+        max_weight = max(subs[char_limit_div:-char_limit_div],
+                         key=lambda t: t.weight)
+    except ValueError:
+        return result
+
     max_index = subs.index(max_weight)
+
     split_weights(subs[:max_index+1])
     split_weights(subs[max_index+1:])
 
@@ -328,6 +551,8 @@ standard 84.</dd>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
 <li><code><a title="cap.convert.basic_error" href="#cap.convert.basic_error">basic_error</a></code></li>
+<li><code><a title="cap.convert.check_cps" href="#cap.convert.check_cps">check_cps</a></code></li>
+<li><code><a title="cap.convert.cps" href="#cap.convert.cps">cps</a></code></li>
 <li><code><a title="cap.convert.create_groups" href="#cap.convert.create_groups">create_groups</a></code></li>
 <li><code><a title="cap.convert.split_weights" href="#cap.convert.split_weights">split_weights</a></code></li>
 </ul>

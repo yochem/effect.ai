@@ -3,6 +3,7 @@ This module provides functions to add weights to words in a caption. All
 functions accept a List of Word or Punc classes and return the same type.
 """
 from dataclasses import dataclass
+import re
 from typing import List, Union, Sequence
 import math
 
@@ -51,7 +52,12 @@ def pos_tagger(words: Caption) -> List[Pos]:
     tagged_words = []
     for word in words:
         text = word.text.lower()
-        tag = nltk.pos_tag([text], tagset='universal')[0][1]
+        try:
+            tag = nltk.pos_tag([text], tagset='universal')[0][1]
+        except LookupError:
+            nltk.download('averaged_perceptron_tagger')
+            nltk.download('universal_tagset')
+            tag = nltk.pos_tag([text], tagset='universal')[0][1]
 
         tagged_words.append(Pos(word.text, word.start, word.end, word.weight,
                                 tag=tag))
@@ -239,6 +245,40 @@ def pos_conj_phrase(words: Caption,
     return words
 
 
+def complex_verbs(words: Caption, factor: float = 1,
+                  split_weight: float = 0.3) -> Caption:
+    """Avoid splitting between complex verbs # BUG: y adjusting weight.
+
+    Returns the custom Caption-list dataformat with adjusted weights for the
+    elements in the Caption-list where split is not recommended according to
+    one of the BBC subtitle guidelines.
+
+    For documentation of the guidelines see:
+        https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
+
+    Args:
+        words: The custom POS-tagged Caption-list dataformat.
+        factor: Indicating the importance of this split function.
+        split_weight: Indicating the importance of not splitting on the
+            word.
+
+    Returns:
+        The custom POS-tagged Caption-list dataformat with adjusted weight
+        attribute.
+    """
+    tagged_words = pos_tagger(words)
+
+    for index, word in enumerate(tagged_words[:-1]):
+        next_word = tagged_words[index+1]
+        words[index].weight += 1
+
+        if word.tag == 'VERB' and next_word.tag == 'VERB':
+            words[index].weight -= split_weight * (1 / factor)
+
+    return words
+
+
+
 def speech_gaps(data: Caption, threshold: float = 1.5) -> Caption:
     """Add weight to words with a speech gap after them.
 
@@ -390,8 +430,12 @@ def line_breaks(groups: List[Caption], factor: float = 1,
     line_in_bound = lambda s: len(' '.join(x.text for x in s)) <= bound
 
     for group in groups:
-        # don't split small caption groups
-        if len(' '.join(w.text for w in group)) < bound:
+        # don't split caption groups with fewer characters than bound
+        sent = ' '.join(w.text for w in group)
+        punc = re.compile(r' ([,.?!])')
+        sent = punc.sub(r'\g<1>', sent)
+
+        if len(sent) <= bound:
             continue
 
         goods = []
@@ -400,8 +444,9 @@ def line_breaks(groups: List[Caption], factor: float = 1,
             if line_in_bound(group[:i]) and line_in_bound(group[i:]):
                 goods.append(group[i-1])
 
+        # if there's no 'right' split, just split in half
         if len(goods) == 0:
-            print('ERROR: no split found in:', ' '.join(x.text for x in group))
+            group[len(group)//2].text += '\n'
             continue
 
         half = math.ceil(len(goods) / 2)

@@ -4,3 +4,6 @@ __pycache__/
 *.pyc
 asr/
 manual_subtitles/
+build/
+*.egg-info/
+dist/
