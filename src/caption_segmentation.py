@@ -4,6 +4,14 @@ This file implements the notion of a Long Short Term Memory (LSTM) network. For
 more information on LSTM's and the pytorch implementation see:
 https://pytorch.org/docs/master/generated/torch.nn.LSTM.html
 
+Future improvements:
+This model currently trains on 17 videos and annotates one. If one were to use
+this on a company level, it would need a lot more data. Another way to improve
+the results of the model is to train the model specifically on one video
+creator or train the model on one genre of videos. Especially when a video
+creator uses the same intro or has certain catchphrases this can be useful. We
+therefore recommend creating a specialised dataset in adjusting the contents of
+the variable 'directory' variable.
 """
 import os
 from typing import List, Union
@@ -12,7 +20,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-
 import srt
 
 import asr
