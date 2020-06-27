@@ -7,7 +7,7 @@ from typing import List, Union
 
 import srt
 
-import asr
+from . import asr
 
 
 # Type aliases
@@ -23,12 +23,13 @@ def create_subtitles(caption: Groups) -> List[srt.Subtitle]:
 
     Args:
         caption: The caption groups, consists of a list of our custom
-        Caption-list dataformats.
+            Caption-list dataformats.
 
     Returns:
         List of srt.Subtitle instances, created from the caption groups.
     """
     punc = re.compile(r' ([,.?!])')
+    nl = re.compile(r'\n ')
 
     subtitles = []
     for i, group in enumerate(caption):
@@ -36,6 +37,7 @@ def create_subtitles(caption: Groups) -> List[srt.Subtitle]:
 
         # strip spaces in front of punctuation
         text = punc.sub(r'\g<1>', text)
+        text = nl.sub(r'\n', text)
 
         start = group[0].start
         end = group[-1].end
@@ -47,11 +49,12 @@ def create_subtitles(caption: Groups) -> List[srt.Subtitle]:
 
 
 def compose(caption: Groups) -> str:
-    """Convert caption groups to the content of a srt file as a string.
+    """
+    Convert caption groups to the content of a srt file as a string.
 
     Args:
         caption: The caption groups, consists of a list of our custom
-        Caption-list dataformats.
+            Caption-list dataformats.
 
     Returns:
         A formatted srt file as a string.
@@ -66,12 +69,9 @@ def write(caption: Groups, filename: str) -> None:
 
     Args:
         caption: The caption groups, consists of a list of our custom
-        Caption-list dataformats.
-        filename: name of the file to write the srt file to. Filename is
-        recommended to end with '.srt'
-
-    Returns:
-        None, writes a file instead.
+            Caption-list dataformats.
+        filename: Name of the file to write the srt file to. Filename is
+            recommended to end with '.srt'.
     """
     composed = srt.compose(create_subtitles(caption))
 
