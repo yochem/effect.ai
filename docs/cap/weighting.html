@@ -3,17 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.8.1" />
+<meta name="generator" content="pdoc 0.8.3.dev1+g448bf07" />
 <title>cap.weighting API documentation</title>
 <meta name="description" content="This module provides functions to add weights to words in a caption. All
 functions accept a List of Word or Punc classes and return the same type." />
-<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
-<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
-<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
 <style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_CHTML'></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
 </head>
 <body>
 <main>
@@ -24,472 +26,6 @@ functions accept a List of Word or Punc classes and return the same type." />
 <section id="section-intro">
 <p>This module provides functions to add weights to words in a caption. All
 functions accept a List of Word or Punc classes and return the same type.</p>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">&#34;&#34;&#34;
-This module provides functions to add weights to words in a caption. All
-functions accept a List of Word or Punc classes and return the same type.
-&#34;&#34;&#34;
-from dataclasses import dataclass
-import re
-from typing import List, Union, Sequence
-import math
-
-import nltk
-
-from . import asr
-
-
-Caption = List[Union[asr.Word, asr.Punc]]
-
-
-@dataclass
-class Pos(asr.Word):
-    &#34;&#34;&#34;Part-Of-Speech-Tag dataclass.
-
-    Has same attributes as Word with additional POS-tag attribute.
-
-    Attributes:
-        text: See Word dataclass documentation.
-        start: See Word dataclass documentation.
-        end: See Word dataclass documentation.
-        weight: See Word dataclass documentation.
-        tag: Part-Of-Speech tag assigned to a word.
-
-    &#34;&#34;&#34;
-    tag: str
-
-
-def pos_tagger(words: Caption) -&gt; List[Pos]:
-    &#34;&#34;&#34;Tagging Caption elements with Part-Of-Speech tags.
-
-    Returns a universal POS-tagged list of the custom Caption-list dataformat
-    using the NLTK library function pos_tag().
-
-    When tagging with the pos_tag() function, the optional parameter &#39;tagset&#39;
-    is set to &#39;universal&#39; to simplify tags.
-
-    See https://www.nltk.org/book/ch05.html for documentation.
-
-    Args:
-        words: The custom Caption-list dataformat.
-
-    Returns:
-        The Caption-list with added universal POS-tags.
-    &#34;&#34;&#34;
-    tagged_words = []
-    for word in words:
-        text = word.text.lower()
-        try:
-            tag = nltk.pos_tag([text], tagset=&#39;universal&#39;)[0][1]
-        except LookupError:
-            nltk.download(&#39;averaged_perceptron_tagger&#39;)
-            nltk.download(&#39;universal_tagset&#39;)
-            tag = nltk.pos_tag([text], tagset=&#39;universal&#39;)[0][1]
-
-        tagged_words.append(Pos(word.text, word.start, word.end, word.weight,
-                                tag=tag))
-
-    return tagged_words
-
-
-def pos_pron_verb(words: Caption, factor: float = 1,
-                  split_weight: float = 0.2) -&gt; Caption:
-    &#34;&#34;&#34;Avoid splitting between pronoun + verb by adjusting weight.
-
-    Returns the custom Caption-list dataformat with adjusted weights for the
-    elements in the Caption-list where split is not recommended according to
-    one of the BBC subtitle guidelines.
-
-    For documentation of the guidelines see:
-        https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
-
-    Args:
-        words: The custom POS-tagged Caption-list dataformat.
-        factor: Float indicating the importance of this split function.
-        split_weight: Float indicating the importance of not splitting on the
-            word.
-
-    Returns:
-        The custom POS-tagged Caption-list dataformat with adjusted weight
-        attribute.
-    &#34;&#34;&#34;
-    tagged_words = pos_tagger(words)
-
-    for index, word in enumerate(tagged_words[:-1]):
-        next_word = tagged_words[index+1]
-        words[index].weight += 1
-
-        if word.tag == &#39;PRON&#39; and next_word.tag == &#39;VERB&#39;:
-            words[index].weight -= split_weight * (1 / factor)
-
-    return words
-
-
-def pos_det_noun(words: Caption, factor: float = 1,
-                 split_weight: float = 0.3) -&gt; Caption:
-    &#34;&#34;&#34;Avoid splitting between determiner + noun by adjusting weight.
-
-    Returns the custom Caption-list dataformat with adjusted weights for the
-    elements in the Caption-list where split is not recommended according to
-    one of the BBC subtitle guidelines.
-
-    For documentation of the guidelines see:
-        https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
-
-    Args:
-        words: The custom POS-tagged Caption-list dataformat.
-        factor: Indicating the importance of this split function.
-        split_weight: Indicating the importance of not splitting on the
-            word.
-
-    Returns:
-        The custom POS-tagged Caption-list dataformat with adjusted weight
-        attribute.
-    &#34;&#34;&#34;
-    tagged_words = pos_tagger(words)
-
-    for index, word in enumerate(tagged_words[:-1]):
-        next_word = tagged_words[index+1]
-        words[index].weight += 1
-
-        if word.tag == &#39;DET&#39; and next_word.tag == &#39;NOUN&#39;:
-            words[index].weight -= split_weight * (1 / factor)
-
-    return words
-
-
-def pos_prep_phrase(words: Caption,
-                    factor: float = 1,
-                    split_weight: float = 0.4) -&gt; Caption:
-    &#34;&#34;&#34;Avoid splitting between preposition + following phrase.
-
-    Returns the custom Caption-list dataformat with adjusted weights for the
-    elements in the Caption-list where split is not recommended according to
-    one of the BBC subtitle guidelines.
-
-    For documentation of the guidelines see:
-        https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
-
-    Args:
-        words: The custom POS-tagged Caption-list dataformat.
-        factor: Indicating the importance of this split function.
-        split_weight: Indicating the importance of not splitting on the
-            word.
-
-    Returns:
-        The custom POS-tagged Caption-list dataformat with adjusted weight
-        attribute.
-    &#34;&#34;&#34;
-    tagged_words = pos_tagger(words)
-
-    for index, word in enumerate(tagged_words[:-1]):
-        words[index].weight += 1
-
-        if word == tagged_words[-3]:
-            next_word = tagged_words[index+1]
-            nextnext = tagged_words[index+2]
-
-            adp_options = ((&#39;ADP&#39;, &#39;DET&#39;, &#39;NOUN&#39;),
-                           (&#39;ADP&#39;, &#39;ADJ&#39;, &#39;NOUN&#39;),
-                           (&#39;ADP&#39;, &#39;PRON&#39;, &#39;NOUN&#39;))
-            if (word.tag, next_word.tag, nextnext.tag) in adp_options:
-                words[index].weight -= split_weight * (1 / factor)
-
-            continue
-
-        if word == tagged_words[-2]:
-            continue
-
-        next_word = tagged_words[index+1]
-        nextnext = tagged_words[index+2]
-        nextnextnext = tagged_words[index+3]
-
-        if word.tag == &#39;ADP&#39; and \
-            ((next_word.tag == &#39;DET&#39; and nextnext.tag == &#39;NOUN&#39;) or
-             (next_word.tag == &#39;ADJ&#39; and nextnext.tag == &#39;NOUN&#39;) or
-             (next_word.tag == &#39;DET&#39; and nextnext.tag == &#39;ADJ&#39; and
-              nextnextnext.tag == &#39;NOUN&#39;) or
-             (next_word.tag == &#39;PRON&#39; and nextnext.tag == &#39;NOUN&#39;)):
-            words[index].weight -= split_weight * (1 / factor)
-
-    return words
-
-
-def pos_conj_phrase(words: Caption,
-                    factor: float = 1,
-                    split_weight: float = 0.3) -&gt; Caption:
-    &#34;&#34;&#34;Avoid splitting between conjunction + following phrase.
-
-    Returns the custom Caption-list dataformat with adjusted weights for the
-    elements in the Caption-list where split is not recommended according to
-    one of the BBC subtitle guidelines.
-
-    For documentation of the guidelines see:
-        https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
-
-    Args:
-        words: The custom POS-tagged Caption-list dataformat.
-        factor: Indicating the importance of this split function.
-        split_weight: Indicating the importance of not splitting on the
-            word.
-
-    Returns:
-        The custom POS-tagged Caption-list dataformat with adjusted weight
-        attribute.
-    &#34;&#34;&#34;
-    tagged_words = pos_tagger(words)
-
-    for index, word in enumerate(tagged_words[:-1]):
-        words[index].weight += 1
-
-        if word == tagged_words[-3]:
-            next_word = tagged_words[index+1]
-            nextnext = tagged_words[index+2]
-
-            if word.tag == &#39;CONJ&#39; and \
-                ((next_word.tag == &#39;DET&#39; and nextnext.tag == &#39;NOUN&#39;) or
-                 (next_word.tag == &#39;ADJ&#39; and nextnext.tag == &#39;NOUN&#39;) or
-                 (next_word.tag == &#39;PRON&#39; and nextnext.tag == &#39;NOUN&#39;)):
-                words[index].weight -= split_weight * (1 / factor)
-
-            continue
-
-        if word == tagged_words[-2]:
-            continue
-
-        next_word = tagged_words[index+1]
-        nextnext = tagged_words[index+2]
-        nextnextnext = tagged_words[index+3]
-
-        if word.tag == &#39;CONJ&#39; and \
-            ((next_word.tag == &#39;DET&#39; and nextnext.tag == &#39;NOUN&#39;) or
-             (next_word.tag == &#39;ADJ&#39; and nextnext.tag == &#39;NOUN&#39;) or
-             (next_word.tag == &#39;DET&#39; and nextnext.tag == &#39;ADJ&#39; and
-              nextnextnext.tag == &#39;NOUN&#39;) or
-             (next_word.tag == &#39;PRON&#39; and nextnext.tag == &#39;NOUN&#39;)):
-            words[index].weight -= split_weight * (1 / factor)
-
-    return words
-
-
-def complex_verbs(words: Caption, factor: float = 1,
-                  split_weight: float = 0.3) -&gt; Caption:
-    &#34;&#34;&#34;Avoid splitting between complex verbs # BUG: y adjusting weight.
-
-    Returns the custom Caption-list dataformat with adjusted weights for the
-    elements in the Caption-list where split is not recommended according to
-    one of the BBC subtitle guidelines.
-
-    For documentation of the guidelines see:
-        https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
-
-    Args:
-        words: The custom POS-tagged Caption-list dataformat.
-        factor: Indicating the importance of this split function.
-        split_weight: Indicating the importance of not splitting on the
-            word.
-
-    Returns:
-        The custom POS-tagged Caption-list dataformat with adjusted weight
-        attribute.
-    &#34;&#34;&#34;
-    tagged_words = pos_tagger(words)
-
-    for index, word in enumerate(tagged_words[:-1]):
-        next_word = tagged_words[index+1]
-        words[index].weight += 1
-
-        if word.tag == &#39;VERB&#39; and next_word.tag == &#39;VERB&#39;:
-            words[index].weight -= split_weight * (1 / factor)
-
-    return words
-
-
-
-def speech_gaps(data: Caption, threshold: float = 1.5) -&gt; Caption:
-    &#34;&#34;&#34;Add weight to words with a speech gap after them.
-
-    This function uses a threshold for the gap. The weight is hardcoded to be
-    really high (100).
-
-    Args:
-        data: The transcript subtitles according to our custom Caption-list
-            datastructure.
-        threshold: Determines the length of a speech gap.
-
-    Returns:
-        The Caption-list datastructure with adjusted weights.
-    &#34;&#34;&#34;
-    # loop pairwise over data
-    for word_1, word_2 in zip(data, data[1:]):
-        if word_2.start - word_1.end &gt; threshold:
-            word_1.weight = 100
-
-    return data
-
-
-def punctuation(words: Caption,
-                factor: float = 1,
-                params: Sequence[float] = (0.95, 0.85, 0.6)) -&gt; Caption:
-    &#34;&#34;&#34;Adjusts weights of punctuation.
-
-    Args:
-        words: The transcript subtitles according to our custom Caption-list
-            datastructure.
-        factor: Indicating the importance of this split function.
-        params: Weightmodifiers for the three most common punctuation symbols,
-            default = (0.95, 0.85, 0.6) all other weightmodifiers were
-            arbitrarily chosen.
-
-    Returns:
-        The Caption-list datastructure with adjusted weights.
-    &#34;&#34;&#34;
-    period, question, comma = params
-
-    punct_dict = {&#39;.&#39;: period,
-                  &#39;?&#39;: question,
-                  &#39;,&#39;: comma,
-                  &#39;!&#39;: 0.4,
-                  &#39;;&#39;: 0.3,
-                  &#39;:&#39;: 0.3}
-
-    for word in words:
-        if isinstance(word, asr.Punc):
-            word.weight += punct_dict.get(word.text, 0.2) * factor
-
-    return words
-
-
-def length(data: List[str],
-           max_length: int = 42,
-           splits: List[List[str]] = []) -&gt; List[List[str]]:
-    &#34;&#34;&#34;
-    Splits the data accordingly and finds the first space and makes the cut
-    there. It does the same thing recursivly for words that are left in the
-    sentence.
-
-    Args:
-        data: A list containing multiple strings
-        max_length: A character limit of 84 or 42 characters
-        splits: At first an empty list that would be filled recursively with
-            multiple lists with each containing multiple strings
-
-    Returns:
-        A list containing multiple lists with each containing multiple strings.
-    &#34;&#34;&#34;
-    if sum([len(x) for x in data]) &lt;= 42:
-        splits.append(data)
-        return splits
-
-    sentence = &#39; &#39;.join(data)
-    while sentence[max_length] != &#39; &#39;:
-        max_length -= 1
-
-    splits.append(sentence[:max_length].split())
-    length(sentence[max_length:].split(), splits=splits)
-    return splits
-
-
-def split_length(data: Caption,
-                 factor: float = 1,
-                 max_length: int = 42) -&gt; Caption:
-    &#34;&#34;&#34;
-    Adjusts the weights of words according to a character limit of either 84 or
-    42 characters. The words that needs adjusting are determined by the
-    function length.
-
-    Args:
-        data: With a character limit of 84 it takes the transcript subtitles
-            according to our custom Caption-list datastructure. With a 42
-            character limit it takes a caption group according to our custom
-            Caption-list datastructure.
-        factor: Indicating the importance of this split function.
-        max_length: A character limit of 84 or 42 characters.
-
-    Returns:
-        The Caption-list datastructure with adjusted weights.
-    &#34;&#34;&#34;
-    sentence = [word.text for word in data]
-    splits = length(sentence, max_length=max_length)
-
-    number = 0
-    for split in splits:
-        number += len(split)
-        data[number].weight += 1 * factor
-        data[number-1].weight += 0.5 * factor
-        data[number-2].weight += 0.25 * factor
-
-    return data
-
-
-def _abs_linspace(start: int, stop: int, step: int) -&gt; List[float]:
-    &#34;&#34;&#34;Simple version of np.abs(np.linspace()).&#34;&#34;&#34;
-    if step == 1:
-        return [start]
-
-    return [abs(start + x * (stop-start)/(step - 1)) for x in range(step)]
-
-
-def line_breaks(groups: List[Caption], factor: float = 1,
-                bound: int = 42) -&gt; List[Caption]:
-    r&#34;&#34;&#34;Add line breaks to caption groups.
-
-    This function appends the string &#39;\n&#39; to the word in the middle of the
-    caption group with the highest weight, if the caption is longer than
-    &lt;bound&gt; characters (usually 42).
-
-    First, a list of split options is created. This makes sure both lines are
-    shorter than &lt;bound&gt; characters. Then it add weights to these split options
-    using numpy&#39;s linspace over a parabola with roots at the number of split
-    options: \(-\frac{1}{h^2}x^2 + 1\).
-
-    Args:
-        groups: The caption groups, consists of a list of our custom
-            Caption-list dataformats.
-        factor: Giving extra (or less) weight to the function&#39;s weights.
-        bound: The maximal length of a line.
-
-    Returns:
-        The caption groups, consists of a list of our custom Caption-list
-        dataformats.
-    &#34;&#34;&#34;
-    f = lambda x, h: -1 / (h**2) * x**2 + 1
-    line_in_bound = lambda s: len(&#39; &#39;.join(x.text for x in s)) &lt;= bound
-
-    for group in groups:
-        # don&#39;t split caption groups with fewer characters than bound
-        sent = &#39; &#39;.join(w.text for w in group)
-        punc = re.compile(r&#39; ([,.?!])&#39;)
-        sent = punc.sub(r&#39;\g&lt;1&gt;&#39;, sent)
-
-        if len(sent) &lt;= bound:
-            continue
-
-        goods = []
-
-        for i, _ in enumerate(group):
-            if line_in_bound(group[:i]) and line_in_bound(group[i:]):
-                goods.append(group[i-1])
-
-        # if there&#39;s no &#39;right&#39; split, just split in half
-        if len(goods) == 0:
-            group[len(group)//2].text += &#39;\n&#39;
-            continue
-
-        half = math.ceil(len(goods) / 2)
-        weights = _abs_linspace(-half, half, len(goods) + 2)[1:-1]
-
-        for word, weight in zip(goods, weights):
-            word.weight += f(weight, half) * factor
-
-        split = max(goods, key=lambda t: t.weight)
-        split.text += &#39;\n&#39;
-
-    return groups</code></pre>
-</details>
 </section>
 <section>
 </section>
@@ -499,7 +35,7 @@ def line_breaks(groups: List[Caption], factor: float = 1,
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="cap.weighting.complex_verbs"><code class="name flex">
-<span>def <span class="ident">complex_verbs</span></span>(<span>words: List[Union[cap.asr.Word, cap.asr.Punc]], factor: float = 1, split_weight: float = 0.3) -> List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]</span>
+<span>def <span class="ident">complex_verbs</span></span>(<span>words: List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]], factor: float = 1, split_weight: float = 0.3) ‑> List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Avoid splitting between complex verbs # BUG: y adjusting weight.</p>
@@ -519,50 +55,11 @@ one of the BBC subtitle guidelines.</p>
 word.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<dl>
-<dt><code>The custom POS-tagged Caption-list dataformat with adjusted weight</code></dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>attribute.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def complex_verbs(words: Caption, factor: float = 1,
-                  split_weight: float = 0.3) -&gt; Caption:
-    &#34;&#34;&#34;Avoid splitting between complex verbs # BUG: y adjusting weight.
-
-    Returns the custom Caption-list dataformat with adjusted weights for the
-    elements in the Caption-list where split is not recommended according to
-    one of the BBC subtitle guidelines.
-
-    For documentation of the guidelines see:
-        https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
-
-    Args:
-        words: The custom POS-tagged Caption-list dataformat.
-        factor: Indicating the importance of this split function.
-        split_weight: Indicating the importance of not splitting on the
-            word.
-
-    Returns:
-        The custom POS-tagged Caption-list dataformat with adjusted weight
-        attribute.
-    &#34;&#34;&#34;
-    tagged_words = pos_tagger(words)
-
-    for index, word in enumerate(tagged_words[:-1]):
-        next_word = tagged_words[index+1]
-        words[index].weight += 1
-
-        if word.tag == &#39;VERB&#39; and next_word.tag == &#39;VERB&#39;:
-            words[index].weight -= split_weight * (1 / factor)
-
-    return words</code></pre>
-</details>
+<p>The custom POS-tagged Caption-list dataformat with adjusted weight
+attribute.</p></div>
 </dd>
 <dt id="cap.weighting.length"><code class="name flex">
-<span>def <span class="ident">length</span></span>(<span>data: List[str], max_length: int = 42, splits: List[List[str]] = []) -> List[List[str]]</span>
+<span>def <span class="ident">length</span></span>(<span>data: List[str], max_length: int = 42, splits: List[List[str]] = []) ‑> List[List[str]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Splits the data accordingly and finds the first space and makes the cut
@@ -580,42 +77,9 @@ multiple lists with each containing multiple strings</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>A list containing multiple lists with each containing multiple strings.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def length(data: List[str],
-           max_length: int = 42,
-           splits: List[List[str]] = []) -&gt; List[List[str]]:
-    &#34;&#34;&#34;
-    Splits the data accordingly and finds the first space and makes the cut
-    there. It does the same thing recursivly for words that are left in the
-    sentence.
-
-    Args:
-        data: A list containing multiple strings
-        max_length: A character limit of 84 or 42 characters
-        splits: At first an empty list that would be filled recursively with
-            multiple lists with each containing multiple strings
-
-    Returns:
-        A list containing multiple lists with each containing multiple strings.
-    &#34;&#34;&#34;
-    if sum([len(x) for x in data]) &lt;= 42:
-        splits.append(data)
-        return splits
-
-    sentence = &#39; &#39;.join(data)
-    while sentence[max_length] != &#39; &#39;:
-        max_length -= 1
-
-    splits.append(sentence[:max_length].split())
-    length(sentence[max_length:].split(), splits=splits)
-    return splits</code></pre>
-</details>
 </dd>
 <dt id="cap.weighting.line_breaks"><code class="name flex">
-<span>def <span class="ident">line_breaks</span></span>(<span>groups: List[List[Union[cap.asr.Word, cap.asr.Punc]]], factor: float = 1, bound: int = 42) -> List[List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]]</span>
+<span>def <span class="ident">line_breaks</span></span>(<span>groups: List[List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]], factor: float = 1, bound: int = 42) ‑> List[List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Add line breaks to caption groups.</p>
@@ -637,75 +101,11 @@ Caption-list dataformats.</dd>
 <dd>The maximal length of a line.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<dl>
-<dt><code>The caption groups, consists</code> of <code>a list</code> of <code>our custom Caption-list</code></dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>dataformats.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def line_breaks(groups: List[Caption], factor: float = 1,
-                bound: int = 42) -&gt; List[Caption]:
-    r&#34;&#34;&#34;Add line breaks to caption groups.
-
-    This function appends the string &#39;\n&#39; to the word in the middle of the
-    caption group with the highest weight, if the caption is longer than
-    &lt;bound&gt; characters (usually 42).
-
-    First, a list of split options is created. This makes sure both lines are
-    shorter than &lt;bound&gt; characters. Then it add weights to these split options
-    using numpy&#39;s linspace over a parabola with roots at the number of split
-    options: \(-\frac{1}{h^2}x^2 + 1\).
-
-    Args:
-        groups: The caption groups, consists of a list of our custom
-            Caption-list dataformats.
-        factor: Giving extra (or less) weight to the function&#39;s weights.
-        bound: The maximal length of a line.
-
-    Returns:
-        The caption groups, consists of a list of our custom Caption-list
-        dataformats.
-    &#34;&#34;&#34;
-    f = lambda x, h: -1 / (h**2) * x**2 + 1
-    line_in_bound = lambda s: len(&#39; &#39;.join(x.text for x in s)) &lt;= bound
-
-    for group in groups:
-        # don&#39;t split caption groups with fewer characters than bound
-        sent = &#39; &#39;.join(w.text for w in group)
-        punc = re.compile(r&#39; ([,.?!])&#39;)
-        sent = punc.sub(r&#39;\g&lt;1&gt;&#39;, sent)
-
-        if len(sent) &lt;= bound:
-            continue
-
-        goods = []
-
-        for i, _ in enumerate(group):
-            if line_in_bound(group[:i]) and line_in_bound(group[i:]):
-                goods.append(group[i-1])
-
-        # if there&#39;s no &#39;right&#39; split, just split in half
-        if len(goods) == 0:
-            group[len(group)//2].text += &#39;\n&#39;
-            continue
-
-        half = math.ceil(len(goods) / 2)
-        weights = _abs_linspace(-half, half, len(goods) + 2)[1:-1]
-
-        for word, weight in zip(goods, weights):
-            word.weight += f(weight, half) * factor
-
-        split = max(goods, key=lambda t: t.weight)
-        split.text += &#39;\n&#39;
-
-    return groups</code></pre>
-</details>
+<p>The caption groups, consists of a list of our custom Caption-list
+dataformats.</p></div>
 </dd>
 <dt id="cap.weighting.pos_conj_phrase"><code class="name flex">
-<span>def <span class="ident">pos_conj_phrase</span></span>(<span>words: List[Union[cap.asr.Word, cap.asr.Punc]], factor: float = 1, split_weight: float = 0.3) -> List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]</span>
+<span>def <span class="ident">pos_conj_phrase</span></span>(<span>words: List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]], factor: float = 1, split_weight: float = 0.3) ‑> List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Avoid splitting between conjunction + following phrase.</p>
@@ -725,74 +125,11 @@ one of the BBC subtitle guidelines.</p>
 word.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<dl>
-<dt><code>The custom POS-tagged Caption-list dataformat with adjusted weight</code></dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>attribute.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def pos_conj_phrase(words: Caption,
-                    factor: float = 1,
-                    split_weight: float = 0.3) -&gt; Caption:
-    &#34;&#34;&#34;Avoid splitting between conjunction + following phrase.
-
-    Returns the custom Caption-list dataformat with adjusted weights for the
-    elements in the Caption-list where split is not recommended according to
-    one of the BBC subtitle guidelines.
-
-    For documentation of the guidelines see:
-        https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
-
-    Args:
-        words: The custom POS-tagged Caption-list dataformat.
-        factor: Indicating the importance of this split function.
-        split_weight: Indicating the importance of not splitting on the
-            word.
-
-    Returns:
-        The custom POS-tagged Caption-list dataformat with adjusted weight
-        attribute.
-    &#34;&#34;&#34;
-    tagged_words = pos_tagger(words)
-
-    for index, word in enumerate(tagged_words[:-1]):
-        words[index].weight += 1
-
-        if word == tagged_words[-3]:
-            next_word = tagged_words[index+1]
-            nextnext = tagged_words[index+2]
-
-            if word.tag == &#39;CONJ&#39; and \
-                ((next_word.tag == &#39;DET&#39; and nextnext.tag == &#39;NOUN&#39;) or
-                 (next_word.tag == &#39;ADJ&#39; and nextnext.tag == &#39;NOUN&#39;) or
-                 (next_word.tag == &#39;PRON&#39; and nextnext.tag == &#39;NOUN&#39;)):
-                words[index].weight -= split_weight * (1 / factor)
-
-            continue
-
-        if word == tagged_words[-2]:
-            continue
-
-        next_word = tagged_words[index+1]
-        nextnext = tagged_words[index+2]
-        nextnextnext = tagged_words[index+3]
-
-        if word.tag == &#39;CONJ&#39; and \
-            ((next_word.tag == &#39;DET&#39; and nextnext.tag == &#39;NOUN&#39;) or
-             (next_word.tag == &#39;ADJ&#39; and nextnext.tag == &#39;NOUN&#39;) or
-             (next_word.tag == &#39;DET&#39; and nextnext.tag == &#39;ADJ&#39; and
-              nextnextnext.tag == &#39;NOUN&#39;) or
-             (next_word.tag == &#39;PRON&#39; and nextnext.tag == &#39;NOUN&#39;)):
-            words[index].weight -= split_weight * (1 / factor)
-
-    return words</code></pre>
-</details>
+<p>The custom POS-tagged Caption-list dataformat with adjusted weight
+attribute.</p></div>
 </dd>
 <dt id="cap.weighting.pos_det_noun"><code class="name flex">
-<span>def <span class="ident">pos_det_noun</span></span>(<span>words: List[Union[cap.asr.Word, cap.asr.Punc]], factor: float = 1, split_weight: float = 0.3) -> List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]</span>
+<span>def <span class="ident">pos_det_noun</span></span>(<span>words: List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]], factor: float = 1, split_weight: float = 0.3) ‑> List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Avoid splitting between determiner + noun by adjusting weight.</p>
@@ -812,50 +149,11 @@ one of the BBC subtitle guidelines.</p>
 word.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<dl>
-<dt><code>The custom POS-tagged Caption-list dataformat with adjusted weight</code></dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>attribute.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def pos_det_noun(words: Caption, factor: float = 1,
-                 split_weight: float = 0.3) -&gt; Caption:
-    &#34;&#34;&#34;Avoid splitting between determiner + noun by adjusting weight.
-
-    Returns the custom Caption-list dataformat with adjusted weights for the
-    elements in the Caption-list where split is not recommended according to
-    one of the BBC subtitle guidelines.
-
-    For documentation of the guidelines see:
-        https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
-
-    Args:
-        words: The custom POS-tagged Caption-list dataformat.
-        factor: Indicating the importance of this split function.
-        split_weight: Indicating the importance of not splitting on the
-            word.
-
-    Returns:
-        The custom POS-tagged Caption-list dataformat with adjusted weight
-        attribute.
-    &#34;&#34;&#34;
-    tagged_words = pos_tagger(words)
-
-    for index, word in enumerate(tagged_words[:-1]):
-        next_word = tagged_words[index+1]
-        words[index].weight += 1
-
-        if word.tag == &#39;DET&#39; and next_word.tag == &#39;NOUN&#39;:
-            words[index].weight -= split_weight * (1 / factor)
-
-    return words</code></pre>
-</details>
+<p>The custom POS-tagged Caption-list dataformat with adjusted weight
+attribute.</p></div>
 </dd>
 <dt id="cap.weighting.pos_prep_phrase"><code class="name flex">
-<span>def <span class="ident">pos_prep_phrase</span></span>(<span>words: List[Union[cap.asr.Word, cap.asr.Punc]], factor: float = 1, split_weight: float = 0.4) -> List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]</span>
+<span>def <span class="ident">pos_prep_phrase</span></span>(<span>words: List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]], factor: float = 1, split_weight: float = 0.4) ‑> List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Avoid splitting between preposition + following phrase.</p>
@@ -875,74 +173,11 @@ one of the BBC subtitle guidelines.</p>
 word.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<dl>
-<dt><code>The custom POS-tagged Caption-list dataformat with adjusted weight</code></dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>attribute.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def pos_prep_phrase(words: Caption,
-                    factor: float = 1,
-                    split_weight: float = 0.4) -&gt; Caption:
-    &#34;&#34;&#34;Avoid splitting between preposition + following phrase.
-
-    Returns the custom Caption-list dataformat with adjusted weights for the
-    elements in the Caption-list where split is not recommended according to
-    one of the BBC subtitle guidelines.
-
-    For documentation of the guidelines see:
-        https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
-
-    Args:
-        words: The custom POS-tagged Caption-list dataformat.
-        factor: Indicating the importance of this split function.
-        split_weight: Indicating the importance of not splitting on the
-            word.
-
-    Returns:
-        The custom POS-tagged Caption-list dataformat with adjusted weight
-        attribute.
-    &#34;&#34;&#34;
-    tagged_words = pos_tagger(words)
-
-    for index, word in enumerate(tagged_words[:-1]):
-        words[index].weight += 1
-
-        if word == tagged_words[-3]:
-            next_word = tagged_words[index+1]
-            nextnext = tagged_words[index+2]
-
-            adp_options = ((&#39;ADP&#39;, &#39;DET&#39;, &#39;NOUN&#39;),
-                           (&#39;ADP&#39;, &#39;ADJ&#39;, &#39;NOUN&#39;),
-                           (&#39;ADP&#39;, &#39;PRON&#39;, &#39;NOUN&#39;))
-            if (word.tag, next_word.tag, nextnext.tag) in adp_options:
-                words[index].weight -= split_weight * (1 / factor)
-
-            continue
-
-        if word == tagged_words[-2]:
-            continue
-
-        next_word = tagged_words[index+1]
-        nextnext = tagged_words[index+2]
-        nextnextnext = tagged_words[index+3]
-
-        if word.tag == &#39;ADP&#39; and \
-            ((next_word.tag == &#39;DET&#39; and nextnext.tag == &#39;NOUN&#39;) or
-             (next_word.tag == &#39;ADJ&#39; and nextnext.tag == &#39;NOUN&#39;) or
-             (next_word.tag == &#39;DET&#39; and nextnext.tag == &#39;ADJ&#39; and
-              nextnextnext.tag == &#39;NOUN&#39;) or
-             (next_word.tag == &#39;PRON&#39; and nextnext.tag == &#39;NOUN&#39;)):
-            words[index].weight -= split_weight * (1 / factor)
-
-    return words</code></pre>
-</details>
+<p>The custom POS-tagged Caption-list dataformat with adjusted weight
+attribute.</p></div>
 </dd>
 <dt id="cap.weighting.pos_pron_verb"><code class="name flex">
-<span>def <span class="ident">pos_pron_verb</span></span>(<span>words: List[Union[cap.asr.Word, cap.asr.Punc]], factor: float = 1, split_weight: float = 0.2) -> List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]</span>
+<span>def <span class="ident">pos_pron_verb</span></span>(<span>words: List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]], factor: float = 1, split_weight: float = 0.2) ‑> List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Avoid splitting between pronoun + verb by adjusting weight.</p>
@@ -962,50 +197,11 @@ one of the BBC subtitle guidelines.</p>
 word.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<dl>
-<dt><code>The custom POS-tagged Caption-list dataformat with adjusted weight</code></dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>attribute.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def pos_pron_verb(words: Caption, factor: float = 1,
-                  split_weight: float = 0.2) -&gt; Caption:
-    &#34;&#34;&#34;Avoid splitting between pronoun + verb by adjusting weight.
-
-    Returns the custom Caption-list dataformat with adjusted weights for the
-    elements in the Caption-list where split is not recommended according to
-    one of the BBC subtitle guidelines.
-
-    For documentation of the guidelines see:
-        https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points
-
-    Args:
-        words: The custom POS-tagged Caption-list dataformat.
-        factor: Float indicating the importance of this split function.
-        split_weight: Float indicating the importance of not splitting on the
-            word.
-
-    Returns:
-        The custom POS-tagged Caption-list dataformat with adjusted weight
-        attribute.
-    &#34;&#34;&#34;
-    tagged_words = pos_tagger(words)
-
-    for index, word in enumerate(tagged_words[:-1]):
-        next_word = tagged_words[index+1]
-        words[index].weight += 1
-
-        if word.tag == &#39;PRON&#39; and next_word.tag == &#39;VERB&#39;:
-            words[index].weight -= split_weight * (1 / factor)
-
-    return words</code></pre>
-</details>
+<p>The custom POS-tagged Caption-list dataformat with adjusted weight
+attribute.</p></div>
 </dd>
 <dt id="cap.weighting.pos_tagger"><code class="name flex">
-<span>def <span class="ident">pos_tagger</span></span>(<span>words: List[Union[cap.asr.Word, cap.asr.Punc]]) -> List[<a title="cap.weighting.Pos" href="#cap.weighting.Pos">Pos</a>]</span>
+<span>def <span class="ident">pos_tagger</span></span>(<span>words: List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]) ‑> List[<a title="cap.weighting.Pos" href="#cap.weighting.Pos">Pos</a>]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Tagging Caption elements with Part-Of-Speech tags.</p>
@@ -1021,45 +217,9 @@ is set to 'universal' to simplify tags.</p>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>The Caption-list with added universal POS-tags.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def pos_tagger(words: Caption) -&gt; List[Pos]:
-    &#34;&#34;&#34;Tagging Caption elements with Part-Of-Speech tags.
-
-    Returns a universal POS-tagged list of the custom Caption-list dataformat
-    using the NLTK library function pos_tag().
-
-    When tagging with the pos_tag() function, the optional parameter &#39;tagset&#39;
-    is set to &#39;universal&#39; to simplify tags.
-
-    See https://www.nltk.org/book/ch05.html for documentation.
-
-    Args:
-        words: The custom Caption-list dataformat.
-
-    Returns:
-        The Caption-list with added universal POS-tags.
-    &#34;&#34;&#34;
-    tagged_words = []
-    for word in words:
-        text = word.text.lower()
-        try:
-            tag = nltk.pos_tag([text], tagset=&#39;universal&#39;)[0][1]
-        except LookupError:
-            nltk.download(&#39;averaged_perceptron_tagger&#39;)
-            nltk.download(&#39;universal_tagset&#39;)
-            tag = nltk.pos_tag([text], tagset=&#39;universal&#39;)[0][1]
-
-        tagged_words.append(Pos(word.text, word.start, word.end, word.weight,
-                                tag=tag))
-
-    return tagged_words</code></pre>
-</details>
 </dd>
 <dt id="cap.weighting.punctuation"><code class="name flex">
-<span>def <span class="ident">punctuation</span></span>(<span>words: List[Union[cap.asr.Word, cap.asr.Punc]], factor: float = 1, params: Sequence[float] = (0.95, 0.85, 0.6)) -> List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]</span>
+<span>def <span class="ident">punctuation</span></span>(<span>words: List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]], factor: float = 1, params: Sequence[float] = (0.95, 0.85, 0.6)) ‑> List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Adjusts weights of punctuation.</p>
@@ -1077,44 +237,9 @@ arbitrarily chosen.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>The Caption-list datastructure with adjusted weights.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def punctuation(words: Caption,
-                factor: float = 1,
-                params: Sequence[float] = (0.95, 0.85, 0.6)) -&gt; Caption:
-    &#34;&#34;&#34;Adjusts weights of punctuation.
-
-    Args:
-        words: The transcript subtitles according to our custom Caption-list
-            datastructure.
-        factor: Indicating the importance of this split function.
-        params: Weightmodifiers for the three most common punctuation symbols,
-            default = (0.95, 0.85, 0.6) all other weightmodifiers were
-            arbitrarily chosen.
-
-    Returns:
-        The Caption-list datastructure with adjusted weights.
-    &#34;&#34;&#34;
-    period, question, comma = params
-
-    punct_dict = {&#39;.&#39;: period,
-                  &#39;?&#39;: question,
-                  &#39;,&#39;: comma,
-                  &#39;!&#39;: 0.4,
-                  &#39;;&#39;: 0.3,
-                  &#39;:&#39;: 0.3}
-
-    for word in words:
-        if isinstance(word, asr.Punc):
-            word.weight += punct_dict.get(word.text, 0.2) * factor
-
-    return words</code></pre>
-</details>
 </dd>
 <dt id="cap.weighting.speech_gaps"><code class="name flex">
-<span>def <span class="ident">speech_gaps</span></span>(<span>data: List[Union[cap.asr.Word, cap.asr.Punc]], threshold: float = 1.5) -> List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]</span>
+<span>def <span class="ident">speech_gaps</span></span>(<span>data: List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]], threshold: float = 1.5) ‑> List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Add weight to words with a speech gap after them.</p>
@@ -1130,34 +255,9 @@ datastructure.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>The Caption-list datastructure with adjusted weights.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def speech_gaps(data: Caption, threshold: float = 1.5) -&gt; Caption:
-    &#34;&#34;&#34;Add weight to words with a speech gap after them.
-
-    This function uses a threshold for the gap. The weight is hardcoded to be
-    really high (100).
-
-    Args:
-        data: The transcript subtitles according to our custom Caption-list
-            datastructure.
-        threshold: Determines the length of a speech gap.
-
-    Returns:
-        The Caption-list datastructure with adjusted weights.
-    &#34;&#34;&#34;
-    # loop pairwise over data
-    for word_1, word_2 in zip(data, data[1:]):
-        if word_2.start - word_1.end &gt; threshold:
-            word_1.weight = 100
-
-    return data</code></pre>
-</details>
 </dd>
 <dt id="cap.weighting.split_length"><code class="name flex">
-<span>def <span class="ident">split_length</span></span>(<span>data: List[Union[cap.asr.Word, cap.asr.Punc]], factor: float = 1, max_length: int = 42) -> List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]</span>
+<span>def <span class="ident">split_length</span></span>(<span>data: List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]], factor: float = 1, max_length: int = 42) ‑> List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Adjusts the weights of words according to a character limit of either 84 or
@@ -1177,41 +277,6 @@ Caption-list datastructure.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>The Caption-list datastructure with adjusted weights.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def split_length(data: Caption,
-                 factor: float = 1,
-                 max_length: int = 42) -&gt; Caption:
-    &#34;&#34;&#34;
-    Adjusts the weights of words according to a character limit of either 84 or
-    42 characters. The words that needs adjusting are determined by the
-    function length.
-
-    Args:
-        data: With a character limit of 84 it takes the transcript subtitles
-            according to our custom Caption-list datastructure. With a 42
-            character limit it takes a caption group according to our custom
-            Caption-list datastructure.
-        factor: Indicating the importance of this split function.
-        max_length: A character limit of 84 or 42 characters.
-
-    Returns:
-        The Caption-list datastructure with adjusted weights.
-    &#34;&#34;&#34;
-    sentence = [word.text for word in data]
-    splits = length(sentence, max_length=max_length)
-
-    number = 0
-    for split in splits:
-        number += len(split)
-        data[number].weight += 1 * factor
-        data[number-1].weight += 0.5 * factor
-        data[number-2].weight += 0.25 * factor
-
-    return data</code></pre>
-</details>
 </dd>
 </dl>
 </section>
@@ -1238,25 +303,6 @@ Caption-list datastructure.</dd>
 <dt><strong><code>tag</code></strong></dt>
 <dd>Part-Of-Speech tag assigned to a word.</dd>
 </dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class Pos(asr.Word):
-    &#34;&#34;&#34;Part-Of-Speech-Tag dataclass.
-
-    Has same attributes as Word with additional POS-tag attribute.
-
-    Attributes:
-        text: See Word dataclass documentation.
-        start: See Word dataclass documentation.
-        end: See Word dataclass documentation.
-        weight: See Word dataclass documentation.
-        tag: Part-Of-Speech tag assigned to a word.
-
-    &#34;&#34;&#34;
-    tag: str</code></pre>
-</details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a></li>
@@ -1302,9 +348,7 @@ Caption-list datastructure.</dd>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.3.dev1+g448bf07</a>.</p>
 </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad()</script>
 </body>
 </html>
