@@ -1,22 +1,18 @@
+import nltk
+import numpy as np
+import srt
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-import numpy as np
 
-from typing import List, Union
+from cap import asr
 
-import srt
-import nltk
-
-import asr
-import caption
-import weighting
-import convert
 
 def prepare_sequence(seq, to_ix):
     idxs = [to_ix[w] for w in seq]
     return torch.tensor(idxs, dtype=torch.long)
+
 
 with open('../manual_subtitles/manual_2.srt') as f:
     subs = list(srt.parse(f))
@@ -156,4 +152,3 @@ with torch.no_grad():
         print(f"{word} ", end="")
         if np.argmax(score) == 12:
             print("<BR>")
-
