@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.8.3.dev1+g448bf07" />
+<meta name="generator" content="pdoc 0.8.3" />
 <title>cap.asr API documentation</title>
 <meta name="description" content="Automatic Speech Recognition module …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
@@ -34,7 +34,7 @@ dataclasses.</p>
  Word(text='example', start=1, end=2, weight=0),
  Punc(text='.', start=2, end=2, weight=0)]
 </code></pre>
-<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/25a8fe3caa093cfa351f02e0a7c66c021c5a0e7c/cap/asr.py#L0-L116" class="git-link">Browse git</a></div>
+<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/9631da38402a3fa63f119641a2e6a2e388583758/cap/asr.py#L0-L116" class="git-link">Browse git</a></div>
 </section>
 <section>
 </section>
@@ -64,7 +64,7 @@ these files and converting it to various datastructures.</p>
 <dt><strong><code>filename</code></strong></dt>
 <dd>A string of an ASR filename.</dd>
 </dl></div>
-<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/25a8fe3caa093cfa351f02e0a7c66c021c5a0e7c/cap/asr.py#L53-L117" class="git-link">Browse git</a></div>
+<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/9631da38402a3fa63f119641a2e6a2e388583758/cap/asr.py#L53-L117" class="git-link">Browse git</a></div>
 <h3>Methods</h3>
 <dl>
 <dt id="cap.asr.ASR.groups"><code class="name flex">
@@ -78,7 +78,7 @@ these files and converting it to various datastructures.</p>
 </code></pre>
 <h2 id="returns">Returns</h2>
 <p>Caption-list with weights initialised at 0.</p></div>
-<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/25a8fe3caa093cfa351f02e0a7c66c021c5a0e7c/cap/asr.py#L92-L117" class="git-link">Browse git</a></div>
+<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/9631da38402a3fa63f119641a2e6a2e388583758/cap/asr.py#L92-L117" class="git-link">Browse git</a></div>
 </dd>
 <dt id="cap.asr.ASR.json"><code class="name flex">
 <span>def <span class="ident">json</span></span>(<span>self) ‑> dict</span>
@@ -89,7 +89,7 @@ these files and converting it to various datastructures.</p>
 <p>A dictionary containing the transcript and all words with times
 and precision rates. For full overview of what this returns, see
 the contents of ../asr/sample01.asrOutput.json.</p></div>
-<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/25a8fe3caa093cfa351f02e0a7c66c021c5a0e7c/cap/asr.py#L82-L90" class="git-link">Browse git</a></div>
+<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/9631da38402a3fa63f119641a2e6a2e388583758/cap/asr.py#L82-L90" class="git-link">Browse git</a></div>
 </dd>
 <dt id="cap.asr.ASR.transcript"><code class="name flex">
 <span>def <span class="ident">transcript</span></span>(<span>self) ‑> str</span>
@@ -98,7 +98,7 @@ the contents of ../asr/sample01.asrOutput.json.</p></div>
 <div class="desc"><p>Return the transcript as one big string.</p>
 <h2 id="returns">Returns</h2>
 <p>A string containing the whole transcript.</p></div>
-<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/25a8fe3caa093cfa351f02e0a7c66c021c5a0e7c/cap/asr.py#L74-L80" class="git-link">Browse git</a></div>
+<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/9631da38402a3fa63f119641a2e6a2e388583758/cap/asr.py#L74-L80" class="git-link">Browse git</a></div>
 </dd>
 </dl>
 </dd>
@@ -121,7 +121,7 @@ the contents of ../asr/sample01.asrOutput.json.</p></div>
 <dd>How good a split after this word would be. How higher the
 value, how better the split would be.</dd>
 </dl></div>
-<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/25a8fe3caa093cfa351f02e0a7c66c021c5a0e7c/cap/asr.py#L39-L50" class="git-link">Browse git</a></div>
+<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/9631da38402a3fa63f119641a2e6a2e388583758/cap/asr.py#L39-L50" class="git-link">Browse git</a></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="cap.asr.Word" href="#cap.asr.Word">Word</a></li>
@@ -146,7 +146,7 @@ value, how better the split would be.</dd>
 <dd>How good a split after this word would be. How higher the
 value, the better the split would be.</dd>
 </dl></div>
-<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/25a8fe3caa093cfa351f02e0a7c66c021c5a0e7c/cap/asr.py#L20-L35" class="git-link">Browse git</a></div>
+<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/9631da38402a3fa63f119641a2e6a2e388583758/cap/asr.py#L20-L35" class="git-link">Browse git</a></div>
 <h3>Subclasses</h3>
 <ul class="hlist">
 <li><a title="cap.asr.Punc" href="#cap.asr.Punc">Punc</a></li>
@@ -189,7 +189,7 @@ value, the better the split would be.</dd>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.3.dev1+g448bf07</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.3</a>.</p>
 </footer>
 </body>
 </html>
