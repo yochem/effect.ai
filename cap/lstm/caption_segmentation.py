@@ -108,6 +108,8 @@ def create_testdata(training_data: List[List[str]], groups: Groups) -> List[List
 # The dimensions of the LSTM.
 EMBEDDING_DIM = 64
 HIDDEN_DIM = 64
+
+
 class LSTMCaption(nn.Module):
 
     def __init__(self, embedding_dim, hidden_dim, vocab_size):
@@ -163,56 +165,57 @@ def train(n_epochs: int, training_data: List[List[str]]):
             loss.backward()
             optimizer.step()
 
-# The directory containing the trainingset
-directory = r'../dataset/srt/'
-training_data = create_traindata(directory)
+if __name__ == '__main__':
+    # The directory containing the trainingset
+    directory = r'../dataset/srt/'
+    training_data = create_traindata(directory)
 
-# The path to the to be captioned file
-path = '../asr/sample01.asrOutput.json'
+    # The path to the to be captioned file
+    path = '../asr/sample01.asrOutput.json'
 
-groups = asr.ASR(path).groups()
-eval_data = create_testdata(training_data, groups)
+    groups = asr.ASR(path).groups()
+    eval_data = create_testdata(training_data, groups)
 
-# Make an index set of the observed words
-word_to_ix = {'unk': 0}
-for sent in training_data:
-    for word in sent:
-        if word not in word_to_ix:
-            word_to_ix[word] = len(word_to_ix)
+    # Make an index set of the observed words
+    word_to_ix = {'unk': 0}
+    for sent in training_data:
+        for word in sent:
+            if word not in word_to_ix:
+                word_to_ix[word] = len(word_to_ix)
 
-# Make a mapping from the index set to the words
-ix_to_word = {v:k for (k, v) in word_to_ix.items()}
+    # Make a mapping from the index set to the words
+    ix_to_word = {v:k for (k, v) in word_to_ix.items()}
 
-model = LSTMCaption(EMBEDDING_DIM, HIDDEN_DIM, len(word_to_ix))
-loss_function = nn.NLLLoss()
-optimizer = optim.SGD(model.parameters(), lr=0.1)
+    model = LSTMCaption(EMBEDDING_DIM, HIDDEN_DIM, len(word_to_ix))
+    loss_function = nn.NLLLoss()
+    optimizer = optim.SGD(model.parameters(), lr=0.1)
 
-train(5, training_data)
+    train(5, training_data)
 
-# Caption the file
-with torch.no_grad():
-    ix = 0
-    optimized_groups = []
-    caption_group = []
+    # Caption the file
+    with torch.no_grad():
+        ix = 0
+        optimized_groups = []
+        caption_group = []
 
-    for sentence in eval_data:
-        inputs = prepare_sequence(sentence, word_to_ix)
-        output_scores = model(inputs)
+        for sentence in eval_data:
+            inputs = prepare_sequence(sentence, word_to_ix)
+            output_scores = model(inputs)
 
-        indices = torch.argmax(output_scores, axis=1)
-        modeled = [ix_to_word[index.item()] for index in indices]
+            indices = torch.argmax(output_scores, axis=1)
+            modeled = [ix_to_word[index.item()] for index in indices]
 
-        for model_word, word in zip(modeled, groups[ix:]):
-            if model_word == '<eoc>':
-                optimized_groups.append(caption_group)
-                caption_group = []
+            for model_word, word in zip(modeled, groups[ix:]):
+                if model_word == '<eoc>':
+                    optimized_groups.append(caption_group)
+                    caption_group = []
 
-            else:
-                caption_group.append(word)
+                else:
+                    caption_group.append(word)
 
-            ix += 1
+                ix += 1
 
-    optimized_groups.append(caption_group)
+        optimized_groups.append(caption_group)
 
-    # Write a file
-    caption.write(optimized_groups, 'lstm_output.srt')
+        # Write a file
+        caption.write(optimized_groups, 'lstm_output.srt')
