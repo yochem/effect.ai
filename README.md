@@ -64,24 +64,31 @@ Or use this module in Python:
 ```python
 >>> import cap
 >>> subs = cap.group('asr/sample01.asrOutput.json', 'srt-file.srt')
->>> # let's see the return value:
->>> print(*subs[0][:5], sep='\n')
+>>>
+>>> # let's see the first caption group in Python:
+>>> print(*subs[0], sep='\n')
 Word(text='thanks', start=0.24, end=0.51, weight=5)
 Word(text='to', start=0.51, end=0.6, weight=5)
 Word(text='last', start=0.6, end=0.86, weight=5)
 Word(text='past', start=0.86, end=1.13, weight=5.64)
 Word(text='for\n', start=1.13, end=1.2, weight=5.96)
+Word(text='sponsoring', start=1.2, end=1.63, weight=5.96)
+Word(text='a', start=1.63, end=1.69, weight=5.34)
+Word(text='portion', start=1.69, end=2.02, weight=5)
+Word(text='of', start=2.02, end=2.12, weight=4.6)
+Word(text='this', start=2.12, end=2.31, weight=4.7)
+Word(text='video', start=2.31, end=2.75, weight=5)
+Punc(text='.', start=2.75, end=2.75, weight=5.95)
 >>>
->>> # and let's see the content of the written file:
+>>> # and let's see the first caption group in the srt file:
 >>> with open('srt-file.srt', 'r') as f:
->>>     for line in f.read().splitlines():
->>>         if not line:
->>>             break
->>>         print(line)
+>>>     content = f.read().split('\n\n')[0]
+>>>     print(content)
 1
 00:00:00,240 --> 00:00:02,750
 thanks to last past for
 sponsoring a portion of this video.
+
 ```
 
 
