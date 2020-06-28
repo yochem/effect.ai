@@ -28,6 +28,7 @@
 POS-tags, to caption groups.
 The error between the created output and the
 manual-subtitles can also be measured by basic_error.</p>
+<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/25a8fe3caa093cfa351f02e0a7c66c021c5a0e7c/cap/convert.py#L0-L190" class="git-link">Browse git</a></div>
 </section>
 <section>
 </section>
@@ -58,6 +59,7 @@ restrictions.</dd>
 <h2 id="returns">Returns</h2>
 <p>Amount of correctly created caption groups, and amount of times
 max_width was exceeded.</p></div>
+<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/25a8fe3caa093cfa351f02e0a7c66c021c5a0e7c/cap/convert.py#L94-L125" class="git-link">Browse git</a></div>
 </dd>
 <dt id="cap.convert.check_cps"><code class="name flex">
 <span>def <span class="ident">check_cps</span></span>(<span>data: List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]], max_cps: float = 15, deviation: float = 1.5) ‑> int</span>
@@ -79,6 +81,7 @@ characters per second.</dd>
 <p>1 if the characters per second is too high.
 0 if the characters per second is just right.
 -1 if the characters per second is too low.</p></div>
+<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/25a8fe3caa093cfa351f02e0a7c66c021c5a0e7c/cap/convert.py#L20-L47" class="git-link">Browse git</a></div>
 </dd>
 <dt id="cap.convert.cps"><code class="name flex">
 <span>def <span class="ident">cps</span></span>(<span>data: List[List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]], threshold: float = 0.75) ‑> List[List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]]</span>
@@ -98,6 +101,7 @@ second limit.</p>
 <p>The data with changed a changed start time for the first word of the
 caption group and a changed end time for the last word of the caption
 group</p></div>
+<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/25a8fe3caa093cfa351f02e0a7c66c021c5a0e7c/cap/convert.py#L50-L91" class="git-link">Browse git</a></div>
 </dd>
 <dt id="cap.convert.create_groups"><code class="name flex">
 <span>def <span class="ident">create_groups</span></span>(<span>subs: List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]) ‑> List[List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]]</span>
@@ -115,6 +119,7 @@ the function split_weight can be used to create the caption groups.</p>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>List that contains the caption groups.</p></div>
+<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/25a8fe3caa093cfa351f02e0a7c66c021c5a0e7c/cap/convert.py#L166-L191" class="git-link">Browse git</a></div>
 </dd>
 <dt id="cap.convert.split_weights"><code class="name flex">
 <span>def <span class="ident">split_weights</span></span>(<span>subs: List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]], result: List[List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]] = [], char_limit: int = 81, char_limit_div: int = 5) ‑> List[List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]]</span>
@@ -140,6 +145,7 @@ group.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <p>List that contains the caption groups.</p></div>
+<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/25a8fe3caa093cfa351f02e0a7c66c021c5a0e7c/cap/convert.py#L128-L163" class="git-link">Browse git</a></div>
 </dd>
 </dl>
 </section>
