@@ -42,6 +42,8 @@ guide mentioned above:
 
 ## Preview
 
+![Alt Text](https://media1.giphy.com/media/dBTewOwJiLyelPL2Mv/giphy.gif)
+
 ## Installation
 1. [Clone](https://bit.ly/2BcAdRs) this repository.
 2. Install the package:
