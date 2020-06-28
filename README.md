@@ -28,7 +28,13 @@ guide mentioned above:
 - Gaps in speech
 - Character limit (< 84)
 - Line limit (< 42)
+<<<<<<< HEAD
 - And more to come!
+=======
+- Characters per second
+- Adding line breaks
+- Complex verb phrases
+>>>>>>> origin/master
 
 
 ## Badges
@@ -40,6 +46,11 @@ guide mentioned above:
 
 ## Preview
 
+<<<<<<< HEAD
+=======
+![Alt Text](https://media1.giphy.com/media/dBTewOwJiLyelPL2Mv/giphy.gif)
+
+>>>>>>> origin/master
 ## Installation
 1. [Clone](https://bit.ly/2BcAdRs) this repository.
 2. Install the package:
@@ -62,12 +73,42 @@ For more options, run `$ cap -h`.
 Or use this module in Python:
 
 ```python
+<<<<<<< HEAD
 import cap
 
 subs = cap.group('asr-file.json')
 
 with open('srt-file.srt', 'w') as f:
     f.write(subs)
+=======
+>>> import cap
+>>> subs = cap.group('asr/sample01.asrOutput.json', 'srt-file.srt')
+>>>
+>>> # let's see the first caption group in Python:
+>>> print(*subs[0], sep='\n')
+Word(text='thanks', start=0.24, end=0.51, weight=5)
+Word(text='to', start=0.51, end=0.6, weight=5)
+Word(text='last', start=0.6, end=0.86, weight=5)
+Word(text='past', start=0.86, end=1.13, weight=5.64)
+Word(text='for\n', start=1.13, end=1.2, weight=5.96)
+Word(text='sponsoring', start=1.2, end=1.63, weight=5.96)
+Word(text='a', start=1.63, end=1.69, weight=5.34)
+Word(text='portion', start=1.69, end=2.02, weight=5)
+Word(text='of', start=2.02, end=2.12, weight=4.6)
+Word(text='this', start=2.12, end=2.31, weight=4.7)
+Word(text='video', start=2.31, end=2.75, weight=5)
+Punc(text='.', start=2.75, end=2.75, weight=5.95)
+>>>
+>>> # and let's see the first caption group in the srt file:
+>>> with open('srt-file.srt', 'r') as f:
+>>>     content = f.read().split('\n\n')[0]
+>>>     print(content)
+1
+00:00:00,240 --> 00:00:02,750
+thanks to last past for
+sponsoring a portion of this video.
+
+>>>>>>> origin/master
 ```
 
 
