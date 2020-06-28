@@ -5,3 +5,5 @@ check:
 
 doc:
 	pdoc3 --config show_source_code=False --config latex_math=True --html cap/ -o docs/ --force
+	mv -f docs/cap/* docs/
+	rm -rf docs/cap
