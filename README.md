@@ -62,12 +62,26 @@ For more options, run `$ cap -h`.
 Or use this module in Python:
 
 ```python
-import cap
-
-subs = cap.group('asr-file.json')
-
-with open('srt-file.srt', 'w') as f:
-    f.write(subs)
+>>> import cap
+>>> subs = cap.group('asr/sample01.asrOutput.json', 'srt-file.srt')
+>>> # let's see the return value:
+>>> print(*subs[0][:5], sep='\n')
+Word(text='thanks', start=0.24, end=0.51, weight=5)
+Word(text='to', start=0.51, end=0.6, weight=5)
+Word(text='last', start=0.6, end=0.86, weight=5)
+Word(text='past', start=0.86, end=1.13, weight=5.64)
+Word(text='for\n', start=1.13, end=1.2, weight=5.96)
+>>>
+>>> # and let's see the content of the written file:
+>>> with open('srt-file.srt', 'r') as f:
+>>>     for line in f.read().splitlines():
+>>>         if not line:
+>>>             break
+>>>         print(line)
+1
+00:00:00,240 --> 00:00:02,750
+thanks to last past for
+sponsoring a portion of this video.
 ```
 
 

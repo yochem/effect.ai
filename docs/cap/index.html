@@ -68,12 +68,26 @@ guide mentioned above:</p>
 </code></pre>
 <p>For more options, run <code>$ cap -h</code>.</p>
 <p>Or use this module in Python:</p>
-<pre><code class="python">import cap
-
-subs = cap.group('asr-file.json')
-
-with open('srt-file.srt', 'w') as f:
-    f.write(subs)
+<pre><code class="python">&gt;&gt;&gt; import cap
+&gt;&gt;&gt; subs = cap.group('asr/sample01.asrOutput.json', 'srt-file.srt')
+&gt;&gt;&gt; # let's see the return value:
+&gt;&gt;&gt; print(*subs[0][:5], sep='\n')
+Word(text='thanks', start=0.24, end=0.51, weight=5)
+Word(text='to', start=0.51, end=0.6, weight=5)
+Word(text='last', start=0.6, end=0.86, weight=5)
+Word(text='past', start=0.86, end=1.13, weight=5.64)
+Word(text='for\n', start=1.13, end=1.2, weight=5.96)
+&gt;&gt;&gt;
+&gt;&gt;&gt; # and let's see the content of the written file:
+&gt;&gt;&gt; with open('srt-file.srt', 'r') as f:
+&gt;&gt;&gt;     for line in f.read().splitlines():
+&gt;&gt;&gt;         if not line:
+&gt;&gt;&gt;             break
+&gt;&gt;&gt;         print(line)
+1
+00:00:00,240 --&gt; 00:00:02,750
+thanks to last past for
+sponsoring a portion of this video.
 </code></pre>
 <h2 id="development">Development</h2>
 <p>Documentation can be found at <a href="yochem.github.io/caps/">Github Pages</a>.</p>
@@ -120,18 +134,23 @@ functions accept a List of Word or Punc classes and return the same type.</p></d
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="cap.group"><code class="name flex">
-<span>def <span class="ident">group</span></span>(<span>asr_file: str) ‑> str</span>
+<span>def <span class="ident">group</span></span>(<span>asr_file: str, srt_file: str = None) ‑> List[List[Union[<a title="cap.asr.Word" href="asr.html#cap.asr.Word">Word</a>, <a title="cap.asr.Punc" href="asr.html#cap.asr.Punc">Punc</a>]]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Convert ASR to SRT file with well formatted caption groups.</p>
+<p>This function is the main interface for the module. Given a filename of an
+ASR file, this function parses the subtitles, groups them and if given an
+output filename, writes them to a file.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>asr_file</code></strong></dt>
 <dd>Filename of the ASR file.</dd>
+<dt><strong><code>srt_file</code></strong></dt>
+<dd>Filename to which the SRT output will be written.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The content of a srt file as string, which can be written to a srt
-file.</p></div>
+<p>The caption groups, consists of a list of our custom Caption-list
+dataformats.</p></div>
 </dd>
 </dl>
 </section>
