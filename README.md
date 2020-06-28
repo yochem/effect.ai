@@ -28,13 +28,9 @@ guide mentioned above:
 - Gaps in speech
 - Character limit (< 84)
 - Line limit (< 42)
-<<<<<<< HEAD
-- And more to come!
-=======
 - Characters per second
 - Adding line breaks
 - Complex verb phrases
->>>>>>> origin/master
 
 
 ## Badges
@@ -46,12 +42,11 @@ guide mentioned above:
 
 ## Preview
 
-<<<<<<< HEAD
-=======
 ![Alt Text](https://media1.giphy.com/media/dBTewOwJiLyelPL2Mv/giphy.gif)
 
->>>>>>> origin/master
+
 ## Installation
+
 1. [Clone](https://bit.ly/2BcAdRs) this repository.
 2. Install the package:
 
@@ -73,14 +68,6 @@ For more options, run `$ cap -h`.
 Or use this module in Python:
 
 ```python
-<<<<<<< HEAD
-import cap
-
-subs = cap.group('asr-file.json')
-
-with open('srt-file.srt', 'w') as f:
-    f.write(subs)
-=======
 >>> import cap
 >>> subs = cap.group('asr/sample01.asrOutput.json', 'srt-file.srt')
 >>>
@@ -108,7 +95,6 @@ Punc(text='.', start=2.75, end=2.75, weight=5.95)
 thanks to last past for
 sponsoring a portion of this video.
 
->>>>>>> origin/master
 ```
 
 
