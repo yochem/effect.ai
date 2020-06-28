@@ -22,8 +22,8 @@ import torch.nn.functional as F
 import torch.optim as optim
 import srt
 
-from cap import asr
-from cap import caption
+from . import asr
+from . import caption
 
 # Type aliases
 Caption = List[Union[asr.Word, asr.Punc]]

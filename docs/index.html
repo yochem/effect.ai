@@ -47,52 +47,17 @@ guide mentioned above:</p>
 <li>Punctuation</li>
 <li>Gaps in speech</li>
 <li>Character limit (&lt; 84)</li>
-<li>Line limit (&lt; 42)
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</li>
-<li>
-<h1 id="and-more-to-come">And more to come!</h1>
-</li>
+<li>Line limit (&lt; 42)</li>
 <li>Characters per second</li>
 <li>Adding line breaks</li>
-<li>Complex verb phrases<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>origin/master</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</li>
+<li>Complex verb phrases</li>
 </ul>
 <h2 id="badges">Badges</h2>
 <p><img alt="Issues" src="https://img.shields.io/github/issues-raw/yochem/effect.ai?style=for-the-badge">
 <img alt="Last Commit" src="https://img.shields.io/github/last-commit/yochem/effect.ai?style=for-the-badge">
 <img alt="Licence" src="https://img.shields.io/github/license/yochem/effect.ai?style=for-the-badge"></p>
 <h2 id="preview">Preview</h2>
-<h1 id="head">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</h1>
 <p><img alt="Alt Text" src="https://media1.giphy.com/media/dBTewOwJiLyelPL2Mv/giphy.gif"></p>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>origin/master</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
 <h2 id="installation">Installation</h2>
 <ol>
 <li><a href="https://bit.ly/2BcAdRs">Clone</a> this repository.</li>
@@ -106,15 +71,7 @@ guide mentioned above:</p>
 </code></pre>
 <p>For more options, run <code>$ cap -h</code>.</p>
 <p>Or use this module in Python:</p>
-<pre><code class="python">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-import cap
-
-subs = cap.group('asr-file.json')
-
-with open('srt-file.srt', 'w') as f:
-    f.write(subs)
-=======
-&gt;&gt;&gt; import cap
+<pre><code class="python">&gt;&gt;&gt; import cap
 &gt;&gt;&gt; subs = cap.group('asr/sample01.asrOutput.json', 'srt-file.srt')
 &gt;&gt;&gt;
 &gt;&gt;&gt; # let's see the first caption group in Python:
@@ -141,7 +98,6 @@ Punc(text='.', start=2.75, end=2.75, weight=5.95)
 thanks to last past for
 sponsoring a portion of this video.
 
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/master
 </code></pre>
 <h2 id="development">Development</h2>
 <p>Documentation can be found at <a href="yochem.github.io/caps/">Github Pages</a>.</p>
@@ -155,7 +111,7 @@ to create the docs.</p>
 <h2 id="support">Support</h2>
 <p>Found a bug? Got a question? Please report it using Github
 <a href="https://github.com/yochem/effect.ai/issues">issues</a>!</p>
-<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/9631da38402a3fa63f119641a2e6a2e388583758/cap/__init__.py#L0-L30" class="git-link">Browse git</a></div>
+<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/66fba33ce6fcace37c221e371bc1fceac99b4a9a/cap/__init__.py#L0-L30" class="git-link">Browse git</a></div>
 </section>
 <section>
 <h2 class="section-title" id="header-submodules">Sub-modules</h2>
@@ -168,6 +124,12 @@ to create the docs.</p>
 <dd>
 <div class="desc"><p>Module to convert our Caption dataformat to various srt package formats.</p></div>
 </dd>
+<dt><code class="name"><a title="cap.caption_segmentation" href="caption_segmentation.html">cap.caption_segmentation</a></code></dt>
+<dd>
+<div class="desc"><p>This file implements the notion of a Long Short Term Memory (LSTM) network. For
+more information on LSTM's and the pytorch implementation see:
+…</p></div>
+</dd>
 <dt><code class="name"><a title="cap.cli" href="cli.html">cap.cli</a></code></dt>
 <dd>
 <div class="desc"><p>The command line interface for this module …</p></div>
@@ -175,10 +137,6 @@ to create the docs.</p>
 <dt><code class="name"><a title="cap.convert" href="convert.html">cap.convert</a></code></dt>
 <dd>
 <div class="desc"><p>The convert module …</p></div>
-</dd>
-<dt><code class="name"><a title="cap.lstm" href="lstm/index.html">cap.lstm</a></code></dt>
-<dd>
-<div class="desc"></div>
 </dd>
 <dt><code class="name"><a title="cap.weighting" href="weighting.html">cap.weighting</a></code></dt>
 <dd>
@@ -210,7 +168,7 @@ output filename, writes them to a file.</p>
 <h2 id="returns">Returns</h2>
 <p>The caption groups, consists of a list of our custom Caption-list
 dataformats.</p></div>
-<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/9631da38402a3fa63f119641a2e6a2e388583758/cap/__init__.py#L10-L31" class="git-link">Browse git</a></div>
+<div class="git-link-div"><a href="https://github.com/yochem/cap/blob/66fba33ce6fcace37c221e371bc1fceac99b4a9a/cap/__init__.py#L10-L31" class="git-link">Browse git</a></div>
 </dd>
 </dl>
 </section>
@@ -224,14 +182,8 @@ dataformats.</p></div>
 <li><a href="#cap-ai-powered-subtitling">cap - AI powered subtitling</a><ul>
 <li><a href="#table-of-contents">Table of Contents</a></li>
 <li><a href="#features">Features</a></li>
-</ul>
-</li>
-<li><a href="#and-more-to-come">And more to come!</a><ul>
 <li><a href="#badges">Badges</a></li>
 <li><a href="#preview">Preview</a></li>
-</ul>
-</li>
-<li><a href="#head">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</a><ul>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#how-to-use">How to use</a></li>
 <li><a href="#development">Development</a></li>
@@ -245,9 +197,9 @@ dataformats.</p></div>
 <ul>
 <li><code><a title="cap.asr" href="asr.html">cap.asr</a></code></li>
 <li><code><a title="cap.caption" href="caption.html">cap.caption</a></code></li>
+<li><code><a title="cap.caption_segmentation" href="caption_segmentation.html">cap.caption_segmentation</a></code></li>
 <li><code><a title="cap.cli" href="cli.html">cap.cli</a></code></li>
 <li><code><a title="cap.convert" href="convert.html">cap.convert</a></code></li>
-<li><code><a title="cap.lstm" href="lstm/index.html">cap.lstm</a></code></li>
 <li><code><a title="cap.weighting" href="weighting.html">cap.weighting</a></code></li>
 </ul>
 </li>
