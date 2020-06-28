@@ -28,7 +28,9 @@ guide mentioned above:
 - Gaps in speech
 - Character limit (< 84)
 - Line limit (< 42)
-- And more to come!
+- Characters per second
+- Adding line breaks
+- Complex verb phrases
 
 
 ## Badges
