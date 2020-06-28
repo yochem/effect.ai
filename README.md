@@ -5,8 +5,6 @@ subtitle file. This SRT file consists of caption groups with if needed, line
 breaks according to the [subtitle guidelines of the
 BBC](https://bbc.github.io/subtitle-guidelines/#Break-at-natural-points).
 
-![Alt Text](https://media1.giphy.com/media/dBTewOwJiLyelPL2Mv/giphy.gif)
-
 
 ## Table of Contents
 
@@ -43,6 +41,8 @@ guide mentioned above:
 
 
 ## Preview
+
+![Alt Text](https://media1.giphy.com/media/dBTewOwJiLyelPL2Mv/giphy.gif)
 
 ## Installation
 1. [Clone](https://bit.ly/2BcAdRs) this repository.
